@@ -1,6 +1,6 @@
 <?php
-//add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
-add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_content_add_to_cart_fragment');
+add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
+//add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_content_add_to_cart_fragment');
 
 function woocommerce_header_add_to_cart_fragment($fragments)
 {
@@ -35,7 +35,7 @@ function woocommerce_content_add_to_cart_fragment($fragments){
     <div class="product__changable">
         <?php
         $targeted_id = $product->get_id();
-        var_dump($targeted_id);
+
         // Get quantities for each item in cart (array of product id / quantity pairs)
         $quantities = WC()->cart->get_cart_item_quantities();
         ?>
@@ -49,3 +49,6 @@ function woocommerce_content_add_to_cart_fragment($fragments){
     $fragments['div.product__changable'] = ob_get_clean();
     return $fragments;
 }
+
+
+add_filter( 'wc_add_to_cart_message_html', '__return_null' );
