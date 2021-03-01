@@ -1,0 +1,144 @@
+.menu {
+  border-bottom: $border;
+
+  &__wrap {
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+    padding-right: 46px;
+    border-right: $border;
+    height: inherit;
+  }
+
+  .menu-item a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.01em;
+    color: $colorIcon;
+    position: relative;
+
+    &:hover {
+      color: $colorMain;
+    }
+
+    &::before {
+      content: "";
+      width: 37px;
+      height: 37px;
+      margin-right: 16px;
+      display: block;
+    }
+  }
+
+  .menu-shop a::before {
+    background: url("../icons/menu/menu.svg") no-repeat center center;
+  }
+
+  .menu-sushi a::before {
+    background: url("../icons/menu/sushi.svg") no-repeat center center;
+  }
+
+  .menu-rolls a::before {
+    background: url("../icons/menu/rolls.svg") no-repeat center center;
+  }
+
+  .menu-sets a::before {
+    background: url("../icons/menu/sets.svg") no-repeat center center;
+  }
+
+  .menu-soups a::before {
+    background: url("../icons/menu/soups.svg") no-repeat center center;
+  }
+
+  .menu-wok a::before {
+    background: url("../icons/menu/wok.svg") no-repeat center center;
+  }
+
+  .menu-stock a::before {
+    background: url("../icons/menu/stock.svg") no-repeat center center;
+  }
+
+  .menu-shop a:hover::before {
+    background: url("../icons/menu/menu-hover.svg") no-repeat center center;
+  }
+
+  .menu-sushi a:hover::before {
+    background: url("../icons/menu/sushi-hover.svg") no-repeat center center;
+  }
+
+  .menu-rolls a:hover::before {
+    background: url("../icons/menu/rolls-hover.svg") no-repeat center center;
+  }
+
+  .menu-sets a:hover::before {
+    background: url("../icons/menu/sets-hover.svg") no-repeat center center;
+  }
+
+  .menu-soups a:hover::before {
+    background: url("../icons/menu/soups-hover.svg") no-repeat center center;
+  }
+
+  .menu-wok a:hover::before {
+    background: url("../icons/menu/wok-hover.svg") no-repeat center center;
+  }
+
+  .menu-stock a:hover::before {
+    background: url("../icons/menu/stock-hover.svg") no-repeat center center;
+  }
+
+  &__cart {
+    &-wrap {
+      margin-left: auto;
+      padding-left: 32px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      &:hover .cart path {
+        fill: $colorMain;
+      }
+    }
+
+    &-amount {
+      position: absolute;
+      background-color: $colorMain;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 14px;
+      text-align: center;
+      left: 52px;
+      bottom: -5px;
+    }
+
+    &-total {
+      display: inline-block;
+      margin-left: 10px;
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 120%;
+      color: $colorIcon;
+      min-width: 100px;
+    }
+  }
+}

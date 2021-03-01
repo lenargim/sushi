@@ -1,0 +1,115 @@
+.footer {
+  background-color: #e5e8ef;
+  padding: 40px 0 50px;
+
+  &__wrap {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: block;
+
+    img {
+      max-width: 223px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: 350px;
+    flex: 1 1 auto;
+
+    .menu-item {
+      margin-bottom: 24px;
+
+      a {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 120%;
+        color: $colorTitle;
+        opacity: 0.7;
+      }
+
+      &:nth-of-type(7) {
+        margin-bottom: 0;
+        margin-right: 150px;
+      }
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &__work-hours {
+    padding-bottom: 12px;
+    font-size: 18px;
+    line-height: 120%;
+    color: #828282;
+  }
+
+  &__address {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 120%;
+    color: #828282;
+    padding-bottom: 32px;
+  }
+
+  &__copy div {
+    font-size: 18px;
+    line-height: 120%;
+    color: #828282;
+    padding-bottom: 32px;
+  }
+
+  .policy {
+    font-size: 18px;
+    line-height: 120%;
+    text-decoration-line: underline;
+    color: #828282;
+    cursor: pointer;
+  }
+
+  &__socials {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 32px;
+
+    &-link {
+      width: 39px;
+      height: 39px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: $colorIcon;
+      padding: 5px;
+
+      &:first-of-type {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  &__payments {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      margin-right: 20px;
+    }
+  }
+}

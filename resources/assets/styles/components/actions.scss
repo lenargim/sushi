@@ -1,0 +1,106 @@
+.actions-main {
+  background-color: $colorBg;
+  padding: 71px 0 90px;
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 658px;
+  }
+
+  &__title {
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 45px;
+    letter-spacing: 0.03em;
+    margin-bottom: 32px;
+  }
+
+  &__desc {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
+    color: #f5f5f5;
+  }
+
+  &__info {
+    display: none;
+  }
+
+  &__more {
+    display: inline-block;
+    color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 55px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 13px 38px;
+    background-color: transparent;
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 40px;
+    color: #fff;
+    flex-basis: 310px;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 32px;
+    width: 607px;
+    background-size: cover;
+    position: relative;
+
+    &:first-of-type {
+      flex-basis: 100%;
+      margin-right: 38px;
+      padding: 60px;
+      width: 1122px;
+
+      .actions-main__title {
+        font-size: 64px;
+        line-height: 80px;
+        margin-bottom: 24px;
+      }
+
+      .actions-main__desc {
+        font-size: 36px;
+        line-height: 42px;
+      }
+
+      .actions-main__info {
+        display: inline-block;
+        background-color: $colorRed;
+        padding: 14px 28px;
+        margin-bottom: 55px;
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 29px;
+        color: #fff;
+        letter-spacing: 0.01em;
+        border-radius: 5px;
+      }
+
+      .actions-main__more {
+        background-color: $colorMain;
+        padding: 23px 71px;
+        font-size: 24px;
+        line-height: 29px;
+        border: none;
+        left: 60px;
+        bottom: 60px;
+      }
+    }
+
+    &:last-of-type {
+      margin-top: 38px;
+    }
+  }
+}

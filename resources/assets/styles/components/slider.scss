@@ -1,0 +1,37 @@
+.slider {
+  position: relative;
+
+  &__arrow {
+    position: absolute;
+    cursor: pointer;
+    width: 59px;
+    height: 59px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: -100px;
+
+    &.slick-disabled {
+      opacity: 0.3;
+    }
+
+    &_next {
+      right: 0;
+    }
+
+    &_prev {
+      transform: rotate(180deg);
+      right: 100px;
+    }
+  }
+}
+
+.slick-track {
+  margin: 0 -30px;
+}
+
+.slick-slide {
+  padding: 0 30px;
+}

@@ -1,0 +1,13 @@
+// @import "~some-node-module";
+@import "~slick-carousel/slick/slick";
+@import "common/variables";
+
+/** Import theme styles */
+@import "common/fonts";
+@import "common/global";
+@import "components/header";
+@import "components/actions";
+@import "components/popular";
+@import "components/footer";
+@import "components/slider";
+@import "components/product";
