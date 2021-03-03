@@ -1,0 +1,21 @@
+@mixin backgroundMenu($item) {
+  .menu-#{$item} a::before {
+    background: url("../icons/menu/#{$item}.svg") no-repeat center center;
+  }
+}
+
+@mixin backgroundMenuHover($item) {
+  .menu-#{$item} a:hover::before {
+    background: url("../icons/menu/#{$item}-hover.svg") no-repeat center center;
+  }
+}
+
+@mixin detailedMenuHover($item) {
+  .menu-#{$item}.current-menu-item a {
+    color: $colorMain;
+
+    &::before {
+      background: url("../icons/menu/#{$item}-hover.svg") no-repeat center center;
+    }
+  }
+}

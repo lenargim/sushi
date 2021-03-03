@@ -1,0 +1,45 @@
+.shipping {
+  padding: 60px 0 80px;
+  background-color: rgba(244, 244, 244, 1);
+
+  &__wrap {
+    background: rgba(229, 232, 239, 1);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 48px 6%;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__logo {
+    width: 98px;
+    height: 98px;
+    margin-bottom: 43px;
+  }
+
+  &__price {
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: $colorMain;
+    margin-bottom: 17px;
+  }
+
+  &__info {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #4f4f4f;
+  }
+}

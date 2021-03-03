@@ -3,7 +3,6 @@ export default {
     // JavaScript to be fired on all pages
   },
   finalize() {
-    // JavaScript to be fired on all pages, after page specific JS is fired
   },
 };
 
@@ -34,3 +33,35 @@ $('.add_to_cart_button').on('click', function() {
   $(this).parents('.product__function').attr('data-amount', ++quantity)
 })
 
+$('.map').on('click', function () {
+  $(this).find('iframe').css({pointerEvents: 'unset'})
+})
+
+$('.to-top').on('click', function () {
+  $('body,html').animate({
+    scrollTop: 0,
+  }, 700);
+  $('.to-top').removeClass('active')
+  return false;
+});
+
+// Scroll event
+$(window).scroll(function() {
+  let scrollHeight = $(window).scrollTop();
+  let windowHeight = $(window).height();
+  let docHeight = $(document).height();
+
+  // to top
+  if( scrollHeight + windowHeight >= docHeight && windowHeight*2 < docHeight ) {
+      $('.to-top').addClass('active')
+   } else if ( scrollHeight < windowHeight/2 ) {
+      $('.to-top').removeClass('active')
+   }
+
+   // sticky menu
+    if( scrollHeight > windowHeight/2 ) {
+      $('.menu').hasClass('fixed') ? true :  $('.menu').addClass('fixed')
+    } else {
+      $('.menu').removeClass('fixed')
+    }
+});

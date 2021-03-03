@@ -52,3 +52,4 @@ function woocommerce_content_add_to_cart_fragment($fragments){
 
 
 add_filter( 'wc_add_to_cart_message_html', '__return_null' );
+

@@ -1,0 +1,41 @@
+.assortiment {
+  padding: 40px 0 90px;
+
+  &__list {
+    display: grid;
+    grid-gap: 30px 36px;
+    grid-template-columns: 1fr 492px 492px;
+    grid-template-rows: 1fr 204px 204px;
+  }
+
+  &__name {
+    position: absolute;
+    left: 24px;
+    bottom: 32px;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 43px;
+    letter-spacing: 0.03em;
+    color: #fff;
+  }
+
+  &__item {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &:first-of-type {
+      grid-row-start: 1;
+      grid-row-end: 3;
+      box-shadow: 25px 14px 55px rgba(41, 41, 41, 0.12);
+
+      .assortiment__name {
+        left: 40px;
+      }
+    }
+
+    .arrow {
+      fill: #fff;
+    }
+  }
+}

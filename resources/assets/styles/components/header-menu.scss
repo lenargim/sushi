@@ -1,5 +1,7 @@
 .menu {
   border-bottom: $border;
+  background-color: #fff;
+  transition: all 0.3s ease;
 
   &__wrap {
     height: 85px;
@@ -18,85 +20,52 @@
     height: inherit;
   }
 
-  .menu-item a {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 29px;
-    letter-spacing: 0.01em;
-    color: $colorIcon;
-    position: relative;
+  .menu-item {
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 0.01em;
+      color: $colorIcon;
+      position: relative;
 
-    &:hover {
-      color: $colorMain;
+      &:hover {
+        color: $colorMain;
+      }
+
+      &::before {
+        content: "";
+        width: 37px;
+        height: 37px;
+        margin-right: 16px;
+        display: block;
+      }
     }
 
-    &::before {
-      content: "";
-      width: 37px;
-      height: 37px;
-      margin-right: 16px;
-      display: block;
+    &.current-menu-item {
+      a {
+        color: $colorMain;
+      }
     }
   }
 
-  .menu-shop a::before {
-    background: url("../icons/menu/menu.svg") no-repeat center center;
-  }
-
-  .menu-sushi a::before {
-    background: url("../icons/menu/sushi.svg") no-repeat center center;
-  }
-
-  .menu-rolls a::before {
-    background: url("../icons/menu/rolls.svg") no-repeat center center;
-  }
-
-  .menu-sets a::before {
-    background: url("../icons/menu/sets.svg") no-repeat center center;
-  }
-
-  .menu-soups a::before {
-    background: url("../icons/menu/soups.svg") no-repeat center center;
-  }
-
-  .menu-wok a::before {
-    background: url("../icons/menu/wok.svg") no-repeat center center;
-  }
-
-  .menu-stock a::before {
-    background: url("../icons/menu/stock.svg") no-repeat center center;
-  }
-
-  .menu-shop a:hover::before {
-    background: url("../icons/menu/menu-hover.svg") no-repeat center center;
-  }
-
-  .menu-sushi a:hover::before {
-    background: url("../icons/menu/sushi-hover.svg") no-repeat center center;
-  }
-
-  .menu-rolls a:hover::before {
-    background: url("../icons/menu/rolls-hover.svg") no-repeat center center;
-  }
-
-  .menu-sets a:hover::before {
-    background: url("../icons/menu/sets-hover.svg") no-repeat center center;
-  }
-
-  .menu-soups a:hover::before {
-    background: url("../icons/menu/soups-hover.svg") no-repeat center center;
-  }
-
-  .menu-wok a:hover::before {
-    background: url("../icons/menu/wok-hover.svg") no-repeat center center;
-  }
-
-  .menu-stock a:hover::before {
-    background: url("../icons/menu/stock-hover.svg") no-repeat center center;
-  }
+  @include backgroundMenu("shop");
+  @include backgroundMenu("sushi");
+  @include backgroundMenu("rolls");
+  @include backgroundMenu("sets");
+  @include backgroundMenu("soups");
+  @include backgroundMenu("wok");
+  @include backgroundMenu("stock");
+  @include backgroundMenuHover("shop");
+  @include backgroundMenuHover("sushi");
+  @include backgroundMenuHover("rolls");
+  @include backgroundMenuHover("sets");
+  @include backgroundMenuHover("soups");
+  @include backgroundMenuHover("wok");
+  @include backgroundMenuHover("stock");
 
   &__cart {
     &-wrap {
@@ -141,4 +110,22 @@
       min-width: 100px;
     }
   }
+
+  &.fixed {
+    position: fixed;
+    left: 0;
+    top: -100px;
+    right: 0;
+    z-index: 9;
+    transform: translateY(100px);
+  }
+
+  @include detailedMenuHover("shop");
+  @include detailedMenuHover("sushi");
+  @include detailedMenuHover("rolls");
+  @include detailedMenuHover("sets");
+  @include detailedMenuHover("soups");
+  @include detailedMenuHover("wok");
+  @include detailedMenuHover("stock");
 }
+

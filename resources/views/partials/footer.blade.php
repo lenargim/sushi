@@ -28,9 +28,13 @@
         </div>
       </div>
       <div class="footer__copy">
-        <div>© 2021 ХОРОСЁ.<br>Все права защищены.<br>Сайт не является публичной офертой.</div>
-        <span class="policy">Политика обработки персональных данных</span>
+        <div>© 2021 ХОРОСЁ.<br>Все права защищены.<br>Сайт не является публичной<br> офертой.</div>
+        <span class="policy">Политика обработки<br> персональных данных</span>
       </div>
     </div>
   </div>
 </footer>
+
+<div class="to-top">
+  @include('icon::to-top')
+</div>

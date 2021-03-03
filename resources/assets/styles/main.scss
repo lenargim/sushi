@@ -5,9 +5,13 @@
 /** Import theme styles */
 @import "common/fonts";
 @import "common/global";
+@import "common/mixins";
 @import "components/header";
 @import "components/actions";
 @import "components/popular";
 @import "components/footer";
 @import "components/slider";
 @import "components/product";
+@import "components/assortiment";
+@import "components/map";
+@import "components/shipping";

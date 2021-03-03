@@ -10,6 +10,7 @@
 
   &__logo {
     display: block;
+    width: 25%;
 
     img {
       max-width: 223px;
@@ -22,6 +23,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     height: 350px;
+    width: 33.3%;
     flex: 1 1 auto;
 
     .menu-item {
@@ -47,6 +49,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    width: 25%;
   }
 
   &__work-hours {
@@ -67,11 +70,15 @@
     padding-bottom: 32px;
   }
 
-  &__copy div {
-    font-size: 18px;
-    line-height: 120%;
-    color: #828282;
-    padding-bottom: 32px;
+  &__copy {
+    width: 16.7%;
+
+    div {
+      font-size: 18px;
+      line-height: 120%;
+      color: #828282;
+      padding-bottom: 32px;
+    }
   }
 
   .policy {
@@ -111,5 +118,29 @@
     img {
       margin-right: 20px;
     }
+  }
+}
+
+.to-top {
+  align-items: center;
+  justify-content: center;
+  width: 93px;
+  height: 93px;
+  position: fixed;
+  right: 5vw;
+  bottom: 10vw;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  box-shadow: 25px 14px 55px 18px rgba(41, 41, 41, 0.12);
+  cursor: pointer;
+  display: flex;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+
+  &.active {
+    z-index: 9;
+    opacity: 1;
   }
 }
