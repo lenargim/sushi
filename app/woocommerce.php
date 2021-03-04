@@ -51,5 +51,141 @@ function woocommerce_content_add_to_cart_fragment($fragments){
 }
 
 
-add_filter( 'wc_add_to_cart_message_html', '__return_null' );
+// Breadcrumbs
 
+add_filter( 'woocommerce_breadcrumb_defaults', 'custom_breadcrumbs' );
+function custom_breadcrumbs() {
+    return array(
+        'delimiter'   => ' > ',
+        'wrap_before' => '<div class="container"><nav class="breadcrumbs">',
+        'wrap_after'  => '</nav></div>',
+        'before'      => '',
+        'after'       => '',
+        'home'        => _x( 'Главная', 'breadcrumb', 'woocommerce' ),
+    );
+}
+
+add_action( 'after_setup_theme', 'my_remove_product_result_count', 99 );
+function my_remove_product_result_count() {
+    remove_action( 'woocommerce_before_shop_loop' , 'woocommerce_result_count', 20 );
+    remove_action( 'woocommerce_after_shop_loop' , 'woocommerce_result_count', 20 );
+}
+
+
+add_filter( 'woocommerce_enqueue_styles', 'dequeue_styles' );
+function dequeue_styles( $enqueue_styles ) {
+    unset( $enqueue_styles['woocommerce-general'] );	// Remove the gloss
+    unset( $enqueue_styles['woocommerce-layout'] );		// Remove the layout
+    //unset( $enqueue_styles['woocommerce-smallscreen'] );	// Remove the smallscreen optimisation
+    return $enqueue_styles;
+}
+
+// Сортировка
+
+function woocommerce_get_catalog_ordering_popular_args( $args ) {
+    global $wp_query;
+    if (isset($_GET['orderby'])) {
+        switch ($_GET['orderby']) :
+            case 'popularity_asc' :
+                $args['orderby'] = 'meta_value';
+                $args['order'] = 'ASC';
+                $args['meta_key'] = 'total_sales';
+                break;
+            case 'popularity_desc' :
+                $args['orderby'] = 'meta_value';
+                $args['order'] = 'DESC';
+                $args['meta_key'] = 'total_sales';
+                break;
+        endswitch;
+    }
+    return $args;
+}
+
+add_filter( 'woocommerce_get_catalog_ordering_args', 'woocommerce_get_catalog_ordering_popular_args' );
+
+function my_woocommerce_catalog_orderby( $orderby ) {
+    unset($orderby["popularity"]);
+    unset($orderby["date"]);
+    unset($orderby["menu_order"]);
+    $orderby['popularity_asc'] = 'Популярности &#8595;';
+    $orderby['popularity_desc'] = 'Популярности &#8593;';
+    $orderby[ 'price-desc' ] = 'Цене &#8595;';
+    $orderby[ 'price' ] = 'Цене &#8593;';
+    return $orderby;
+}
+add_filter( "woocommerce_catalog_orderby", "my_woocommerce_catalog_orderby", 20 );
+
+
+// Убрать сортировку товаров
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
+
+add_filter('woocommerce_default_catalog_orderby', 'misha_default_catalog_orderby');
+
+function misha_default_catalog_orderby( $sort_by ) {
+    if (is_product_category()) {
+        $case = $_COOKIE['ordering'];
+        $trimmed = trim($case, '\"');
+        switch ($trimmed) {
+            case 'price-desc':
+                return 'price-desc';
+            case 'price':
+                return 'price';
+            case 'popularity_desc':
+               return 'rand';
+            default:
+                return 'popularity';
+        }
+    }
+}
+
+
+// sale products
+add_action( 'pre_get_posts', 'show_on_sale_products' );
+
+function show_on_sale_products( $query ) {
+    if (is_product_category()) {
+        $on_sale = $_COOKIE['on_sale'];
+        $trimmed = trim($on_sale, '\"');
+    }
+    if( is_product_category() && $query->is_main_query() && $query->query_vars['wc_query'] == 'product_query' && $trimmed == '1'  ) {
+        $query->set('meta_key', '_sale_price');
+        $query->set('meta_value', '0');
+        $query->set('meta_compare', '>=');
+    }
+}
+
+add_action( 'pre_get_posts', 'show_on_spicy_products' );
+
+function show_on_spicy_products( $query ) {
+    //$is_spicy = $_COOKIE['is_spicy'];
+    //$trimmed = trim($is_spicy, '\"');
+    if( is_product_category() && $query->is_main_query() && $query->query_vars['wc_query'] == 'product_query'  ) {
+
+    }
+}
+
+//global $query_string;
+//query_posts( $query_string . '&order=ASC' );
+
+
+function target_main_category_query_with_conditional_tags( $query ) {
+    if ( ! is_admin() && $query->is_main_query() ) {
+
+        if ( is_category() ) {
+            $query->set( 'posts_per_page', 12 );
+        }
+    }
+}
+
+add_filter( 'woocommerce_get_image_size_single', 'true_single_image_size' ); // woocommerce_single
+
+function true_single_image_size( $size_options ){
+
+    return array(
+        'width' => 393,
+        'height' => 279,
+        'crop' => 1, // 1 – жёсткая обрезка, 0 – сохранение пропорций
+    );
+
+}

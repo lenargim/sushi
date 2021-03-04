@@ -1,11 +1,12 @@
 .assortiment {
   padding: 40px 0 90px;
+  background-color: #fff;
 
   &__list {
     display: grid;
     grid-gap: 30px 36px;
     grid-template-columns: 1fr 492px 492px;
-    grid-template-rows: 1fr 204px 204px;
+    grid-template-rows: 1fr 204px;
   }
 
   &__name {
