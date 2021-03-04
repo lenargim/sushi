@@ -108,10 +108,19 @@
 }
 
 .filters {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
   &__item {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    margin-right: 40px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 
   label {

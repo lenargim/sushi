@@ -145,3 +145,31 @@ $('#sale-filter').change( function(){
   }
 location.reload();
 });
+
+$('.product__img').on('click', function(){
+  let id = $(this).attr('data-id')
+  let gallery = $(this).parents('.product').siblings(`.gallery[data-id="${id}"]`);
+  gallery.addClass('active');
+  let overlay = $('.overlay')
+  overlay.html(gallery)
+  overlay.addClass('active')
+  gallery.slick({
+    'slidesToShow': 1,
+    'slidesToScroll': 1,
+    'arrows': false,
+    'dots': true,
+    'draggable': false,
+  })
+})
+
+$('.overlay').mouseup(function (e) { // событие клика по веб-документу
+  let gallery = $('.gallery.active'); // тут указываем элемент
+  if (!gallery.is(e.target) // если клик был не по нашему блоку
+    && gallery.has(e.target).length === 0) { // и не по его дочерним элементам
+    gallery.slick('unslick')
+    gallery.removeClass('active')
+    gallery.prependTo('.products');
+    $('.overlay').removeClass('active')
+    $('.overlay').html('')
+  }
+});

@@ -181,11 +181,46 @@ function target_main_category_query_with_conditional_tags( $query ) {
 add_filter( 'woocommerce_get_image_size_single', 'true_single_image_size' ); // woocommerce_single
 
 function true_single_image_size( $size_options ){
-
     return array(
         'width' => 393,
         'height' => 279,
         'crop' => 1, // 1 – жёсткая обрезка, 0 – сохранение пропорций
     );
+};
 
+
+// Gallery
+
+function woocommerce_archive_gallery() {
+    global $product;
+    $post_ids = $product->get_id();
+    $attachment_ids = $product->get_gallery_image_ids();
+    echo '<div class="gallery" data-id=';
+    echo $post_ids;
+    echo '>';
+    echo '<div class="gallery__item">';
+    echo get_the_post_thumbnail( $post_ids, 'shop_single' );
+    echo '</div>';
+    foreach( $attachment_ids as $attachment_id ) {
+        echo '<div class="gallery__item">';
+        echo wp_get_attachment_image( $attachment_id, 'shop_catalog' );
+        echo '</div>';
+    }
+    echo '</div>';
+    ?>
+    <?php
 }
+
+//remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+add_action( 'woocommerce_shop_loop', 'woocommerce_archive_gallery', 8 );
+
+
+function woocommerce_feature_gallery() {
+    global $product;
+    $attachment_ids = $product->get_gallery_image_ids();
+    foreach( $attachment_ids as $attachment_id ) {
+        echo wp_get_attachment_image( $attachment_id, 'shop_catalog' );
+    }
+}
+
+//add_action( 'woocommerce_shop_loop', 'woocommerce_feature_gallery', 8 );

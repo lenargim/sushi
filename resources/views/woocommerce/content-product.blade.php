@@ -16,7 +16,7 @@ if (empty($product) || !$product->is_visible()) {
       <div class="product__tags">
         @php echo $tagList @endphp
     </div>
-  <div class="product__img">
+  <div class="product__img" data-id="@php echo $product->get_id() @endphp">
     @php echo $product->get_image() @endphp
   </div>
   <div class="product__info">

@@ -128,14 +128,13 @@ select {
 .label-back {
   position: absolute;
   left: 0;
-  top: 0;
   right: 0;
   bottom: 0;
   z-index: -1;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 245px;
-  line-height: 296px;
+  font-size: 12vw;
+  line-height: 1.2;
   letter-spacing: 0.01em;
   background: linear-gradient(180deg, rgba(239, 92, 92, 0) 0%, #ef5c5c 100%);
   -webkit-background-clip: text;

@@ -34,6 +34,7 @@
     </div>
   </div>
 </footer>
+<div class="overlay"></div>
 
 <div class="to-top">
   @include('icon::to-top')

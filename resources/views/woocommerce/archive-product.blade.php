@@ -26,12 +26,22 @@ the readme will list any important changes.
   @endif
   @if( is_shop() )
     <div class="main-page">
+      <div class="label-back">
+        Кухня<br>
+        Кухня<br>
+        Кухня<br>
+        Кухня<br>
+      </div>
       @include('partials.assortment')
-      @include('partials.map')
-      @include('partials.shipping')
     </div>
   @else
     <div class="container">
+      <div class="label-back">
+        Кухня<br>
+        Кухня<br>
+        Кухня<br>
+        Кухня<br>
+      </div>
       <div class="interaction">
         <div class="ordering">
           <span>Сортировка по:</span>
@@ -52,7 +62,11 @@ the readme will list any important changes.
         <div class="filters">
           <div class="filters__item">
             <input type="checkbox" id="sale-filter">
-            <label for="sale-filter">Только со скидкой</label>
+            <label for="sale-filter" class="label">Только со скидкой</label>
+          </div>
+          <div class="filters__item">
+            <input type="checkbox" id="spicy-filter">
+            <label for="spicy-filter" class="label">Острые</label>
           </div>
         </div>
       </div>
@@ -74,22 +88,22 @@ the readme will list any important changes.
               @endphp
             @endwhile
           @endif
-
           @php
             woocommerce_product_loop_end();
             do_action('woocommerce_after_shop_loop');
           @endphp
           @else
-            @php
-              do_action('woocommerce_no_products_found');
-            @endphp
+            @php do_action('woocommerce_no_products_found'); @endphp
+            @php the_posts_pagination() @endphp
+          @endif
         </div>
       </div>
     @endif
-  @endif
-  @php
-    do_action('woocommerce_after_main_content');
-    do_action('get_sidebar', 'shop');
-    do_action('get_footer', 'shop');
-  @endphp
+    @include('partials.map')
+    @include('partials.shipping')
+    @php
+      do_action('woocommerce_after_main_content');
+      do_action('get_sidebar', 'shop');
+      do_action('get_footer', 'shop');
+    @endphp
 @endsection

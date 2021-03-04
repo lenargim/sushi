@@ -3,7 +3,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding: 40px 0 80px;
+  padding: 40px 0 12px;
 }
 
 .product {
@@ -64,6 +64,7 @@
   }
 
   &__img {
+    cursor: pointer;
     width: 393px;
     height: 279px;
 
