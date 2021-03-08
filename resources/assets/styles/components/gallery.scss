@@ -6,13 +6,149 @@
   height: 793px;
   background-color: #fff;
   z-index: -1;
-  padding: 40px;
+  padding: 40px 0;
   display: none;
   transform: translateX(-50%);
+  border: 1px solid #dbdbdb;
+  box-shadow: 25px 14px 55px 18px rgba(41, 41, 41, 0.12);
+  border-radius: 5px;
 
   &.active {
     display: block;
     z-index: 7;
+  }
+
+  &__images {
+    .slick-track {
+      margin: 0;
+
+      .slick-slide {
+        padding: 0 40px;
+      }
+    }
+  }
+
+  &__image {
+    border-radius: 5px;
+    overflow: hidden;
+    max-height: 429px;
+  }
+
+  .slick-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px auto 0;
+
+    button {
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: #e0e0e0;
+      font-size: 0;
+      margin: 0 12px;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .slick-active button {
+      background-color: $colorIcon;
+    }
+  }
+
+  &__info {
+    border-top: $border;
+    padding: 0 40px;
+    margin-top: 24px;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
+    color: #464646;
+    position: relative;
+
+    .add_to_cart_button {
+      width: 91px;
+      height: 87px;
+      background-color: $colorMain;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product__amount {
+      background-color: transparent;
+      border: $border;
+      padding: 14px 27px;
+      border-radius: 5px;
+    }
+
+    .product__button {
+      background-color: transparent;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 43px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.01em;
+      color: #bdbdbd;
+      cursor: pointer;
+      border: none;
+    }
+
+    .product__quantity {
+      width: 2em;
+      padding: 0;
+      margin: 0;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 43px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      letter-spacing: 0.01em;
+      color: $colorMain;
+      border: none;
+    }
+
+    .product__function {
+      right: 44px;
+      bottom: 92px;
+    }
+  }
+
+  &__name {
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.01em;
+    color: #464646;
+    padding: 24px 0 16px;
+  }
+
+  &__attr,
+  &__short-desc {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  &__main-price {
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.01em;
+    color: $colorMain;
+    margin-right: 24px;
+  }
+
+  &__old-price {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.01em;
+    text-decoration-line: line-through;
+    color: #bdbdbd;
   }
 }
 

@@ -29,7 +29,7 @@
       </div>
       <div class="footer__copy">
         <div>© 2021 ХОРОСЁ.<br>Все права защищены.<br>Сайт не является публичной<br> офертой.</div>
-        <span class="policy">Политика обработки<br> персональных данных</span>
+        <a href="@php echo get_page_link('3') @endphp"><span class="policy">Политика обработки<br> персональных данных</span></a>
       </div>
     </div>
   </div>

@@ -7,6 +7,12 @@ export default {
   },
 };
 
+$('.add_to_cart_button').on('click', function() {
+  let quantity =  $(this).parents('.product__function').find('.product__quantity').val()
+  $(this).parents('.product__function').find('.product__quantity').val(++quantity);
+  $(this).parents('.product__function').attr('data-amount', ++quantity)
+})
+
 $('.product__button').on('click', function() {
 $(this).attr('disabled', true);
 setTimeout( () => { $(this).attr('disabled', false)}, 1000 );
@@ -26,12 +32,6 @@ else if ( $(this).hasClass('minus') && quantity == 1 ) {
   $(this).siblings('.product__quantity').val(--quantity)
   }
   $(this).parents('.product__function').attr('data-amount', +quantity)
-})
-
-$('.add_to_cart_button').on('click', function() {
-  let quantity =  $(this).parents('.product__function').find('.product__quantity').val()
-  $(this).parents('.product__function').find('.product__quantity').val(++quantity);
-  $(this).parents('.product__function').attr('data-amount', ++quantity)
 })
 
 $('.map').on('click', function () {
@@ -147,13 +147,12 @@ location.reload();
 });
 
 $('.product__img').on('click', function(){
-  let id = $(this).attr('data-id')
-  let gallery = $(this).parents('.product').siblings(`.gallery[data-id="${id}"]`);
+  let gallery = $(this).siblings('.gallery');
   gallery.addClass('active');
   let overlay = $('.overlay')
   overlay.html(gallery)
   overlay.addClass('active')
-  gallery.slick({
+  gallery.find('.gallery__images').slick({
     'slidesToShow': 1,
     'slidesToScroll': 1,
     'arrows': false,
@@ -164,11 +163,12 @@ $('.product__img').on('click', function(){
 
 $('.overlay').mouseup(function (e) { // событие клика по веб-документу
   let gallery = $('.gallery.active'); // тут указываем элемент
+  let id = gallery.attr('data-id')
   if (!gallery.is(e.target) // если клик был не по нашему блоку
     && gallery.has(e.target).length === 0) { // и не по его дочерним элементам
-    gallery.slick('unslick')
+    gallery.find('.gallery__images').slick('unslick')
     gallery.removeClass('active')
-    gallery.prependTo('.products');
+    gallery.prependTo(`.product.post-${id}`);
     $('.overlay').removeClass('active')
     $('.overlay').html('')
   }

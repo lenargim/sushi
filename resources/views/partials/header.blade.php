@@ -26,7 +26,7 @@
     <div class="menu__wrap">
       {{ wp_nav_menu(['menu' => 'Shop', 'menu_class' => 'menu__list', 'container' => false]) }}
       <a href="/cart" class="menu__cart-wrap">
-        @include('icon::cart', ['class' => 'cart'])
+        @include('icon::cart', ['class' => 'menu__cart-svg'])
         @if(WC()->cart->get_cart_contents_count())
           <span class="menu__cart-amount">@php echo WC()->cart->get_cart_contents_count() @endphp</span>
         @endif

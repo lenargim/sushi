@@ -7,7 +7,7 @@ function woocommerce_header_add_to_cart_fragment($fragments)
     ob_start();
     ?>
     <a href="/cart" class="menu__cart-wrap">
-        <svg class="cart" width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="menu__cart-svg" width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M34.5287 11.2293C34.2429 10.7341 33.8336 10.3214 33.3408 10.0315C32.8479 9.74159 32.2884 9.58437 31.7167 9.57517H10.5439L9.58447 5.83684C9.48753 5.47597 9.27128 5.15856 8.97091 4.93629C8.67055 4.71402 8.30378 4.59999 7.93034 4.61279H4.62208C4.18338 4.61279 3.76265 4.78706 3.45244 5.09727C3.14223 5.40748 2.96796 5.82821 2.96796 6.26691C2.96796 6.70562 3.14223 7.12635 3.45244 7.43656C3.76265 7.74677 4.18338 7.92104 4.62208 7.92104H6.6732L11.2386 24.8924C11.3355 25.2533 11.5518 25.5707 11.8521 25.7929C12.1525 26.0152 12.5193 26.1292 12.8927 26.1164H27.7799C28.0853 26.1155 28.3846 26.03 28.6444 25.8694C28.9043 25.7089 29.1146 25.4795 29.252 25.2067L34.6776 14.3556C34.9127 13.8627 35.0222 13.3192 34.9962 12.7737C34.9703 12.2282 34.8096 11.6976 34.5287 11.2293ZM26.7543 22.8082H14.1499L11.4536 12.8834H31.7167L26.7543 22.8082Z"
                 fill="#4B4B4B"/>
@@ -123,7 +123,7 @@ remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 3
 add_filter('woocommerce_default_catalog_orderby', 'misha_default_catalog_orderby');
 
 function misha_default_catalog_orderby( $sort_by ) {
-    if (is_product_category()) {
+    if (is_product_category() && isset($_COOKIE['ordering']) ) {
         $case = $_COOKIE['ordering'];
         $trimmed = trim($case, '\"');
         switch ($trimmed) {
@@ -141,10 +141,12 @@ function misha_default_catalog_orderby( $sort_by ) {
 
 
 // sale products
-add_action( 'pre_get_posts', 'show_on_sale_products' );
+if (isset($_COOKIE['on_sale'])) {
+    add_action( 'pre_get_posts', 'show_on_sale_products' );
+}
 
 function show_on_sale_products( $query ) {
-    if (is_product_category()) {
+    if (is_product_category() ) {
         $on_sale = $_COOKIE['on_sale'];
         $trimmed = trim($on_sale, '\"');
     }
@@ -169,58 +171,12 @@ function show_on_spicy_products( $query ) {
 //query_posts( $query_string . '&order=ASC' );
 
 
-function target_main_category_query_with_conditional_tags( $query ) {
-    if ( ! is_admin() && $query->is_main_query() ) {
+function target_main_category_query_with_conditional_tags( $query )
+{
+    if (!is_admin() && $query->is_main_query()) {
 
-        if ( is_category() ) {
-            $query->set( 'posts_per_page', 12 );
+        if (is_category()) {
+            $query->set('posts_per_page', 12);
         }
     }
 }
-
-add_filter( 'woocommerce_get_image_size_single', 'true_single_image_size' ); // woocommerce_single
-
-function true_single_image_size( $size_options ){
-    return array(
-        'width' => 393,
-        'height' => 279,
-        'crop' => 1, // 1 – жёсткая обрезка, 0 – сохранение пропорций
-    );
-};
-
-
-// Gallery
-
-function woocommerce_archive_gallery() {
-    global $product;
-    $post_ids = $product->get_id();
-    $attachment_ids = $product->get_gallery_image_ids();
-    echo '<div class="gallery" data-id=';
-    echo $post_ids;
-    echo '>';
-    echo '<div class="gallery__item">';
-    echo get_the_post_thumbnail( $post_ids, 'shop_single' );
-    echo '</div>';
-    foreach( $attachment_ids as $attachment_id ) {
-        echo '<div class="gallery__item">';
-        echo wp_get_attachment_image( $attachment_id, 'shop_catalog' );
-        echo '</div>';
-    }
-    echo '</div>';
-    ?>
-    <?php
-}
-
-//remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
-add_action( 'woocommerce_shop_loop', 'woocommerce_archive_gallery', 8 );
-
-
-function woocommerce_feature_gallery() {
-    global $product;
-    $attachment_ids = $product->get_gallery_image_ids();
-    foreach( $attachment_ids as $attachment_id ) {
-        echo wp_get_attachment_image( $attachment_id, 'shop_catalog' );
-    }
-}
-
-//add_action( 'woocommerce_shop_loop', 'woocommerce_feature_gallery', 8 );

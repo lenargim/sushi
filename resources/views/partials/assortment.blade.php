@@ -19,8 +19,7 @@
           <img src="@asset('images/actions.jpg')" alt='Акции'/>
           <span class="assortiment__name">Акции</span>
         </a>
-        <a href="/shop" class="assortiment__item">
-          <img src="@asset('images/actions.jpg')" alt='Все категории'/>
+        <a href="/shop" class="assortiment__item" style="background-color: #1D1D17;">
           <span class="assortiment__name">Все категории @include('icon::slider-arrow', ['class' => 'arrow'])</span>
         </a>
       </div>
