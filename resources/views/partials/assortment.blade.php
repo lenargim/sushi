@@ -8,7 +8,7 @@
           <span class="assortiment__name">Сеты</span>
         </a>
         <a class="assortiment__item" href="/shop/sushi">
-          <img src="@asset('images/sushi-a.jpg')" alt='Суши'/>
+          <img src="@asset('images/sushi.png')" alt='Суши'/>
           <span class="assortiment__name">Суши</span>
         </a>
         <a class="assortiment__item" href="/shop/rolls">

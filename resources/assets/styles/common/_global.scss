@@ -171,18 +171,8 @@ select {
   }
 }
 
-.woocommerce-NoticeGroup,
 .woocommerce-notices-wrapper {
   display: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-
-  &.active {
-    display: block;
-  }
 }
 
 .woocommerce-error {
@@ -192,10 +182,10 @@ select {
   padding: 30px;
   display: block;
   border: 5px;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #fff;
   transform: translate(-50%, -50%);
   min-width: 300px;
   min-height: 300px;
   font-size: 24px;
-  color: #fff;
+  color: $colorTitle;
 }
