@@ -180,3 +180,58 @@ function target_main_category_query_with_conditional_tags( $query )
         }
     }
 }
+
+
+remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+add_action( 'woocommerce_checkout_after_customer_details', 'woocommerce_checkout_payment', 20 );
+
+
+function custom_checkout_fields( $array ) {
+    unset( $array['billing']['billing_last_name'] ); // Фамилия
+    unset( $array['billing']['billing_email'] ); // Email
+    unset( $array['order']['order_comments'] ); // Примечание к заказу
+    unset( $array['billing']['billing_company'] ); // Компания
+    unset( $array['billing']['billing_country'] ); // Страна
+    unset( $array['billing']['billing_address_2'] ); // 2-ая строка адреса
+    unset( $array['billing']['billing_city'] ); // Населённый пункт
+    unset( $array['billing']['billing_state'] ); // Область / район
+    unset( $array['billing']['billing_postcode'] ); // Почтовый индекс
+
+    unset( $array['billing']['billing_phone']['validate'] );
+    unset( $array['billing']['billing_address_1']['validate'] );
+
+    $array['billing']['billing_phone']['priority'] = 20;
+    $array['billing']['billing_address_1']['priority'] = 30;
+
+    $array['billing']['billing_first_name']['placeholder'] = 'ФИО';
+    $array['billing']['billing_phone']['placeholder'] = 'Телефон';
+    $array['billing']['billing_address_1']['placeholder'] = 'Адрес доставки';
+
+    $array['billing']['billing_first_name']['label'] = ' ';
+    $array['billing']['billing_phone']['label'] = ' ';
+    $array['billing']['billing_address_1']['label'] = ' ';
+
+    return $array;
+}
+add_filter( 'woocommerce_checkout_fields', 'custom_checkout_fields', 9999 );
+
+function checkout_fields_in_label_error( $field, $key, $args, $value ) {
+    if ( strpos( $field, '</label>' ) !== false && $args['required'] ) {
+        $error = '<span class="error">';
+        $error .= sprintf( __( 'Ошибка: Поле %s не заполнено', 'woocommerce' ), $args['label'] );
+        $error .= '</span>';
+        $field = substr_replace( $field, $error, strpos( $field, '</label>' ), 0);
+    }
+    return $field;
+}
+
+add_filter( 'woocommerce_form_field', 'checkout_fields_in_label_error', 10, 4 );
+
+function remove_msg_filter($msg, $msg_code){
+    if(is_checkout()){
+        return "";
+    }
+    return $msg;
+}
+
+//add_filter('woocommerce_coupon_message','remove_msg_filter',10,3);

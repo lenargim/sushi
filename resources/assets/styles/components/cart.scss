@@ -1,6 +1,10 @@
 .cart {
   width: 100%;
 
+  .description a {
+    white-space: nowrap;
+  }
+
   thead {
     display: none;
   }

@@ -24,8 +24,9 @@ defined('ABSPATH') || exit;
     <h1 class="title">{{the_title()}}</h1>
     <div class="description">
       Обращаем ваше внимание на то, что сумма заказа в корзине рассчитывается без учета доставки,
-      когда оператор свяжется с Вами для уточнения заказа, он сообщит цену за доставку.
-      Все информацию о стоимости доставки можно узнать в разделе <a class="orange" href="/delivery">"Доставка и оплата"</a>, либо по
+      когда оператор свяжется с Вами для уточнения заказа, он сообщит цену за доставку.<br>
+      Все информацию о стоимости доставки можно узнать в разделе <a class="orange" href="/delivery">"Доставка и
+        оплата"</a>, либо по
       телефону
       <a class="orange" href="tel:@php the_field('phone',8) @endphp">@php the_field('phone',8) @endphp</a>.
     </div>
@@ -43,13 +44,21 @@ defined('ABSPATH') || exit;
         <tbody>
         <?php do_action('woocommerce_before_cart_contents'); ?>
         <?php
+        $discount_total = 0;
         foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
         $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
         $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 
         if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key) ) {
         $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
+        if ($_product->is_on_sale()) {
+          $regular_price = $_product->get_regular_price();
+          $sale_price = $_product->get_sale_price();
+          $discount = ($regular_price - $sale_price) * $cart_item['quantity'];
+          $discount_total += $discount;
+        }
         ?>
+
         <tr
           class="woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
           <td class="product-thumbnail">
@@ -145,12 +154,22 @@ defined('ABSPATH') || exit;
       </table>
       <?php do_action('woocommerce_after_cart_table'); ?>
     </form>
-    <?php do_action('woocommerce_before_cart_collaterals'); ?>
-    <div class="cart-collaterals">
-      <?php
-      do_action('woocommerce_cart_collaterals');
-      ?>
+    <div class="cart__info">
+      <div>
+        <div class="row">
+          <span>Скидка:</span>
+          <span>@php echo $discount_total . " ₽" @endphp</span>
+        </div>
+        <div class="row">
+          <span>Итого:</span>
+          <span> @php wc_cart_totals_order_total_html() @endphp</span>
+        </div>
+      </div>
+      <div class="wc-proceed-to-checkout">
+      </div>
+      <?php do_action('woocommerce_proceed_to_checkout'); ?>
     </div>
+    <?php do_action('woocommerce_before_cart_collaterals'); ?>
     <?php do_action('woocommerce_after_cart'); ?>
   </div>
 </div>

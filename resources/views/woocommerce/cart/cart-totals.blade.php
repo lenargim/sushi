@@ -24,7 +24,7 @@ defined('ABSPATH') || exit;
   <div>
     <div class="row">
       <span>Скидка:</span>
-      <span> 1000 ₽</span>
+      <span>@php  @endphp</span>
     </div>
     <div class="row">
       <span>Итого:</span>
