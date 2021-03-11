@@ -1,18 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-  @include('partials.page-header')
+  {{woocommerce_breadcrumb()}}
+  <div class="search-block">
+    <div class="container">
+      <h1 class="title">Поиск по запросу @php echo get_search_query() @endphp</h1>
+      <div class="search-block__wrap">
+        @if (!have_posts())
+          <div class="alert alert-warning">
+            {{ __('Извините, результатов не найдено', 'sage') }}
+          </div>
+          {!! get_search_form(false) !!}
+        @endif
+        {!! get_search_form(false) !!}
+        <ul class="products columns-4">
+          @while(have_posts()) @php the_post() @endphp
+          @include('woocommerce.content-product')
+          @endwhile
+        </ul>
+      </div>
 
-  @if (!have_posts())
-    <div class="alert alert-warning">
-      {{ __('Sorry, no results were found.', 'sage') }}
+      @php if ( function_exists( 'wp_corenavi' ) ) wp_corenavi(); @endphp
     </div>
-    {!! get_search_form(false) !!}
-  @endif
-
-  @while(have_posts()) @php the_post() @endphp
-    @include('partials.content-search')
-  @endwhile
-
-  {!! get_the_posts_navigation() !!}
+  </div>
 @endsection

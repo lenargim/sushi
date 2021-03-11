@@ -19,6 +19,16 @@
           @include('icon::instagram', ['class' => 'icon'])
         </a>
       </div>
+      <div class="header__account-block">
+        @include('icon::account', ['class' => 'icon'])
+        @include('icon::wishlist', ['class' => 'icon'])
+        <div class="header__search">
+          @include('icon::search', ['class' => 'icon header__search-svg'])
+          @include('searchform')
+{{--          @php echo do_shortcode('[wcas-search-form]') @endphp--}}
+          @include('icon::search-close', ['class' => 'icon header__search-close'])
+        </div>
+      </div>
     </div>
 </header>
 <div class="menu">

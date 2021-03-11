@@ -59,6 +59,7 @@
   @include backgroundMenu("soups");
   @include backgroundMenu("wok");
   @include backgroundMenu("stock");
+  @include backgroundMenu("more");
   @include backgroundMenuHover("shop");
   @include backgroundMenuHover("sushi");
   @include backgroundMenuHover("rolls");
@@ -66,6 +67,7 @@
   @include backgroundMenuHover("soups");
   @include backgroundMenuHover("wok");
   @include backgroundMenuHover("stock");
+  @include backgroundMenuHover("more");
 
   &__cart {
     &-wrap {

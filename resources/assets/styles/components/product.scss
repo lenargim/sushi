@@ -57,6 +57,10 @@
         background: url("./../icons/spicy.svg") no-repeat;
       }
 
+      &.baked::before {
+        background: url("./../icons/baked.svg") no-repeat;
+      }
+
       &.stock::before {
         content: "%";
       }
@@ -225,6 +229,7 @@
   display: none;
 }
 
+.pagination,
 .woocommerce-pagination {
   margin: 0 auto 80px;
 
@@ -260,4 +265,8 @@
       letter-spacing: 0.01em;
     }
   }
+}
+
+.navigation {
+  margin: 0 auto 80px;
 }

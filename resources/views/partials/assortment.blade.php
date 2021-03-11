@@ -4,7 +4,7 @@
       <h2 class="title">Вся кухня</h2>
       <div class="assortiment__list">
         <a class="assortiment__item" href="/shop/sets">
-          <img src="@asset('images/set-a.jpg')" alt='Сеты'/>
+          <img src="@asset('images/sets.png')" alt='Сеты'/>
           <span class="assortiment__name">Сеты</span>
         </a>
         <a class="assortiment__item" href="/shop/sushi">
@@ -12,11 +12,11 @@
           <span class="assortiment__name">Суши</span>
         </a>
         <a class="assortiment__item" href="/shop/rolls">
-          <img src="@asset('images/roll-a.jpg')" alt='Роллы'/>
+          <img src="@asset('images/rolls.png')" alt='Роллы'/>
           <span class="assortiment__name">Роллы</span>
         </a>
         <a href="@php echo get_post_type_archive_link('stock') @endphp" class="assortiment__item">
-          <img src="@asset('images/actions.jpg')" alt='Акции'/>
+          <img src="@asset('images/actions.png')" alt='Акции'/>
           <span class="assortiment__name">Акции</span>
         </a>
         <a href="/shop" class="assortiment__item" style="background-color: #1D1D17;">

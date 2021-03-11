@@ -1,0 +1,31 @@
+.search-block {
+  &__wrap {
+    padding-top: 32px;
+  }
+
+  .alert-warning {
+    font-size: 30px;
+    color: $colorTitle;
+    padding-bottom: 32px;
+  }
+
+  .search-form {
+    margin-bottom: 41px;
+  }
+
+  .search-field {
+    background-color: #fff;
+    border-radius: 5px;
+    border: $border;
+    width: 33%;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: $colorIcon;
+    padding: 24px;
+  }
+
+  .search-submit {
+    display: none;
+  }
+}

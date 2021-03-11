@@ -1,6 +1,4 @@
 <?php
-add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
-//add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_content_add_to_cart_fragment');
 
 function woocommerce_header_add_to_cart_fragment($fragments)
 {
@@ -28,34 +26,11 @@ function woocommerce_header_add_to_cart_fragment($fragments)
     $fragments['a.menu__cart-wrap'] = ob_get_clean();
     return $fragments;
 }
-
-function woocommerce_content_add_to_cart_fragment($fragments)
-{
-    global $product;
-    ob_start();
-    ?>
-    <div class="product__changable">
-        <?php
-        $targeted_id = $product->get_id();
-
-        // Get quantities for each item in cart (array of product id / quantity pairs)
-        $quantities = WC()->cart->get_cart_item_quantities();
-        ?>
-        <div class="product__amount" data-id="<?php echo $targeted_id ?>">
-            <div class="product__button minus">-</div>
-            <input class="product__quantity" type="number" readonly value="<?php echo $quantities[$targeted_id] ?>">
-            <div class="product__button plus">+</div>
-        </div>
-    </div>
-    <?php
-    $fragments['div.product__changable'] = ob_get_clean();
-    return $fragments;
-}
-
+add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
 
 // Breadcrumbs
 
-add_filter('woocommerce_breadcrumb_defaults', 'custom_breadcrumbs');
+
 function custom_breadcrumbs()
 {
     return array(
@@ -67,16 +42,15 @@ function custom_breadcrumbs()
         'home' => _x('Главная', 'breadcrumb', 'woocommerce'),
     );
 }
+add_filter('woocommerce_breadcrumb_defaults', 'custom_breadcrumbs');
 
-add_action('after_setup_theme', 'my_remove_product_result_count', 99);
-function my_remove_product_result_count()
-{
+
+function my_remove_product_result_count() {
     remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
     remove_action('woocommerce_after_shop_loop', 'woocommerce_result_count', 20);
 }
+add_action('after_setup_theme', 'my_remove_product_result_count', 99);
 
-
-add_filter('woocommerce_enqueue_styles', 'dequeue_styles');
 function dequeue_styles($enqueue_styles)
 {
     unset($enqueue_styles['woocommerce-general']);    // Remove the gloss
@@ -84,11 +58,11 @@ function dequeue_styles($enqueue_styles)
     //unset( $enqueue_styles['woocommerce-smallscreen'] );	// Remove the smallscreen optimisation
     return $enqueue_styles;
 }
+add_filter('woocommerce_enqueue_styles', 'dequeue_styles');
 
 // Сортировка
 
-function woocommerce_get_catalog_ordering_popular_args($args)
-{
+function woocommerce_get_catalog_ordering_popular_args($args) {
     global $wp_query;
     if (isset($_GET['orderby'])) {
         switch ($_GET['orderby']) :
@@ -106,11 +80,9 @@ function woocommerce_get_catalog_ordering_popular_args($args)
     }
     return $args;
 }
-
 add_filter('woocommerce_get_catalog_ordering_args', 'woocommerce_get_catalog_ordering_popular_args');
 
-function my_woocommerce_catalog_orderby($orderby)
-{
+function my_woocommerce_catalog_orderby($orderby) {
     unset($orderby["popularity"]);
     unset($orderby["date"]);
     unset($orderby["menu_order"]);
@@ -120,18 +92,12 @@ function my_woocommerce_catalog_orderby($orderby)
     $orderby['price'] = 'Цене &#8593;';
     return $orderby;
 }
-
 add_filter("woocommerce_catalog_orderby", "my_woocommerce_catalog_orderby", 20);
-
 
 // Убрать сортировку товаров
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
-
-add_filter('woocommerce_default_catalog_orderby', 'misha_default_catalog_orderby');
-
-function misha_default_catalog_orderby($sort_by)
-{
+function misha_default_catalog_orderby($sort_by) {
     if (is_product_category() && isset($_COOKIE['ordering'])) {
         $case = $_COOKIE['ordering'];
         $trimmed = trim($case, '\"');
@@ -147,15 +113,10 @@ function misha_default_catalog_orderby($sort_by)
         }
     }
 }
-
+add_filter('woocommerce_default_catalog_orderby', 'misha_default_catalog_orderby');
 
 // sale products
-if (isset($_COOKIE['on_sale'])) {
-    add_action('pre_get_posts', 'show_on_sale_products');
-}
-
-function show_on_sale_products($query)
-{
+function show_on_sale_products($query) {
     if (is_product_category()) {
         $on_sale = $_COOKIE['on_sale'];
         $trimmed = trim($on_sale, '\"');
@@ -166,39 +127,38 @@ function show_on_sale_products($query)
         $query->set('meta_compare', '>=');
     }
 }
+if (isset($_COOKIE['on_sale'])) {
+    add_action('pre_get_posts', 'show_on_sale_products');
+}
 
-add_action('pre_get_posts', 'show_on_spicy_products');
-
-function show_on_spicy_products($query)
-{
-    //$is_spicy = $_COOKIE['is_spicy'];
-    //$trimmed = trim($is_spicy, '\"');
-    if (is_product_category() && $query->is_main_query() && $query->query_vars['wc_query'] == 'product_query') {
-
+// spicy products
+function show_on_spicy_products($query){
+    if (is_product_category()) {
+        $is_spicy = $_COOKIE['is_spicy'];
+        $trimmed = trim($is_spicy, '\"');
+    }
+    if (is_product_category() && $query->is_main_query() && $query->query_vars['wc_query'] == 'product_query' &&  $trimmed == '1' ) {
+        $query->set('product_tag', 'spicy');
     }
 }
 
-//global $query_string;
-//query_posts( $query_string . '&order=ASC' );
+if (isset($_COOKIE['is_spicy'])) {
+    add_action('pre_get_posts', 'show_on_spicy_products');
+}
 
-
-function target_main_category_query_with_conditional_tags($query)
-{
+function target_main_category_query_with_conditional_tags($query) {
     if (!is_admin() && $query->is_main_query()) {
-
-        if (is_category()) {
+        if ( is_category() ) {
             $query->set('posts_per_page', 12);
         }
     }
 }
 
-
 remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
 add_action('woocommerce_checkout_after_customer_details', 'woocommerce_checkout_payment', 20);
 
 
-function custom_checkout_fields($array)
-{
+function custom_checkout_fields($array) {
     unset($array['billing']['billing_last_name']); // Фамилия
     unset($array['billing']['billing_email']); // Email
     unset($array['order']['order_comments']); // Примечание к заказу

@@ -1,0 +1,50 @@
+.thankyou {
+  padding: 29px 40px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #464646;
+  border: $border;
+  box-shadow: 25px 14px 55px 18px rgba(41, 41, 41, 0.12);
+  border-radius: 5px;
+  max-width: 628px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  &__title {
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 44px;
+    letter-spacing: 0.01em;
+    text-align: center;
+    margin: 49px 0 12px;
+  }
+
+  &__number {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    margin-bottom: 32px;
+  }
+
+  &__notice {
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+  }
+}

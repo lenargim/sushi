@@ -128,12 +128,17 @@ $('main.main').mouseup(function (e) { // событие клика по веб-�
 });
 
 
-// sale
+// sale and spicy filters
 if ( Cookie.get( 'on_sale' ) == '1' ) {
-console.log('true')
   $('#sale-filter').prop('checked', true)
 } else {
   $('#sale-filter').prop('checked', false)
+}
+
+if ( Cookie.get( 'is_spicy' ) == '1' ) {
+  $('#spicy-filter').prop('checked', true)
+} else {
+  $('#spicy-filter').prop('checked', false)
 }
 
 
@@ -142,6 +147,15 @@ $('#sale-filter').change( function(){
      Cookie.set('on_sale','1' );
   } else {
   Cookie.set('on_sale','0' );
+  }
+location.reload();
+});
+
+$('#spicy-filter').change( function(){
+  if ( $(this).is(':checked') ) {
+     Cookie.set('is_spicy','1' );
+  } else {
+  Cookie.set('is_spicy','0' );
   }
 location.reload();
 });
@@ -162,14 +176,38 @@ $('.product__img').on('click', function(){
 })
 
 $('.overlay').mouseup(function (e) { // событие клика по веб-документу
-  let gallery = $('.gallery.active'); // тут указываем элемент
-  let id = gallery.attr('data-id')
-  if (!gallery.is(e.target) // если клик был не по нашему блоку
-    && gallery.has(e.target).length === 0) { // и не по его дочерним элементам
-    gallery.find('.gallery__images').slick('unslick')
-    gallery.removeClass('active')
-    gallery.prependTo(`.product.post-${id}`);
+  let modal = $('.modal.active'); // тут указываем элемент
+  let id = modal.attr('data-id')
+  if (!modal.is(e.target) // если клик был не по нашему блоку
+    && modal.has(e.target).length === 0) { // и не по его дочерним элементам
+    modal.find('.gallery__images').slick('unslick')
+    modal.removeClass('active')
+    modal.prependTo(`.product.post-${id}`);
     $('.overlay').removeClass('active')
     $('.overlay').html('')
   }
 });
+
+$('.header__search-svg').on('click', function(){
+  let parent = $(this).parents('.header__account-block')
+  parent.children('.icon').hide()
+  parent.siblings('.header__socials').hide()
+  parent.children('.header__search').addClass('active')
+})
+
+$('.header__search-close').on('click', function(){
+  let parent = $(this).parents('.header__account-block')
+  parent.children('.icon').show()
+  parent.siblings('.header__socials').show()
+  parent.children('.header__search').removeClass('active')
+})
+
+$('.product a:contains("Острое")').addClass('spicy')
+$('.product a:contains("Акция")').addClass('stock')
+$('.product a:contains("Запеченный")').addClass('baked')
+
+$('.close').on('click', function(){
+  $(this).parent().hide()
+  $(this).parent().removeClass('active')
+  $('.overlay').removeClass('active')
+})
