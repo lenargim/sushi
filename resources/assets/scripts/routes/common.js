@@ -177,6 +177,9 @@ $('.product__img').on('click', function(){
 
 $('.overlay').mouseup(function (e) { // событие клика по веб-документу
   let modal = $('.modal.active'); // тут указываем элемент
+  if( modal.hasClass('thankyou') ) {
+         window.location = '/';
+      }
   let id = modal.attr('data-id')
   if (!modal.is(e.target) // если клик был не по нашему блоку
     && modal.has(e.target).length === 0) { // и не по его дочерним элементам
@@ -210,4 +213,7 @@ $('.close').on('click', function(){
   $(this).parent().hide()
   $(this).parent().removeClass('active')
   $('.overlay').removeClass('active')
+  if( $(this).parent().hasClass('thankyou') ) {
+     window.location = '/';
+  }
 })

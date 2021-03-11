@@ -87,6 +87,7 @@ the readme will list any important changes.
                 wc_get_template_part('content', 'product');
               @endphp
             @endwhile
+              @php the_posts_pagination() @endphp
           @endif
           @php
             woocommerce_product_loop_end();
@@ -94,7 +95,6 @@ the readme will list any important changes.
           @endphp
           @else
             @php do_action('woocommerce_no_products_found'); @endphp
-            @php the_posts_pagination() @endphp
           @endif
         </div>
       </div>

@@ -10,7 +10,6 @@
           <div class="alert alert-warning">
             {{ __('Извините, результатов не найдено', 'sage') }}
           </div>
-          {!! get_search_form(false) !!}
         @endif
         {!! get_search_form(false) !!}
         <ul class="products columns-4">

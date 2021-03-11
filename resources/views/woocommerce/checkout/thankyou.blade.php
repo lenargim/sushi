@@ -20,9 +20,9 @@ defined('ABSPATH') || exit;
 
 <div class="woocommerce-order">
 
+
   <?php
   if ( $order ) :
-
   do_action('woocommerce_before_thankyou', $order->get_id());
   ?>
 
@@ -54,9 +54,5 @@ defined('ABSPATH') || exit;
   </div>
   <?php endif; ?>
   <?php do_action('woocommerce_thankyou_' . $order->get_payment_method(), $order->get_id()); ?>
-  <?php else : ?>
-  <p class="woocommerce-notice woocommerce-notice--success woocommerce-thankyou-order-received">
-    <?php echo apply_filters('woocommerce_thankyou_order_received_text', esc_html__('Thank you. Your order has been received.', 'woocommerce'), null); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-  </p>
   <?php endif; ?>
 </div>
