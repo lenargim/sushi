@@ -91,9 +91,51 @@ Container::getInstance()
         ]);
     }, true);
 
+function remove_menus() {
+    global $menu;
+    $restricted = array(
+        __('Appearance'),
+        __('Tools')
+    );
+    end ($menu);
+    while (prev($menu)){
+        $value = explode(' ', $menu[key($menu)][0]);
+        if( in_array( ($value[0] != NULL ? $value[0] : "") , $restricted ) ){
+            unset($menu[key($menu)]);
+        }
+    }
+}
+
+add_action('admin_menu', 'remove_menus');
 
 require_once(get_theme_file_path() . '/app/enable-svg.php');
 
 require_once(get_theme_file_path() . '/app/custom-post-type.php');
 
 require_once(get_theme_file_path() . '/app/woocommerce.php');
+
+if( ! current_user_can( 'edit_users' ) ){
+    add_filter( 'auto_update_core', '__return_false' );   // обновление ядра
+
+    add_filter( 'pre_site_transient_update_core', '__return_null' );
+}
+
+function login_redirect(){
+    if( strpos($_SERVER['REQUEST_URI'], 'login')!==false )
+        $loc = '/wp/wp-login.php';
+    elseif( strpos($_SERVER['REQUEST_URI'], 'admin')!==false )
+        $loc = '/wp/wp-admin/';
+}
+
+add_action('template_redirect', 'login_redirect');
+
+
+//add_filter( 'intermediate_image_sizes_advanced', 'prefix_remove_default_images' );
+//// This will remove the default image sizes and the medium_large size.
+//function prefix_remove_default_images( $sizes ) {
+//    unset( $sizes['small']); // 150px
+//    unset( $sizes['medium']); // 300px
+//    unset( $sizes['large']); // 1024px
+//    unset( $sizes['medium_large']); // 768px
+//    return $sizes;
+//}
