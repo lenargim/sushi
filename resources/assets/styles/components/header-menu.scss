@@ -2,12 +2,31 @@
   border-bottom: $border;
   background-color: #fff;
   transition: all 0.3s ease;
+  position: relative;
 
   &__wrap {
     height: 85px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
+
+    @media screen and (min-width: 1023px) and (max-width: 1800px) {
+      height: 50px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      height: 37px;
+      overflow-y: scroll;
+      margin: 0 -15px;
+      padding: 0 15px;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+      visibility: hidden;
+    }
   }
 
   &__list {
@@ -18,19 +37,49 @@
     padding-right: 46px;
     border-right: $border;
     height: inherit;
+
+    @media screen and (min-width: 1230px) and (max-width: 1799px) {
+      padding-right: 20px;
+    }
+
+    @media screen and (min-width: 1024px) and (max-width: 1230px) {
+      padding-right: 10px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding-right: 0;
+      border: unset;
+    }
   }
 
   .menu-item {
+    @media screen and (max-width: 1023px) {
+      padding-right: 16px;
+    }
+
     a {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       font-weight: 600;
       font-size: 24px;
-      line-height: 29px;
+      line-height: 120%;
       letter-spacing: 0.01em;
       color: $colorIcon;
       position: relative;
+      white-space: nowrap;
+
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        font-size: 20px;
+      }
+
+      @media screen and (min-width: 1024px) and (max-width: 1230px) {
+        font-size: 18px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        font-size: 14px;
+      }
 
       &:hover {
         color: $colorMain;
@@ -42,12 +91,29 @@
         height: 37px;
         margin-right: 16px;
         display: block;
+        transform-origin: left;
+
+        @media screen and (min-width: 1230px) and (max-width: 1799px) {
+          transform: scale(0.8);
+          margin-right: 10px;
+        }
+
+        @media screen and (max-width: 1230px) {
+          transform: scale(0.6);
+          margin-right: 0;
+        }
       }
     }
 
     &.current-menu-item {
       a {
         color: $colorMain;
+      }
+    }
+
+    @media screen and (max-width: 1799px) {
+      &:last-of-type {
+        display: none;
       }
     }
   }
@@ -70,6 +136,16 @@
   @include backgroundMenuHover("more");
 
   &__cart {
+    &-svg {
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        transform: scale(0.8);
+      }
+
+      @media screen and (max-width: 1230px) {
+        transform: scale(0.6);
+      }
+    }
+
     &-wrap {
       margin-left: auto;
       padding-left: 32px;
@@ -77,6 +153,19 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
+
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        padding-left: 20px;
+      }
+
+      @media screen and (max-width: 1230px) {
+        padding-left: 10px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        padding: 0;
+        margin: 0;
+      }
 
       &:hover .menu__cart-svg path {
         fill: $colorMain;
@@ -99,6 +188,29 @@
       text-align: center;
       left: 52px;
       bottom: -5px;
+
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        left: 40px;
+      }
+
+      @media screen and (min-width: 1024px) and (max-width: 1230px) {
+        left: 32px;
+        bottom: -2px;
+        width: 20px;
+        height: 20px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        bottom: 2px;
+        left: 22px;
+        width: 20px;
+        height: 20px;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 12px;
+        text-align: center;
+        color: #fff;
+      }
     }
 
     &-total {
@@ -110,6 +222,18 @@
       line-height: 120%;
       color: $colorIcon;
       min-width: 100px;
+
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        font-size: 20px;
+      }
+
+      @media screen and (max-width: 1230px) {
+        font-size: 18px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        display: none;
+      }
     }
   }
 
@@ -118,7 +242,7 @@
     left: 0;
     top: -100px;
     right: 0;
-    z-index: 9;
+    z-index: 6;
     transform: translateY(100px);
   }
 
@@ -131,3 +255,4 @@
   @include detailedMenuHover("stock");
 }
 
+@import "components/mobile";

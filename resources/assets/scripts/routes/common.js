@@ -62,6 +62,9 @@ $(window).scroll(function() {
    // sticky menu
     if( scrollHeight > windowHeight/2 ) {
       $('.menu').hasClass('fixed') ? true :  $('.menu').addClass('fixed')
+      $('.menu__mobile').removeClass('active')
+      $('.header__mobile').removeClass('active')
+      $('.menu__mobile').html('')
     } else {
       $('.menu').removeClass('fixed')
     }
@@ -213,7 +216,45 @@ $('.close').on('click', function(){
   $(this).parent().hide()
   $(this).parent().removeClass('active')
   $('.overlay').removeClass('active')
+
   if( $(this).parent().hasClass('thankyou') ) {
      window.location = '/';
   }
+
+  if( $(this).parent().hasClass('gallery') ) {
+    let modal = $('.modal.active');
+    let id = modal.attr('data-id');
+    modal.find('.gallery__images').slick('unslick')
+    modal.removeClass('active');
+    modal.prependTo(`.product.post-${id}`);
+    $('.overlay').removeClass('active');
+    $('.overlay').html('');
+    }
 })
+
+$('.header__mobile').on('click', function(){
+  if ( $(this).hasClass('active') ) {
+    $(this).removeClass('active')
+    $('.menu__mobile').html('')
+    $('.menu__mobile').removeClass('active')
+  } else {
+  $(this).addClass('active')
+  $('.menu__mobile').addClass('active')
+    $('.nav-primary').clone().appendTo('.menu__mobile').show()
+    $('.header__search-form').clone().appendTo('.menu__mobile').show()
+    $('.header__socials').clone().appendTo('.menu__mobile').show()
+    $('.header__info').clone().appendTo('.menu__mobile').show()
+  }
+})
+
+function cartReplace() {
+  if( $(window).width() < 1023) {
+    $('.menu__cart-wrap').appendTo('.header__account-block')
+  } else {
+    $('.menu__cart-wrap').appendTo('.menu__wrap')
+  }
+}
+
+$( window ).resize(function() {
+ cartReplace()
+});

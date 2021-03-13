@@ -44,7 +44,7 @@ the readme will list any important changes.
       </div>
       <div class="interaction">
         <div class="ordering">
-          <span>Сортировка по:</span>
+          <span class="ordering__title">Сортировка по:</span>
           <div class="select">
             <label><span>Популярности</span> @include('icon::order-arrow', ['class' => 'arrow'])</label>
             <div class="option__wrap">
@@ -87,7 +87,7 @@ the readme will list any important changes.
                 wc_get_template_part('content', 'product');
               @endphp
             @endwhile
-              @php the_posts_pagination() @endphp
+{{--              @php the_posts_pagination() @endphp--}}
           @endif
           @php
             woocommerce_product_loop_end();

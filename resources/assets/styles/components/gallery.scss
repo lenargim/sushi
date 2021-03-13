@@ -3,7 +3,7 @@
   top: 10%;
   left: 50%;
   width: 870px;
-  height: 793px;
+  height: auto;
   background-color: #fff;
   z-index: -1;
   padding: 40px 0;
@@ -13,17 +13,69 @@
   box-shadow: 25px 14px 55px 18px rgba(41, 41, 41, 0.12);
   border-radius: 5px;
 
+  @media screen and (min-width: 1230px) and (max-width: 1800px) {
+    top: 5%;
+    padding: 20px 0 65px;
+    width: 30%;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1230px) {
+    top: 10%;
+    padding: 20px 0 65px;
+    width: 70%;
+  }
+
+  @media screen and (max-width: 767px) {
+    top: 5%;
+    width: calc(100% - 30px);
+    padding: 13px 0 65px;
+  }
+
+  &__close {
+    position: absolute;
+    cursor: pointer;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+
+    @media screen and (max-width: 1800px) {
+      top: 4px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+    }
+
+    @media screen and (max-width: 767px) {
+      width: 10px;
+      height: 10px;
+      top: 4px;
+      right: 4px;
+    }
+  }
+
   &.active {
     display: block;
-    z-index: 7;
+    z-index: 10;
   }
 
   &__images {
+    .slick-list {
+      margin: 0;
+    }
+
     .slick-track {
       margin: 0;
 
       .slick-slide {
         padding: 0 40px;
+
+        @media screen and (min-width: 1230px) and (max-width: 1800px) {
+          padding: 0 20px;
+        }
+
+        @media screen and (max-width: 1230px) {
+          padding: 0 13px;
+        }
       }
     }
   }
@@ -31,7 +83,25 @@
   &__image {
     border-radius: 5px;
     overflow: hidden;
+    max-width: 790px;
     max-height: 429px;
+
+    @media screen and (min-width: 1230px) and (max-width: 1800px) {
+      width: 40%;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1230px) {
+      width: 70%;
+    }
+
+    @media screen and (max-width: 767px) {
+      width: calc(100% - 30px);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .slick-dots {
@@ -39,6 +109,10 @@
     align-items: center;
     justify-content: center;
     margin: 24px auto 0;
+
+    @media screen and (max-width: 1800px) {
+      margin: 10px auto 0;
+    }
 
     button {
       display: block;
@@ -50,6 +124,20 @@
       border: 0;
       border-radius: 50%;
       cursor: pointer;
+      padding: 0;
+      line-height: 0;
+
+      @media screen and (min-width: 1230px) and (max-width: 1800px) {
+        margin: 0 8px;
+        width: 15px;
+        height: 15px;
+      }
+
+      @media screen and (max-width: 767px) {
+        width: 7px;
+        height: 7px;
+        margin: 0 4px;
+      }
     }
 
     .slick-active button {
@@ -63,10 +151,23 @@
     margin-top: 24px;
     font-weight: 300;
     font-size: 24px;
-    line-height: 28px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     color: #464646;
     position: relative;
+
+    @media screen and (max-width: 1800px) {
+      margin: 0;
+      padding: 0 20px 20px;
+      border-top: none;
+      border-bottom: $border;
+      font-size: 18px;
+    }
+
+    @media screen and (max-width: 767px) {
+      padding: 0 13px;
+      font-size: 12px;
+    }
 
     .add_to_cart_button {
       width: 91px;
@@ -75,6 +176,15 @@
       border-radius: 50%;
       align-items: center;
       justify-content: center;
+
+      @media screen and (max-width: 1800px) {
+        width: 45px;
+        height: 45px;
+
+        svg {
+          transform: scale(0.6);
+        }
+      }
     }
 
     .product__amount {
@@ -82,19 +192,36 @@
       border: $border;
       padding: 14px 27px;
       border-radius: 5px;
+
+      @media screen and (max-width: 1800px) {
+        padding: 5px 10px;
+        border: none;
+      }
     }
 
     .product__button {
       background-color: transparent;
       font-weight: 600;
       font-size: 36px;
-      line-height: 43px;
+      line-height: 1.2;
       display: flex;
       align-items: center;
       letter-spacing: 0.01em;
       color: #bdbdbd;
       cursor: pointer;
       border: none;
+
+      @media screen and (min-width: 1230px) and (max-width: 1800px) {
+        font-size: 26px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1230px) {
+        font-size: 22px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
     }
 
     .product__quantity {
@@ -103,52 +230,111 @@
       margin: 0;
       font-weight: 600;
       font-size: 36px;
-      line-height: 43px;
+      line-height: 1.2;
       display: flex;
       align-items: center;
       text-align: center;
       letter-spacing: 0.01em;
       color: $colorMain;
       border: none;
+
+      @media screen and (min-width: 1230px) and (max-width: 1800px) {
+        font-size: 26px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1230px) {
+        font-size: 22px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
     }
 
     .product__function {
       right: 44px;
       bottom: 92px;
+
+      @media screen and (max-width: 1800px) {
+        right: 50%;
+        bottom: -55px;
+        transform: translateX(50%);
+      }
     }
   }
 
   &__name {
     font-weight: 800;
     font-size: 36px;
-    line-height: 44px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     color: #464646;
     padding: 24px 0 16px;
+
+    @media screen and (min-width: 768px) and (max-width: 1800px) {
+      padding: 10px 0 10px;
+      font-size: 22px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 20px;
+      padding: 8px 0;
+    }
   }
 
   &__attr,
   &__short-desc {
     display: block;
     margin-bottom: 16px;
+
+    @media screen and (max-width: 1800px) {
+      margin-bottom: 5px;
+    }
+
+    @media screen and (max-width: 767px) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   &__main-price {
     font-weight: 800;
     font-size: 36px;
-    line-height: 44px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     color: $colorMain;
     margin-right: 24px;
+
+    @media screen and (min-width: 768px) and (max-width: 1800px) {
+      font-size: 22px;
+      margin-right: 10px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+    }
   }
 
   &__old-price {
     font-weight: 500;
     font-size: 24px;
-    line-height: 28px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     text-decoration-line: line-through;
     color: #bdbdbd;
+
+    @media screen and (min-width: 768px) and (max-width: 1800px) {
+      font-size: 16px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -158,9 +344,10 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 6;
+  z-index: 9;
   background-color: rgba(37, 37, 37, 0.56);
   display: none;
+  overflow-y: auto;
 
   &.active {
     display: block;

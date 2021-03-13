@@ -18,6 +18,7 @@ if (empty($product) || !$product->is_visible()) {
     $attachment_ids = $product->get_gallery_image_ids();
   @endphp
   <div class="gallery modal" data-id="@php echo $post_ids @endphp">
+    @include('icon::search-close', ['class' => 'close gallery__close'])
     <div class="gallery__images">
       <div class="gallery__image">
         @php echo get_the_post_thumbnail( $post_ids, 'shop_single' ); @endphp

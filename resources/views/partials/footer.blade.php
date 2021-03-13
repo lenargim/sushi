@@ -4,7 +4,7 @@
       <a class="footer__logo" href="{{ home_url('/') }}"><img src="@asset('images/logo.png')" alt="logo"></a>
       {{ wp_nav_menu(['menu' => 'Footer', 'menu_class' => 'footer__list', 'container' => false]) }}
       <div class="footer__info">
-        <a class="header__phone" href="tel:@php the_field('phone',8) @endphp">@php the_field('phone',8) @endphp</a>
+        <a class="footer__phone" href="tel:@php the_field('phone',8) @endphp">@php the_field('phone',8) @endphp</a>
         <span class="footer__work-hours">@php the_field('working-hours',8) @endphp</span>
         <div class="footer__address">
           @if(have_rows('addresses', 8))

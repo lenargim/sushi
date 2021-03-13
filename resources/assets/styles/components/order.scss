@@ -6,6 +6,16 @@
   width: fit-content;
   margin-right: 290px;
 
+  @media screen and (max-width: 500px) {
+    margin-right: 0;
+  }
+
+  &__title {
+    @media screen and (max-width: 1023px) {
+      margin-bottom: 19px;
+    }
+  }
+
   a.option {
     font-size: 24px;
     line-height: 28px;
@@ -15,6 +25,10 @@
     align-items: center;
     justify-content: flex-start;
     padding: 12px 24px;
+
+    @media screen and (max-width: 500px) {
+      padding: 5px 10px;
+    }
 
     &:hover {
       background-color: rgba(255, 101, 29, 0.3);
@@ -47,6 +61,12 @@
     transition: all 0.3s ease;
     display: block;
 
+    @media screen and (max-width: 500px) {
+      top: -6px;
+      left: calc(100% + 2px);
+      height: 2em;
+    }
+
     &.active {
       top: -16px;
       left: calc(100% + 15px);
@@ -55,24 +75,43 @@
       box-shadow: 25px 14px 55px 18px rgba(41, 41, 41, 0.12);
       height: 214px;
       z-index: 8;
+
+      @media screen and (max-width: 500px) {
+        top: -6px;
+        left: calc(100% + 2px);
+        height: 110px;
+      }
     }
   }
 
   span {
     font-weight: 600;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     color: #828282;
     display: inline-block;
+    white-space: nowrap;
+
+    @media screen and (max-width: 500px) {
+      font-size: 14px;
+    }
   }
 
   .arrow {
     fill: #4b4b4b;
     margin-left: 12px;
 
+    @media screen and (max-width: 500px) {
+      transform: scale(0.7);
+    }
+
     &.rotate {
       transform: rotate(180deg);
+
+      @media screen and (max-width: 500px) {
+        transform: scale(0.7) rotate(180deg);
+      }
     }
   }
 
@@ -85,13 +124,21 @@
     user-select: none;
     padding: 16px 24px 12px;
 
+    @media screen and (max-width: 500px) {
+      padding: 5px 10px;
+    }
+
     span {
       font-weight: 600;
       font-size: 24px;
-      line-height: 29px;
+      line-height: 1.2;
       letter-spacing: 0.01em;
       color: $colorMain;
       border-bottom: 1px dashed $colorMain;
+
+      @media screen and (max-width: 500px) {
+        font-size: 14px;
+      }
     }
 
     .arrow {
@@ -105,18 +152,30 @@
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .filters {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
 
   &__item {
     display: flex;
     align-items: center;
     justify-content: flex-start;
     margin-right: 40px;
+    white-space: nowrap;
+
+    @media screen and (max-width: 767px) {
+      margin-right: 20px;
+      margin-bottom: 1em;
+    }
 
     &:last-of-type {
       margin-right: 0;
@@ -129,10 +188,14 @@
     justify-content: center;
     font-weight: 600;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     color: #828282;
     position: relative;
+
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
 
     &::before {
       content: "";
@@ -154,11 +217,18 @@
       left: 1.5px;
       top: 0;
       display: none;
+
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+        left: 3px;
+        top: -3px;
+      }
     }
   }
 
   input {
     visibility: hidden;
+    position: absolute;
 
     &:checked + label::after {
       display: block;

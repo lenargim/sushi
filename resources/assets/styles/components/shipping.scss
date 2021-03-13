@@ -1,13 +1,24 @@
 .shipping {
   padding: 60px 0 80px;
 
+  @media screen and (max-width: 1023px) {
+    padding: 24px 0 75px;
+  }
+
   &__wrap {
     background: rgba(229, 232, 239, 1);
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 48px 6%;
+
+    @media screen and (max-width: 1230px) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 24px 6%;
+    }
   }
 
   &__item {
@@ -15,30 +26,79 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
+    @media screen and (max-width: 1230px) {
+      margin-bottom: 36px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
   }
 
   &__logo {
     width: 98px;
     height: 98px;
     margin-bottom: 43px;
+
+    @media screen and (min-width: 1230px) and (max-width: 1800px) {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 8px;
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 8px;
+    }
   }
 
   &__price {
     font-weight: 800;
     font-size: 36px;
-    line-height: 44px;
+    line-height: 1.2;
     text-align: center;
     letter-spacing: 0.01em;
     color: $colorMain;
     margin-bottom: 17px;
+    white-space: nowrap;
+
+    @media screen and (min-width: 1230px) and (max-width: 1800px) {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
   }
 
   &__info {
     font-weight: 500;
     font-size: 32px;
-    line-height: 38px;
+    line-height: 1.2;
     text-align: center;
     letter-spacing: 0.01em;
     color: #4f4f4f;
+
+    @media screen and (min-width: 1230px) and (max-width: 1800px) {
+      font-size: 25px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
   }
 }

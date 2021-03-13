@@ -21,12 +21,15 @@
       </div>
       <div class="header__account-block">
         @include('icon::account', ['class' => 'icon'])
-        @include('icon::wishlist', ['class' => 'icon'])
+        @include('icon::wishlist', ['class' => 'icon wishlist'])
         <div class="header__search">
           @include('icon::search', ['class' => 'icon header__search-svg'])
           @include('searchform')
-{{--          @php echo do_shortcode('[wcas-search-form]') @endphp--}}
           @include('icon::search-close', ['class' => 'icon header__search-close'])
+        </div>
+        <div class="header__mobile">
+          @include('icon::more', ['class' => 'header__more'])
+          @include('icon::search-close', ['class' => 'header__more-close hidden'])
         </div>
       </div>
     </div>
@@ -44,4 +47,5 @@
       </a>
     </div>
   </div>
+  <div class="menu__mobile"></div>
 </div>
