@@ -1,9 +1,13 @@
 .policy-page {
   font-weight: normal;
   font-size: 24px;
-  line-height: 120%;
+  line-height: 1.2;
   color: $colorIcon;
   padding-bottom: 10vh;
+
+  @media screen and (max-width: 1023px) {
+    font-size: 18px;
+  }
 
   p {
     padding-bottom: 1em;

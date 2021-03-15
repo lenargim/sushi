@@ -33,7 +33,7 @@ global $product;
 <div class="product__function">
 <div class="product__amount" data-id="@php echo $id @endphp">
   <button class="product__button minus">-</button>
-  <input class="product__quantity" readonly="readonly" value="@php echo $productQuantity @endphp">
+  <input type="number" min="0" max="99" step="1" class="product__quantity" readonly="readonly" value="@php echo $productQuantity @endphp">
   <button class="product__button plus">+</button>
 </div>
 @php

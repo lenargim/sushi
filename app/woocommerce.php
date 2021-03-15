@@ -145,28 +145,6 @@ add_filter("woocommerce_catalog_orderby", "my_woocommerce_catalog_orderby", 20);
 // Убрать сортировку товаров
 remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 
-function misha_default_catalog_orderby($sort_by)
-{
-    if (is_product_category() && isset($_COOKIE['ordering'])) {
-        $case = $_COOKIE['ordering'];
-        $trimmed = trim($case, '\"');
-        switch ($trimmed) {
-            case 'price-desc':
-                return 'price-desc';
-            case 'price':
-                return 'price';
-            case 'popularity_asc':
-                return 'rand';
-            default:
-                return 'popularity_desc';
-        }
-    } else {
-        return 'popularity_desc';
-    }
-}
-
-add_filter('woocommerce_default_catalog_orderby', 'misha_default_catalog_orderby');
-
 // sale products
 function show_on_sale_products($query)
 {
