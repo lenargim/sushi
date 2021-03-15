@@ -16,6 +16,12 @@
   z-index: 1;
   display: none;
 
+  @media screen and (max-width: 1023px) {
+    max-width: calc(100% - 30px);
+    padding: 24px 14px;
+    width: 100%;
+  }
+
   &.active {
     display: flex;
   }
@@ -23,26 +29,40 @@
   &__title {
     font-weight: 800;
     font-size: 36px;
-    line-height: 44px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     text-align: center;
     margin: 49px 0 12px;
+
+    @media screen and (max-width: 1023px) {
+      font-size: 24px;
+      margin: 24px 0;
+    }
   }
 
   &__number {
     font-weight: bold;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 1.2;
     text-align: center;
     letter-spacing: 0.01em;
     margin-bottom: 32px;
+
+    @media screen and (max-width: 1023px) {
+      margin-bottom: 24px;
+      font-size: 18px;
+    }
   }
 
   &__notice {
     font-size: 24px;
-    line-height: 28px;
+    line-height: 1.2;
     text-align: center;
     letter-spacing: 0.01em;
+
+    @media screen and (max-width: 1023px) {
+      font-size: 18px;
+    }
   }
 
   &__close {
@@ -50,5 +70,11 @@
     top: 12px;
     right: 12px;
     cursor: pointer;
+
+    @media screen and (max-width: 1023px) {
+      top: 4px;
+      right: 4px;
+      transform: scale(0.6);
+    }
   }
 }

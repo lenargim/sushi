@@ -21,20 +21,19 @@ if (!defined('ABSPATH')) {
 
 global $product;
 ?>
-
 @php
-  $targeted_id = $product->get_id();
+  $id = $product->get_id();
   $quantitiesArray = WC()->cart->get_cart_item_quantities();
-  if ( isset($quantitiesArray[$targeted_id]) ) {
-    $quantity = $quantitiesArray[$targeted_id];
+  if ( isset($quantitiesArray[$id]) ) {
+    $productQuantity = $quantitiesArray[$id];
   } else {
-    $quantity = 0;
+    $productQuantity = 0;
   }
 @endphp
-<div class="product__function" data-amount="@php echo $quantity @endphp">
-<div class="product__amount" data-id="@php echo $targeted_id @endphp">
+<div class="product__function">
+<div class="product__amount" data-id="@php echo $id @endphp">
   <button class="product__button minus">-</button>
-  <input class="product__quantity" readonly="readonly" value="@php echo $quantity @endphp">
+  <input class="product__quantity" readonly="readonly" value="@php echo $productQuantity @endphp">
   <button class="product__button plus">+</button>
 </div>
 @php

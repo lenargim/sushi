@@ -40,8 +40,7 @@ defined('ABSPATH') || exit;
     <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
       <?php do_action('woocommerce_before_cart_table'); ?>
 
-      <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
-        <tbody>
+      <div class="shop_table shop_table_responsive cart woocommerce-cart-form__contents" cellspacing="0">
         <?php do_action('woocommerce_before_cart_contents'); ?>
         <?php
         $discount_total = 0;
@@ -59,26 +58,17 @@ defined('ABSPATH') || exit;
         }
         ?>
 
-        <tr
-          class="woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
-          <td class="product-thumbnail">
+        <div
+          class="row woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
+          <div class="product-thumbnail">
             <?php
             $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
-            if (!$product_permalink) {
-              echo $thumbnail; // PHPCS: XSS ok.
-            } else {
-              printf('<a href="%s">%s</a>', esc_url($product_permalink), $thumbnail); // PHPCS: XSS ok.
-            }
             ?>
-          </td>
-          <td class="product-name" data-title="<?php esc_attr_e('Product', 'woocommerce'); ?>">
+            <div class="product-image img">@php echo $thumbnail @endphp</div>
+          </div>
+          <div class="product-name" data-title="<?php esc_attr_e('Product', 'woocommerce'); ?>">
+            <div class="name">@php echo $_product->get_name() @endphp</div>
             <?php
-            if (!$product_permalink) {
-              echo wp_kses_post(apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key) . '&nbsp;');
-            } else {
-              echo wp_kses_post(apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s">%s</a>', esc_url($product_permalink), $_product->get_name()), $cart_item, $cart_item_key));
-            }
-
             do_action('woocommerce_after_cart_item_name', $cart_item, $cart_item_key);
             ?>
 
@@ -89,8 +79,8 @@ defined('ABSPATH') || exit;
               </div>
             @endif
             @if ($_product->get_short_description() )
-              <div>
-                @php echo $_product->get_short_description() @endphp
+              <div class="content">
+                @php echo wc_short_description($_product,150) @endphp
               </div>
             @endif
             <?php
@@ -102,21 +92,20 @@ defined('ABSPATH') || exit;
               echo wp_kses_post(apply_filters('woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>', $product_id));
             }
             ?>
-          </td>
-          <td class="product-price" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
+          </div>
+          <div class="product-price" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
             <div class="product-price__wrap">
               <?php
               echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); // PHPCS: XSS ok.
               ?>
             </div>
-          </td>
-          <td class="product-quantity" data-title="<?php esc_attr_e('Quantity', 'woocommerce'); ?>">
+          </div>
+          <div class="product-quantity" data-title="<?php esc_attr_e('Quantity', 'woocommerce'); ?>">
             <?php
             if ($_product->is_sold_individually()) {
               $product_quantity = sprintf('1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key);
             } else {
               ?>
-
               <?php
               $product_quantity = woocommerce_quantity_input(
                 array(
@@ -134,33 +123,43 @@ defined('ABSPATH') || exit;
             <?php
             echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item); // PHPCS: XSS ok.
             ?>
-          </td>
-          <td class="product-remove">
+          </div>
+          <div class="product-remove">
             <a href="@php echo wc_get_cart_remove_url($cart_item_key) @endphp" class="remove"
                aria-label="Удалить товар"
                data-product_id="@php echo $product_id @endphp"
                data-product_sku="@php echo $_product->get_sku() @endphp">
               @include('icon::trash', ['class' =>'trash'])
             </a>
-          </td>
-        </tr>
+          </div>
+        </div>
         <?php
         }
         }
         ?>
         <?php do_action('woocommerce_cart_contents'); ?>
+          <tr>
+            <td colspan="6" class="actions">
+
+              <button type="submit" class="button reload-button" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
+
+              <?php do_action( 'woocommerce_cart_actions' ); ?>
+
+              <?php wp_nonce_field( 'woocommerce-cart', 'woocommerce-cart-nonce' ); ?>
+            </td>
+          </tr>
         <?php do_action('woocommerce_after_cart_contents'); ?>
         </tbody>
-      </table>
+      </div>
       <?php do_action('woocommerce_after_cart_table'); ?>
     </form>
     <div class="cart__info">
       <div>
-        <div class="row">
+        <div class="cart__info-row">
           <span>Скидка:</span>
           <span>@php echo $discount_total . " ₽" @endphp</span>
         </div>
-        <div class="row">
+        <div class="cart__info-row">
           <span>Итого:</span>
           <span> @php wc_cart_totals_order_total_html() @endphp</span>
         </div>

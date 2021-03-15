@@ -48,9 +48,9 @@ the readme will list any important changes.
           <div class="select">
             <label><span>Популярности</span> @include('icon::order-arrow', ['class' => 'arrow'])</label>
             <div class="option__wrap">
-              <a href="?orderby=popularity_asc" data-hash="popularity_asc"
-                 class="option active"><span>Популярности</span> @include('icon::order-arrow', ['class' => 'arrow'])</a>
               <a href="?orderby=popularity_desc" data-hash="popularity_desc"
+                 class="option active"><span>Популярности</span> @include('icon::order-arrow', ['class' => 'arrow'])</a>
+              <a href="?orderby=popularity_asc" data-hash="popularity_asc"
                  class="option"><span>Популярности</span> @include('icon::order-arrow', ['class' => 'arrow rotate'])</a>
               <a href="?orderby=price-desc" data-hash="price-desc"
                  class="option"><span>Цене</span> @include('icon::order-arrow', ['class' => 'arrow'])</a>
@@ -87,7 +87,6 @@ the readme will list any important changes.
                 wc_get_template_part('content', 'product');
               @endphp
             @endwhile
-{{--              @php the_posts_pagination() @endphp--}}
           @endif
           @php
             woocommerce_product_loop_end();

@@ -33,7 +33,7 @@ $label = !empty($args['product_name']) ? sprintf(esc_html__('%s quantity', 'wooc
   <input type="button" class="cart__quantity-button minus" value="-">
   <?php do_action('woocommerce_before_quantity_input_field'); ?>
   <input
-    readonly
+{{--    readonly--}}
     type="number"
     id="<?php echo esc_attr($input_id); ?>"
     class="cart__quantity-number <?php echo esc_attr(join(' ', (array)$classes)); ?>"

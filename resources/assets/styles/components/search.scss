@@ -11,6 +11,10 @@
 
   .search-form {
     margin-bottom: 41px;
+
+    @media screen and (max-width: 1023px) {
+      margin-bottom: 0;
+    }
   }
 
   .search-field {
@@ -23,6 +27,10 @@
     line-height: 28px;
     color: $colorIcon;
     padding: 24px;
+
+    @media screen and (max-width: 1023px) {
+      width: 100%;
+    }
   }
 
   .search-submit {

@@ -5,70 +5,125 @@
     white-space: nowrap;
   }
 
-  thead {
-    display: none;
-  }
-
-  td {
-    position: relative;
-    padding: 30px 4% 30px 0;
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 0;
     border-bottom: $border;
 
-    &:last-of-type {
-      padding-right: 0;
-      padding-left: 4.4%;
-    }
+    @media screen and (max-width: 1023px) {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      border-bottom: none;
+      align-items: flex-start;
+      padding: 24px 0;
 
-    &:nth-of-type(2)::after,
-    &:nth-of-type(3)::after,
-    &:nth-of-type(4)::after {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      content: "";
-      width: 1px;
-      height: 127px;
-      background-color: #dfdfdf;
+      &:last-of-type {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  .product-price,
+  .product-quantity,
+  .product-remove {
+    border-left: $border;
+    height: 127px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 1023px) {
+      height: auto;
+      border-left: none;
     }
   }
 
   .product-thumbnail {
-    width: 21%;
-    height: 214px;
     padding-right: 4%;
 
-    a {
-      display: block;
-      border-radius: 5px;
-      overflow: hidden;
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      padding-right: 2%;
     }
 
-    img {
-      width: 100%;
-      height: 100%;
+    @media screen and (max-width: 1023px) {
+      padding-right: 16px;
+      padding-bottom: 12px;
+      order: 1;
+    }
+  }
+
+  .product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 300px;
+
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      width: 13vw;
+    }
+
+    @media screen and (max-width: 1023px) {
+      width: 28vw;
     }
   }
 
   .product-name {
-    width: 33.3%;
     padding-right: 4%;
 
-    a {
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      padding-right: 2%;
+    }
+
+    @media screen and (max-width: 1023px) {
+      padding-right: 0;
+      width: 55vw;
+      order: 2;
+      padding-bottom: 12px;
+    }
+
+    .name {
       display: block;
       font-weight: 800;
       font-size: 36px;
-      line-height: 44px;
+      line-height: 1.2;
       letter-spacing: 0.01em;
       color: #464646;
       margin-bottom: 16px;
+
+      @media screen and (min-width: 1024px) and (max-width: 1799px) {
+        font-size: 22px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        font-size: 20px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 14px;
+      }
     }
 
-    div {
+    .content {
       font-size: 24px;
-      line-height: 28px;
+      line-height: 1.2;
       letter-spacing: 0.01em;
       color: #464646;
+
+      @media screen and (min-width: 1024px) and (max-width: 1799px) {
+        font-size: 18px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        font-size: 18px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 14px;
+      }
     }
 
     .product-attr {
@@ -78,31 +133,70 @@
   }
 
   .product-price {
-    padding-left: 4%;
+    padding: 0 4%;
+
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      padding: 15px 2%;
+    }
+
+    @media screen and (max-width: 1023px) {
+      order: 4;
+      padding: 0;
+      width: 55vw;
+    }
 
     &__wrap {
+      width: 180px;
       display: flex;
       flex-direction: row-reverse;
       justify-content: center;
       align-items: center;
+
+      @media screen and (max-width: 1023px) {
+        justify-content: flex-end;
+      }
     }
 
     bdi {
       font-weight: 800;
       font-size: 36px;
-      line-height: 44px;
+      line-height: 1.2;
       letter-spacing: 0.01em;
       color: $colorMain;
       margin-right: 24px;
+
+      @media screen and (min-width: 1024px) and (max-width: 1799px) {
+        font-size: 22px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        font-size: 20px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 14px;
+      }
     }
 
     del bdi {
       font-weight: 500;
       font-size: 24px;
-      line-height: 28px;
+      line-height: 1.2;
       letter-spacing: 0.01em;
       text-decoration-line: line-through;
       color: #bdbdbd;
+
+      @media screen and (min-width: 1024px) and (max-width: 1799px) {
+        font-size: 18px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        font-size: 18px;
+      }
+
+      @media screen and (max-width: 767px) {
+        font-size: 12px;
+      }
     }
 
     ins {
@@ -111,9 +205,19 @@
   }
 
   .product-quantity {
-    padding-left: 4%;
+    padding: 0 4%;
 
-    &__wrap {
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      padding-left: 2%;
+    }
+
+    @media screen and (max-width: 1023px) {
+      order: 3;
+      width: 28vw;
+      margin-right: 16px;
+    }
+
+    .wac-quantity {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -124,30 +228,76 @@
     opacity: 0.1;
   }
 
-  &__quantity {
-    &-button {
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 43px;
-      display: flex;
-      align-items: center;
-      letter-spacing: 0.01em;
-      color: #bdbdbd;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
+  & .wac-qty-button {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+    color: #bdbdbd;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      font-size: 22px;
     }
 
-    &-number {
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 43px;
-      text-align: center;
-      letter-spacing: 0.01em;
-      color: $colorMain;
-      border: none;
-      background-color: transparent;
-      width: 2em;
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: 18px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+    }
+  }
+
+  .screen-reader-text {
+    display: none;
+  }
+
+  .qty[type="number"] {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: $colorMain;
+    border: none;
+    background-color: transparent;
+    width: 2em;
+
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      font-size: 22px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+
+  .product-remove {
+    padding-left: 3%;
+
+    @media screen and (max-width: 1023px) {
+      order: 5;
+      width: 28vw;
+      padding-left: 0;
+    }
+  }
+
+  .trash {
+    @media screen and (min-width: 768px) and (max-width: 1799px) {
+      transform: scale(0.7);
+    }
+
+    @media screen and (max-width: 767px) {
+      transform: scale(0.65);
     }
   }
 
@@ -157,12 +307,34 @@
     justify-content: space-between;
     padding: 40px 0 120px;
     font-size: 36px;
-    line-height: 42px;
+    line-height: 1.2;
     letter-spacing: 0.01em;
     color: $colorIcon;
+    flex-wrap: wrap;
 
-    .row {
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      font-size: 22px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+      padding: 24px 0 36px;
+
+      & > div {
+        width: 100%;
+      }
+    }
+
+    &-row {
       padding-bottom: 16px;
+
+      @media screen and (max-width: 767px) {
+        width: 100%;
+      }
     }
 
     .amount {
@@ -177,15 +349,35 @@
       border-radius: 55px;
       font-weight: 600;
       font-size: 24px;
-      line-height: 29px;
+      line-height: 1.2;
       display: inline-block;
       padding: 14px 90px;
       white-space: nowrap;
       transition: all 0.3s ease;
 
+      @media screen and (min-width: 1024px) and (max-width: 1799px) {
+        font-size: 22px;
+        padding: 10px 60px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1023px) {
+        font-size: 20px;
+        padding: 10px 40px;
+      }
+
+      @media screen and (max-width: 767px) {
+        padding: 13px 47px;
+        font-size: 14px;
+        margin: 24px auto 0;
+      }
+
       &:hover {
         box-shadow: 25px 14px 65px 18px rgba(41, 41, 41, 0.19);
       }
     }
+  }
+
+  .reload-button {
+    display: none;
   }
 }

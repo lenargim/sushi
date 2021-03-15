@@ -11,38 +11,54 @@ if (empty($product) || !$product->is_visible()) {
 ?>
 
 
-<li <?php wc_product_class('', $product); ?>>
+@php
+  $id = $product->get_id();
+  $attachment_ids = $product->get_gallery_image_ids();
+  $quantitiesArray = WC()->cart->get_cart_item_quantities();
+  if ( isset($quantitiesArray[$id]) ) {
+    $productQuantity = $quantitiesArray[$id];
+  } else {
+    $productQuantity = 0;
+  }
+@endphp
+<li <?php wc_product_class('', $product); ?>
+    data-id="@php echo $id @endphp"
+    data-quantity="@php echo $productQuantity @endphp">
 
-  @php
-    $post_ids = $product->get_id();
-    $attachment_ids = $product->get_gallery_image_ids();
-  @endphp
-  <div class="gallery modal" data-id="@php echo $post_ids @endphp">
+  <div class="gallery modal" data-id="@php echo $id @endphp" data-quantity="@php echo $productQuantity @endphp">
     @include('icon::search-close', ['class' => 'close gallery__close'])
     <div class="gallery__images">
       <div class="gallery__image">
-        @php echo get_the_post_thumbnail( $post_ids, 'shop_single' ); @endphp
+        @php echo get_the_post_thumbnail( $id, 'shop_single' ); @endphp
       </div>
-      @foreach(  $attachment_ids as $attachment_id )
-        <div class="gallery__image">
-          @php echo wp_get_attachment_image( $attachment_id, 'shop_catalog' ); @endphp
-        </div>
-      @endforeach
+      @if($attachment_ids)
+        @foreach(  $attachment_ids as $attachment_id )
+          <div class="gallery__image">
+            @php echo wp_get_attachment_image( $attachment_id, 'shop_catalog' ); @endphp
+          </div>
+        @endforeach
+      @endif
     </div>
     <div class="gallery__info">
       <div class="gallery__name">@php echo $product->get_name() @endphp</div>
-      @php $attr = $product->get_attribute('weight') .'гр./ ' . $product->get_attribute( 'calories' ) . ' Ккал' @endphp
-      <div class="gallery__attr">@php echo $attr @endphp</div>
+      @if( $product->get_attribute('weight') !== '' )
+        @php $attr = $product->get_attribute('weight') .'гр./ ' . $product->get_attribute( 'calories' ) . ' Ккал' @endphp
+        <div class="gallery__attr">@php echo $attr @endphp</div>
+      @endif
       <span class="gallery__short-desc">@php echo $product->get_short_description() @endphp</span>
       <div class="gallery__price">
         @if( $product->get_price() == $product->get_regular_price() )
-          <span class="gallery__main-price">@php echo $product->get_price() . ' ₽' @endphp</span>
+          @if($product->get_price())
+            <span class="gallery__main-price">@php echo $product->get_price() . ' ₽' @endphp</span>
+          @endif
         @else
           <span class="gallery__main-price">@php echo $product->get_price() . ' ₽' @endphp</span>
           <span class="gallery__old-price">@php echo $product->get_regular_price() . ' ₽' @endphp</span>
         @endif
       </div>
-      @php do_action( 'woocommerce_after_shop_loop_item' ); @endphp
+      @if($product->get_price())
+        @php do_action( 'woocommerce_after_shop_loop_item' ); @endphp
+      @endif
     </div>
   </div>
 
@@ -55,18 +71,26 @@ if (empty($product) || !$product->is_visible()) {
     @php echo $product->get_image() @endphp
   </div>
   <div class="product__info">
-    <span class="product__title">@php echo $product->get_name() @endphp</span>
-    @php $attr = $product->get_attribute('weight') .'гр./ ' . $product->get_attribute( 'calories' ) . ' Ккал' @endphp
-    <div class="product__attributes">@php echo $attr @endphp</div>
-    <span class="product__short-desc">@php echo $product->get_short_description() @endphp</span>
+    <div class="product__title">@php echo $product->get_name() @endphp</div>
+    @if( $product->get_attribute('weight') !== '' )
+      @php $attr = $product->get_attribute('weight') .'гр./ ' . $product->get_attribute( 'calories' ) . ' Ккал' @endphp
+      <div class="product__attributes">@php echo $attr @endphp</div>
+    @endif
+    <span class="product__short-desc">@php echo wc_short_description($product,150) @endphp</span>
     <div class="product__price">
       @if( $product->get_price() == $product->get_regular_price() )
-        <span class="product__main-price">@php echo $product->get_price() . ' ₽' @endphp</span>
+        @if($product->get_price())
+          <span class="product__main-price">@php echo $product->get_price() . ' ₽' @endphp</span>
+        @else
+          <div class="product__main-price">Цена не указана</div>
+        @endif
       @else
         <span class="product__main-price">@php echo $product->get_price() . ' ₽' @endphp</span>
         <span class="product__old-price">@php echo $product->get_regular_price() . ' ₽' @endphp</span>
       @endif
     </div>
-    @php do_action( 'woocommerce_after_shop_loop_item' ); @endphp
+    @if($product->get_price())
+      @php do_action( 'woocommerce_after_shop_loop_item' ); @endphp
+    @endif
   </div>
 </li>

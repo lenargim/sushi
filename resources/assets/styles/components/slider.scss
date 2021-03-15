@@ -13,10 +13,16 @@
     justify-content: center;
     bottom: -100px;
 
-    @media screen and (max-width: 1023px) {
+    @media screen and (min-width: 768px) and (max-width: 1779px) {
+      width: 45px;
+      height: 45px;
+      bottom: -80px;
+    }
+
+    @media screen and (max-width: 767px) {
       width: 30px;
       height: 30px;
-      bottom: -16px;
+      bottom: -40px;
 
       svg {
         transform: scale(0.6);
@@ -30,7 +36,11 @@
     &_next {
       right: 0;
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (min-width: 768px) and (max-width: 1779px) {
+        right: calc(50% - 60px);
+      }
+
+      @media screen and (max-width: 767px) {
         right: calc(50% - 40px);
       }
     }
@@ -39,7 +49,12 @@
       transform: rotate(180deg);
       right: 100px;
 
-      @media screen and (max-width: 1023px) {
+      @media screen and (min-width: 768px) and (max-width: 1779px) {
+        right: unset;
+        left: calc(50% - 60px);
+      }
+
+      @media screen and (max-width: 767px) {
         right: unset;
         left: calc(50% - 40px);
       }

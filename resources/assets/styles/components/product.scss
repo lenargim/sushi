@@ -1,9 +1,22 @@
 .products.columns-4 {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  padding: 40px 0 12px;
+  display: grid;
+  grid-gap: 63px 68px;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 42px 0 80px;
+
+  @media screen and (min-width: 1024px) and (max-width: 1800px) {
+    grid-gap: 30px 20px;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+  }
+
+  @media screen and (max-width: 767px) {
+    grid-template-columns: 1fr;
+    grid-gap: 30px;
+  }
 }
 
 .product {
@@ -11,32 +24,9 @@
   overflow: hidden;
   border-radius: 5px;
   border: $colorBg;
-  width: 395px;
-  height: 456px;
   position: relative;
-  margin: 0 63px 68px 0;
-
-  &:nth-of-type(4n) {
-    margin-right: 0;
-  }
-
-  @media screen and (min-width: 1024px) and (max-width: 1800px) {
-    margin: 0 30px 30px 0;
-    width: calc(25% - 22.5px);
-  }
-
-  @media screen and (min-width: 600px) and (max-width: 1023px) {
-    margin: 0 30px 30px 0;
-    width: calc(33.3% - 20px);
-  }
-
-  @media screen and (max-width: 600px) {
-    width: calc(50% - 15px);
-  }
-
-  @media screen and (max-width: 480px) {
-    padding: 0;
-  }
+  width: 100% !important;
+  margin: 0 !important;
 
   &__tags {
     position: absolute;
@@ -48,6 +38,16 @@
     flex-wrap: wrap;
     justify-content: flex-start;
 
+    @media screen and (min-width: 768px) and (max-width: 1799px) {
+      top: 15px;
+      left: 15px;
+    }
+
+    @media screen and (max-width: 767px) {
+      top: 12px;
+      left: 8px;
+    }
+
     a {
       display: flex;
       align-items: center;
@@ -58,9 +58,13 @@
       color: #fff;
       font-weight: 600;
       font-size: 14px;
-      line-height: 14px;
+      line-height: 1;
       letter-spacing: 0.01em;
       margin-bottom: 12px;
+
+      @media screen and (max-width: 1799px) {
+        font-size: 12px;
+      }
 
       &::before {
         content: "";
@@ -87,8 +91,8 @@
 
   &__img {
     cursor: pointer;
-    width: 393px;
-    height: 279px;
+    width: 100%;
+    height: auto;
 
     img {
       object-fit: cover;
@@ -101,8 +105,19 @@
     background-color: #fff;
     padding: 24px 30px 18px;
     min-height: 177px;
-    height: 177px;
     position: relative;
+    padding-bottom: 3em;
+    overflow: hidden;
+
+    @media screen and (min-width: 768px) and (max-width: 1799px) {
+      padding: 15px;
+      padding-bottom: 3em;
+    }
+
+    @media screen and (max-width: 767px) {
+      padding: 12px 8px;
+      padding-bottom: 3em;
+    }
   }
 
   &__title {
@@ -131,6 +146,16 @@
     position: absolute;
     bottom: 18px;
     left: 30px;
+
+    @media screen and (min-width: 768px) and (max-width: 1799px) {
+      left: 15px;
+      bottom: 15px;
+    }
+
+    @media screen and (max-width: 767px) {
+      left: 12px;
+      bottom: 8px;
+    }
   }
 
   &__main-price {
@@ -141,6 +166,14 @@
     letter-spacing: 0.01em;
     color: $colorMain;
     margin-right: 17px;
+
+    @media screen and (min-width: 768px) and (max-width: 1799px) {
+      font-size: 20px;
+    }
+
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+    }
   }
 
   &__old-price {
@@ -158,7 +191,6 @@
     justify-content: center;
     background-color: $colorMain;
     color: #fff;
-    font-size: 24px;
   }
 
   &__quantity {
@@ -178,6 +210,11 @@
     border-radius: 5px 0 5px 0;
     padding: 14px 24px;
 
+    @media screen and (max-width: 1779px) {
+      width: 100px;
+      height: 50px;
+    }
+
     .product__button {
       color: #fff;
       cursor: pointer;
@@ -185,16 +222,25 @@
       background-color: $colorMain;
       font-weight: 800;
       font-size: 24px;
-      line-height: 29px;
+      line-height: 1.2;
       text-align: center;
       letter-spacing: 0.01em;
       padding: 5px 10px;
+
+      &[disabled="disabled"] {
+        opacity: 0.5;
+      }
+
+      @media screen and (max-width: 1779px) {
+        font-size: 20px;
+        padding: 5px 7px;
+      }
     }
 
     .product__quantity {
       font-weight: 800;
       font-size: 24px;
-      line-height: 29px;
+      line-height: 1.2;
       text-align: center;
       letter-spacing: 0.01em;
       color: #fff;
@@ -203,6 +249,10 @@
       width: 2em;
       padding: 0;
       margin: 0;
+
+      @media screen and (max-width: 1779px) {
+        font-size: 20px;
+      }
     }
   }
 
@@ -217,7 +267,7 @@
     padding: 14px 18px;
   }
 
-  &__function[data-amount="0"] {
+  &[data-quantity="0"] {
     .product__amount {
       display: none;
     }
@@ -227,7 +277,7 @@
     }
   }
 
-  &__function:not([data-amount="0"]) {
+  &:not([data-quantity="0"]) {
     .product__amount {
       display: flex;
     }
@@ -248,7 +298,7 @@
   }
 }
 
-// Hide floating cart
+//Hide floating cart
 #xt_woofc {
   display: none;
 }

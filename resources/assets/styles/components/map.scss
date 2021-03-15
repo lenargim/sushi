@@ -8,6 +8,10 @@
   &__wrap {
     height: 700px;
 
+    @media screen and (min-width: 1024px) and (max-width: 1799px) {
+      height: 450px;
+    }
+
     @media screen and (max-width: 1023px) {
       height: 300px;
     }

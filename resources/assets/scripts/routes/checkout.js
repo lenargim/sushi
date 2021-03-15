@@ -15,9 +15,3 @@ $('body').on('blur change', '#billing_first_name', function(){
     wrapper.addClass('woocommerce-validated'); // success
   }
 });
-
-$('.woocommerce-notices-wrapper, .woocommerce-NoticeGroup').bind('DOMSubtreeModified',function(){
-  if ( $(this).children().length > 1 && !$(this).children('.clear') ) {
-    $(this).add('active')
-  }
-});

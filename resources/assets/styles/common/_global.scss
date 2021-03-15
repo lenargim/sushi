@@ -131,7 +131,7 @@ select {
   padding-bottom: 24px;
 
   @media screen and (min-width: 1230px) and (max-width: 1800px) {
-    font-size: 38px;
+    font-size: 36px;
     padding-bottom: 20px;
   }
 
@@ -154,7 +154,7 @@ select {
   padding-bottom: 30px;
 
   @media screen and (min-width: 1230px) and (max-width: 1800px) {
-    font-size: 26px;
+    font-size: 24px;
     padding-bottom: 24px;
   }
 
@@ -201,13 +201,21 @@ select {
   color: #fff;
   font-weight: 600;
   font-size: 24px;
-  line-height: 29px;
+  line-height: 1.2;
   text-align: center;
   display: inline-block;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.13);
   border-radius: 55px;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  @media screen and (min-width: 768px) and (max-width: 1799px) {
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
 
   &:hover {
     box-shadow: 25px 14px 65px 18px rgba(41, 41, 41, 0.19);
@@ -219,11 +227,11 @@ select {
 }
 
 .woocommerce-error {
+  display: none;
   position: absolute;
   left: 50%;
   top: 50%;
   padding: 30px;
-  display: block;
   border: 5px;
   background-color: #fff;
   transform: translate(-50%, -50%);

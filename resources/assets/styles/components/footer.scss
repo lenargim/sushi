@@ -2,7 +2,7 @@
   background-color: #e5e8ef;
   padding: 40px 0 50px;
 
-  @media screen and (min-width: 1px) and (max-width: 1230px) {
+  @media screen and (max-width: 1779px) {
     padding: 25px 0;
   }
 
@@ -11,7 +11,7 @@
     align-items: flex-start;
     justify-content: space-between;
 
-    @media screen and (min-width: 1px) and (max-width: 1230px) {
+    @media screen and (max-width: 1230px) {
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
@@ -22,7 +22,11 @@
     display: block;
     width: 25%;
 
-    @media screen and (min-width: 1px) and (max-width: 1230px) {
+    @media screen and (min-width: 1230px) and (max-width: 1799px) {
+      width: 200px;
+    }
+
+    @media screen and (max-width: 1230px) {
       width: 153px;
       margin-bottom: 24px;
     }
@@ -30,7 +34,11 @@
     img {
       max-width: 223px;
 
-      @media screen and (min-width: 1px) and (max-width: 1230px) {
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        max-width: 170px;
+      }
+
+      @media screen and (max-width: 1230px) {
         width: 100%;
       }
     }
@@ -45,19 +53,28 @@
     width: 33.3%;
     flex: 1 1 auto;
 
-    @media screen and (min-width: 1px) and (max-width: 1230px) {
+    @media screen and (min-width: 1230px) and (max-width: 1799px) {
+      width: 40%;
+    }
+
+    @media screen and (max-width: 1230px) {
       display: none;
     }
 
     .menu-item {
       margin-bottom: 24px;
+      padding-right: 10px;
 
       a {
         font-weight: 500;
         font-size: 24px;
-        line-height: 120%;
+        line-height: 1.2;
         color: $colorTitle;
         opacity: 0.7;
+
+        @media screen and (min-width: 1230px) and (max-width: 1799px) {
+          font-size: 20px;
+        }
       }
 
       &:nth-of-type(7) {
@@ -73,6 +90,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 25%;
+    padding-right: 10px;
 
     @media screen and (min-width: 1px) and (max-width: 1230px) {
       width: auto;
@@ -202,7 +220,7 @@
   transition: opacity 0.3s ease;
   z-index: -1;
 
-  @media screen and (min-width: 1px) and (max-width: 1230px) {
+  @media screen and (max-width: 1799px) {
     width: 70px;
     height: 70px;
   }

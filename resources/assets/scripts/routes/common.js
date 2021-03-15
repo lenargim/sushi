@@ -7,31 +7,46 @@ export default {
   },
 };
 
+function putQuantityToInput(id) {
+  let product = $(`.product[data-id=${id}]`);
+  let gallery = $(`.gallery[data-id=${id}]`);
+  product.find('.product__quantity').val(product.attr('data-quantity') );
+  gallery.attr('data-quantity', product.attr('data-quantity') )
+  gallery.find('.product__quantity').val(product.attr('data-quantity') );
+}
+
+function disableCartButtons() {
+  $('.product__button').attr('disabled', true);
+  setTimeout( () => { $('.product__button').attr('disabled', false)}, 2200 );
+}
+
 $('.add_to_cart_button').on('click', function() {
-  let quantity =  $(this).parents('.product__function').find('.product__quantity').val()
-  $(this).parents('.product__function').find('.product__quantity').val(++quantity);
-  $(this).parents('.product__function').attr('data-amount', ++quantity)
+  let id = $(this).siblings('.product__amount').attr('data-id')
+  let product = $(`.product[data-id=${id}]`);
+  let quantity =  product.attr('data-quantity')
+  product.attr('data-quantity', ++quantity)
+  putQuantityToInput(id);
+  disableCartButtons()
 })
 
 $('.product__button').on('click', function() {
-$(this).attr('disabled', true);
-setTimeout( () => { $(this).attr('disabled', false)}, 1000 );
-let quantity = $(this).siblings('.product__quantity').val();
-const id = $(this).parent('.product__amount').data('id');
-$(this).parents('.product__function').attr('data-amount', +quantity);
+disableCartButtons()
+let id = $(this).parent('.product__amount').attr('data-id');
+let product = $(`.product[data-id=${id}]`);
+let quantity = product.attr('data-quantity');
 if ( $(this).hasClass('plus') ) {
   $(`.xt_woofc-product[data-id=${id}]`).find('.xt_woofc-quantity-col-plus').click()
-  $(this).siblings('.product__quantity').val(++quantity)
+  product.attr('data-quantity', ++quantity)
   }
-else if ( $(this).hasClass('minus') && quantity  >= 2 ) {
-  $(`.xt_woofc-product[data-id=${id}]`).find('.xt_woofc-quantity-col-minus').click()
-  $(this).siblings('.product__quantity').val(--quantity)
+  else if ( $(this).hasClass('minus') ) {
+    product.attr('data-quantity', --quantity)
+    if (quantity == 0) {
+      $(`.xt_woofc-product[data-id=${id}]`).find('.xt_woofc-delete-item span').click()
+    } else {
+      $(`.xt_woofc-product[data-id=${id}]`).find('.xt_woofc-quantity-col-minus').click()
+    }
   }
-else if ( $(this).hasClass('minus') && quantity == 1 ) {
-  $(`.xt_woofc-product[data-id=${id}]`).find('.xt_woofc-delete-item span').click()
-  $(this).siblings('.product__quantity').val(--quantity)
-  }
-  $(this).parents('.product__function').attr('data-amount', +quantity)
+  putQuantityToInput(id);
 })
 
 $('.map').on('click', function () {
@@ -72,8 +87,9 @@ $(window).scroll(function() {
 
 
 // sorting
-if ( Cookie.get( 'ordering' ) == '' ) {
-  Cookie.set('ordering','popularity_asc' );
+
+if ( Cookie.get( 'ordering' ) == null ) {
+  Cookie.set('ordering','popularity_desc' );
 } else {
   let hash = Cookie.get( 'ordering' );
   let html = $('.select .option[data-hash=' + hash + ']').html()
