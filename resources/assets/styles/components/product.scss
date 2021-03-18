@@ -2,7 +2,6 @@
   display: grid;
   grid-gap: 63px 68px;
   grid-template-columns: repeat(4, 1fr);
-  padding: 42px 0 80px;
 
   @media screen and (min-width: 1024px) and (max-width: 1800px) {
     grid-gap: 30px 20px;
@@ -348,4 +347,14 @@
 
 .navigation {
   margin: 0 auto 80px;
+}
+
+.category-page {
+  &__block {
+    padding: 40px 0 80px;
+  }
+
+  &__rolls {
+    padding: 15px 0;
+  }
 }

@@ -244,3 +244,5 @@ function wc_short_description($product, $length) {
         return $desc;
     }
 }
+
+

@@ -33,6 +33,7 @@
         </div>
       </div>
     </div>
+  </div>
 </header>
 <div class="menu">
   <div class="container">

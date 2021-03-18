@@ -307,3 +307,37 @@ function cartReplace() {
 $( window ).resize(function() {
  cartReplace()
 });
+
+$('a[href^="#"]').click(function(event){
+  let shift;
+  let width = $(window).width()
+  if (width > 1799) {
+  shift = 150
+  } else if ( width > 1023) {
+  shift = 100
+  } else {
+  shift = 60
+  }
+  $('.menu__sub-item').removeClass('active')
+  $(this).addClass('active')
+  event.preventDefault()
+  let anchor = $(this).attr('href');
+  $('html, body').animate({
+  scrollTop: $(anchor).offset().top - shift,
+  }, 800);
+});
+
+
+$(window).on('scroll resize',function() {
+  $('a.menu__sub-item').removeClass('active');
+  let $sections = $('.category-page__block');
+  $sections.each(function(i,el){
+    let top  = $(el).offset().top-250;
+    let bottom = top +$(el).height();
+    let scroll = $(window).scrollTop();
+    let id = $(el).prev().attr('id');
+    if( scroll > top && scroll < bottom){
+    $('a[href="#'+id+'"]').addClass('active');
+    }
+  });
+});
