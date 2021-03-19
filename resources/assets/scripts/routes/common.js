@@ -247,7 +247,9 @@ $('.header__search-svg').on('click', function(){
   let parent = $(this).parents('.header__account-block')
   parent.children('.icon').hide()
   parent.siblings('.header__socials').hide()
-  parent.children('.header__search').addClass('active')
+  let wrapper = parent.children('.header__search')
+  wrapper.addClass('active')
+  wrapper.find('input[type=search]').focus()
 })
 
 $('.header__search-close').on('click', function(){
