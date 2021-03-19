@@ -20,7 +20,7 @@
       margin: 0 -15px;
       padding: 0 15px;
       overflow-x: auto;
-      width: calc(100% - 25px);
+      width: calc(100% + 30px);
     }
 
     &::-webkit-scrollbar {
@@ -167,11 +167,8 @@
       }
 
       @media screen and (max-width: 1023px) {
-        position: fixed;
         padding: 0;
         margin: 0;
-        right: 15px;
-        top: 0;
       }
 
       &:hover .menu__cart-svg path {
@@ -260,6 +257,7 @@
   @include detailedMenuHover("soups");
   @include detailedMenuHover("wok");
   @include detailedMenuHover("stock");
+  @include detailedMenuHover("gukan");
 
   &__sub {
     border-top: $border;

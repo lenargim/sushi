@@ -1,3 +1,40 @@
+<header class="header hidden">
+  <div class="container">
+    <div class="header__wrap">
+      <a class="header__logo" href="{{ home_url('/') }}"><img src="@asset('images/logo.png')" alt="logo"></a>
+      <nav class="nav-primary">
+        @if (has_nav_menu('primary_navigation'))
+          {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav', 'container' => false]) !!}
+        @endif
+      </nav>
+      <div class="header__info">
+        <a class="header__phone" href="tel:@php the_field('phone',8) @endphp">@php the_field('phone',8) @endphp</a>
+        <span>@php the_field('working-hours',8) @endphp</span>
+      </div>
+      <div class="header__socials">
+        <a href="https://vk.com/@php the_field('vk',8) @endphp" target="_blank">
+          @include('icon::vk', ['class' => 'icon'])
+        </a>
+        <a href="https://www.instagram.com/@php the_field('instagram',8) @endphp" target="_blank">
+          @include('icon::instagram', ['class' => 'icon'])
+        </a>
+      </div>
+      <div class="header__account-block">
+        @include('icon::account', ['class' => 'icon'])
+        @include('icon::wishlist', ['class' => 'icon wishlist'])
+        <div class="header__search">
+          @include('icon::search', ['class' => 'icon header__search-svg'])
+          @include('searchform')
+          @include('icon::search-close', ['class' => 'icon header__search-close'])
+        </div>
+        <div class="header__mobile">
+          @include('icon::more', ['class' => 'header__more'])
+          @include('icon::search-close', ['class' => 'header__more-close hidden'])
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 <div class="menu">
   <div class="container">
     <div class="menu__wrap">
