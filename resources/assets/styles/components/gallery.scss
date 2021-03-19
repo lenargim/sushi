@@ -1,12 +1,12 @@
 .gallery {
   position: absolute;
-  top: 10%;
+  top: 3%;
   left: 50%;
-  width: 870px;
+  width: 1038px;
   height: auto;
   background-color: #fff;
   z-index: -1;
-  padding: 40px 0;
+  padding: 50px 0;
   display: none;
   transform: translateX(-50%);
   border: 1px solid #dbdbdb;
@@ -14,9 +14,9 @@
   border-radius: 5px;
 
   @media screen and (min-width: 1230px) and (max-width: 1800px) {
-    top: 5%;
+    top: 3%;
     padding: 20px 0 65px;
-    width: 45%;
+    width: 55%;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1230px) {
@@ -67,7 +67,7 @@
       margin: 0;
 
       .slick-slide {
-        padding: 0 40px;
+        padding: 0 50px;
 
         @media screen and (min-width: 1230px) and (max-width: 1800px) {
           padding: 0 20px;
@@ -83,8 +83,8 @@
   &__image {
     border-radius: 5px;
     overflow: hidden;
-    max-width: 790px;
-    max-height: 429px;
+    max-width: 938px;
+    max-height: unset;
 
     @media screen and (min-width: 1230px) and (max-width: 1800px) {
       width: 40%;

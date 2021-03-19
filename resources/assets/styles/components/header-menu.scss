@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
 
     @media screen and (min-width: 1023px) and (max-width: 1800px) {
       height: 50px;
@@ -16,9 +17,10 @@
 
     @media screen and (max-width: 1023px) {
       height: 37px;
-      overflow-y: scroll;
       margin: 0 -15px;
       padding: 0 15px;
+      overflow-x: auto;
+      width: calc(100% - 25px);
     }
 
     &::-webkit-scrollbar {
@@ -165,8 +167,11 @@
       }
 
       @media screen and (max-width: 1023px) {
+        position: fixed;
         padding: 0;
         margin: 0;
+        right: 15px;
+        top: 0;
       }
 
       &:hover .menu__cart-svg path {
@@ -264,9 +269,24 @@
       align-items: center;
       justify-content: flex-start;
       padding: 16px 0;
+      width: 100%;
 
       @media screen and (min-width: 1024px) and (max-width: 1799px) {
         padding: 12px 0;
+      }
+
+      @media screen and (max-width: 1023px) {
+        padding: 10px 15px;
+        overflow-x: auto;
+        width: calc(100% + 30px);
+        margin: 0 -15px;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+        visibility: hidden;
       }
     }
 
@@ -283,6 +303,15 @@
       @media screen and (min-width: 1024px) and (max-width: 1799px) {
         font-size: 18px;
         margin-right: 20px;
+      }
+
+      @media screen and (max-width: 1023px) {
+        margin-right: 16px;
+        font-size: 14px;
+
+        &:last-of-type {
+          padding-right: 15px;
+        }
       }
 
       &.active {
