@@ -44,7 +44,7 @@
         @if(WC()->cart->get_cart_contents_count())
           <span class="menu__cart-amount">@php echo WC()->cart->get_cart_contents_count() @endphp</span>
         @endif
-        <span class="menu__cart-total"> @php echo WC()->cart->cart_contents_total @endphp руб</span>
+        <span class="menu__cart-total"> <span> @php echo WC()->cart->cart_contents_total @endphp</span> руб</span>
       </a>
     </div>
   </div>

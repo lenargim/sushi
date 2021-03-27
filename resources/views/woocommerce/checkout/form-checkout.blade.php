@@ -49,6 +49,7 @@ return;
       <?php do_action('woocommerce_checkout_before_customer_details'); ?>
       <div class="order__details" id="customer_details">
         <?php do_action('woocommerce_checkout_billing'); ?>
+        <?php do_action( 'woocommerce_checkout_shipping' ); ?>
         <?php do_action('woocommerce_checkout_after_customer_details'); ?>
       </div>
       <?php endif; ?>
@@ -56,5 +57,4 @@ return;
     </form>
     <?php do_action('woocommerce_after_checkout_form', $checkout); ?>
   </div>
-
 @include('partials.map')

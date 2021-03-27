@@ -20,7 +20,7 @@ function woocommerce_header_add_to_cart_fragment($fragments)
         <?php if (WC()->cart->get_cart_contents_count()) { ?>
             <span class="menu__cart-amount"><?php echo WC()->cart->get_cart_contents_count() ?></span>
         <?php } ?>
-        <span class="menu__cart-total"><?php echo WC()->cart->cart_contents_total ?> руб</span>
+        <span class="menu__cart-total"><span><?php echo WC()->cart->cart_contents_total ?></span> руб</span>
     </a>
     <?php
     $fragments['a.menu__cart-wrap'] = ob_get_clean();
@@ -28,6 +28,7 @@ function woocommerce_header_add_to_cart_fragment($fragments)
 }
 
 add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
+
 
 function woocommerce_cart_total_fragment($fragments)
 {
@@ -198,30 +199,45 @@ function custom_checkout_fields($array)
     unset($array['billing']['billing_email']); // Email
     unset($array['order']['order_comments']); // Примечание к заказу
     unset($array['billing']['billing_company']); // Компания
-    unset($array['billing']['billing_country']); // Страна
-    unset($array['billing']['billing_address_2']); // 2-ая строка адреса
     unset($array['billing']['billing_city']); // Населённый пункт
     unset($array['billing']['billing_state']); // Область / район
     unset($array['billing']['billing_postcode']); // Почтовый индекс
+    unset($array['shipping']['shipping_first_name']);
+    unset($array['shipping']['shipping_addres_1']);
+    unset($array['shipping']['shipping_last_name']);
+    unset($array['shipping']['shipping_company']);
+    unset($array['shipping']['shipping_city']);
+    unset($array['shipping']['shipping_state']);
+    unset($array['shipping']['shipping_postcode']);
 
-    unset($array['billing']['billing_phone']['validate']);
-    unset($array['billing']['billing_address_1']['validate']);
+//    unset($array['billing']['billing_phone']['validate']);
+//    unset($array['billing']['billing_address_1']['validate']);
 
     $array['billing']['billing_phone']['priority'] = 20;
     $array['billing']['billing_address_1']['priority'] = 30;
-
+    $array['billing']['billing_address_2']['priority'] = 40;
+    $array['billing']['billing_country']['priority'] = 50;
     $array['billing']['billing_first_name']['placeholder'] = 'ФИО';
     $array['billing']['billing_phone']['placeholder'] = 'Телефон';
-    $array['billing']['billing_address_1']['placeholder'] = 'Адрес доставки';
-
-    $array['billing']['billing_first_name']['label'] = ' ';
-    $array['billing']['billing_phone']['label'] = ' ';
-    $array['billing']['billing_address_1']['label'] = ' ';
+    $array['billing']['billing_first_name']['label'] = 'ФИО';
+    $array['billing']['billing_phone']['label'] = 'Телефон';
+    $array['billing']['billing_country']['type'] = 'text';
+    $array['shipping']['shipping_country']['label'] = 'Зона доставки';
 
     return $array;
 }
 
 add_filter('woocommerce_checkout_fields', 'custom_checkout_fields', 9999);
+
+function uwc_new_address_one_placeholder( $fields ) {
+    $fields['address_1']['placeholder'] = 'Адрес доставки';
+    $fields['address_2']['placeholder'] = 'Квартира';
+    $fields['address_1']['label'] = 'Адрес доставки';
+    $fields['address_2']['label'] = 'Квартира';
+
+    return $fields;
+}
+add_filter( 'woocommerce_default_address_fields', 'uwc_new_address_one_placeholder' );
 
 function checkout_fields_in_label_error($field, $key, $args, $value)
 {
@@ -246,3 +262,107 @@ function wc_short_description($product, $length) {
 }
 
 
+add_action( 'woocommerce_checkout_create_order', 'telegram_bot', 20, 1 );
+function telegram_bot( $order ) {
+    $name = $order->billing_first_name;
+    $phone = $order->get_billing_phone();
+    $address = $order->billing_address_1;
+    $appartment = $order->billing_address_2;
+    $delivery = $order->get_shipping_total() . ' ₽';
+    $total = $order->get_total() . ' ₽';
+    $paymethod = $order->get_payment_method_title();
+    $token = "1780531821:AAEwdkJeNWlrsN4vckWE7ZJaV_YDetljpEo";
+    $chat_id = "-400699790";
+    $collect = "%0A";
+    foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+        $_product = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+        $_product->get_name();
+        $cart_item['quantity'];
+        $collect .= "<b>-".$_product->get_name() . ": " . $cart_item['quantity'] . "шт.</b>%0A";
+    }
+    $arr = [
+        'Имя:' => $name,
+        'Телефон:' => $phone,
+        'Адрес:' => $address . ' кв. ' . $appartment,
+        'Доставка:' => $delivery,
+        'Сумма:' => $total,
+        'Оплата:' => $paymethod,
+        'Заказ:' => $collect,
+    ];
+    foreach($arr as $key => $value) {
+        $txt .= "<b>".$key."</b> ".$value."%0A";
+    };
+    $sendToTelegram = fopen("https://api.telegram.org/bot{$token}/sendMessage?chat_id={$chat_id}&parse_mode=html&text={$txt}","r");
+}
+
+add_action( 'wp_enqueue_scripts', 'my_scripts_method' );
+function my_scripts_method() {
+    wp_register_script( 'dadata', 'https://cdn.jsdelivr.net/npm/suggestions-jquery@20.3.0/dist/js/jquery.suggestions.min.js');
+    wp_enqueue_script('dadata');
+    wp_enqueue_style( 'dadata-style', 'https://cdn.jsdelivr.net/npm/suggestions-jquery@20.3.0/dist/css/suggestions.min.css' );
+    wp_enqueue_script('dadata-style');
+    wp_register_script( 'yandexapi', 'https://api-maps.yandex.ru/2.1/?apikey=f23778e3-4bf9-42c8-b7fa-87e8712c323e&lang=ru_RU');
+    wp_enqueue_script('yandexapi');
+}
+
+add_filter( 'woocommerce_countries',  'truemisha_add_new_country' );
+
+function truemisha_add_new_country( $countries ) {
+
+    $new_countries = array(
+        'ZN1' => 'Зона 1',
+        'ZN2' => 'Зона 2',
+    );
+
+    return array_merge( $countries, $new_countries );
+
+}
+
+add_filter( 'woocommerce_continents', 'truemisha_add_new_country_to_continents' );
+
+function truemisha_add_new_country_to_continents( $continents ) {
+
+    $continents[ 'EU' ][ 'countries' ][] = 'ZN1';
+    $continents[ 'EU' ][ 'countries' ][] = 'ZN2';
+    return $continents;
+}
+
+function my_hide_shipping_when_free_is_available( $rates ) {
+    $free = array();
+    foreach ( $rates as $rate_id => $rate ) {
+        if ( 'free_shipping' === $rate->method_id ) {
+            $free[ $rate_id ] = $rate;
+            break;
+        }
+    }
+    return ! empty( $free ) ? $free : $rates;
+}
+add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_available', 100 );
+
+
+function get_free_shipping_minimum($zone_name = 'RU') {
+    if ( ! isset( $zone_name ) ) return null;
+
+    $result = null;
+    $zone = null;
+    $zones = WC_Shipping_Zones::get_zones();
+    foreach ( $zones as $z ) {
+        if ( $z['zone_name'] == $zone_name ) {
+            $zone = $z;
+        }
+    }
+    if ( $zone ) {
+        $shipping_methods_nl = $zone['shipping_methods'];
+        $free_shipping_method = null;
+        foreach ( $shipping_methods_nl as $method ) {
+            if ( $method->id == 'free_shipping' ) {
+                $free_shipping_method = $method;
+                break;
+            }
+        }
+        if ( $free_shipping_method ) {
+            $result = $free_shipping_method->min_amount;
+        }
+    }
+    return $result;
+}

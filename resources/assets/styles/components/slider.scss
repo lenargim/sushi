@@ -62,6 +62,10 @@
   }
 }
 
+.slick-slider {
+  touch-action: auto !important;
+}
+
 .slick-list {
   margin: 0 -30px;
 

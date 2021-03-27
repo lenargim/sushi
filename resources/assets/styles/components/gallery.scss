@@ -15,8 +15,8 @@
 
   @media screen and (min-width: 1230px) and (max-width: 1800px) {
     top: 3%;
-    padding: 20px 0 65px;
-    width: 55%;
+    padding: 20px 0;
+    width: 50%;
   }
 
   @media screen and (min-width: 768px) and (max-width: 1230px) {
@@ -38,7 +38,7 @@
     right: 12px;
     z-index: 10;
 
-    @media screen and (max-width: 1800px) {
+    @media screen and (max-width: 1799px) {
       top: 4px;
       right: 4px;
       width: 20px;
@@ -110,7 +110,7 @@
     justify-content: center;
     margin: 24px auto 0;
 
-    @media screen and (max-width: 1800px) {
+    @media screen and (max-width: 1799px) {
       margin: 10px auto 0;
     }
 
@@ -156,17 +156,24 @@
     color: #464646;
     position: relative;
 
-    @media screen and (max-width: 1800px) {
+    @media screen and (min-width: 1230px) and (max-width: 1799px) {
+      padding: 0 20px 20px;
+      font-size: 18px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1229px) {
+      font-size: 16px;
       margin: 0;
       padding: 0 20px 20px;
       border-top: none;
       border-bottom: $border;
-      font-size: 18px;
     }
 
     @media screen and (max-width: 767px) {
       padding: 0 13px;
       font-size: 12px;
+      border-top: none;
+      border-bottom: $border;
     }
 
     .add_to_cart_button {
@@ -177,7 +184,16 @@
       align-items: center;
       justify-content: center;
 
-      @media screen and (max-width: 1800px) {
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        width: 55px;
+        height: 55px;
+
+        svg {
+          transform: scale(0.8);
+        }
+      }
+
+      @media screen and (max-width: 1229px) {
         width: 45px;
         height: 45px;
 
@@ -193,8 +209,11 @@
       padding: 14px 27px;
       border-radius: 5px;
 
-      @media screen and (max-width: 1800px) {
+      @media screen and (max-width: 1799px) {
         padding: 5px 10px;
+      }
+
+      @media screen and (max-width: 1230px) {
         border: none;
       }
     }
@@ -255,7 +274,12 @@
       right: 44px;
       top: 77px;
 
-      @media screen and (max-width: 1800px) {
+      @media screen and (min-width: 1024px) and (max-width: 1799px) {
+        top: 50px;
+        right: 20px;
+      }
+
+      @media screen and (max-width: 1023px) {
         top: unset;
         right: 50%;
         bottom: -55px;
@@ -290,6 +314,10 @@
 
     @media screen and (min-width: 1800px) {
       padding-right: 200px;
+    }
+
+    @media screen and (min-width: 1230px) and (max-width: 1799px) {
+      padding-right: 140px;
     }
 
     @media screen and (max-width: 1799px) {

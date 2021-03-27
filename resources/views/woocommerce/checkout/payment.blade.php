@@ -30,15 +30,34 @@ if (!is_ajax()) {
         wc_get_template('checkout/payment-method.php', array('gateway' => $gateway));
       }
     } else {
-      echo '<li class="woocommerce-notice woocommerce-notice--info woocommerce-info">' . apply_filters('woocommerce_no_available_payment_methods_message', WC()->customer->get_billing_country() ? esc_html__('Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce') : esc_html__('Please fill in your details above to see available payment methods.', 'woocommerce')) . '</li>'; // @codingStandardsIgnoreLine
+      echo '<li class="woocommerce-notice woocommerce-notice--info woocommerce-info">Укажите адрес в пределах зон доставки</li>'; // @codingStandardsIgnoreLine
     }
     ?>
   </ul>
   <?php endif; ?>
-    <div class="order__totals">
-      <div class="order__total">
-        Итого: <span class="order__total-span">@php wc_cart_totals_order_total_html() @endphp</span>
-      </div>
+  <div class="order__free-shipping">
+    @php
+      $shipping_packages =  WC()->cart->get_shipping_packages();
+      $shipping_zone = wc_get_shipping_zone( reset( $shipping_packages ) );
+      $zone_name = $shipping_zone->get_zone_name();
+      $free_shipping_zone = get_free_shipping_minimum( $zone_name );
+    @endphp
+    @if( $free_shipping_zone )
+      @php
+        $free_shipping_min = $free_shipping_zone;
+        $total =  WC()->cart->get_subtotal();
+      @endphp
+      @if ($total < $free_shipping_min)
+        @php $remain = $free_shipping_min - $total @endphp
+        <div class="remaining">Закажите еще на @php echo $remain  @endphp руб и доставка БЕСПЛАТНО</div>
+      @endif
+    @endif
+  </div>
+  <div class="order__totals">
+    <div class="order__total">
+      Итого: <span class="order__total-span">@php wc_cart_totals_order_total_html() @endphp</span>
+    </div>
+    <div class="order__total-details">
       @php $coupon = WC()->cart->get_cart_discount_total() @endphp
       @php $sales = getDiscount() @endphp
       @php $totalDiscount = $coupon +  $sales @endphp
@@ -47,8 +66,17 @@ if (!is_ajax()) {
           Скидка: <span>@php echo $totalDiscount . ' ₽' @endphp</span>
         </div>
       @endif
+      @php $order_shipping_total = WC()->cart->get_cart_shipping_total() @endphp
+      @if( $free_shipping_zone )
+        <div class="order__deliver">
+          Доставка: <span>
+          @php echo $order_shipping_total @endphp
+        </span>
+        </div>
+      @endif
     </div>
-  <div class="form-row place-order order__pay">
+  </div>
+  <div class="place-order order__pay">
     <noscript>
       <?php
       /* translators: $1 and $2 opening and closing emphasis tags respectively */

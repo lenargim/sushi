@@ -1,6 +1,7 @@
 // import external dependencies
 import 'jquery';
 import 'slick-carousel'
+import 'medium-zoom'
 
 // import local dependencies
 import Router from './util/Router';

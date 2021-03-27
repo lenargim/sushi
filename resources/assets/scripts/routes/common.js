@@ -1,4 +1,5 @@
 import Cookie from 'js.cookie';
+
 export default {
   init() {
     // JavaScript to be fired on all pages
@@ -98,14 +99,7 @@ $('.to-top').on('click', function () {
 $(window).scroll(function() {
   let scrollHeight = $(window).scrollTop();
   let windowHeight = $(window).height();
-  let docHeight = $(document).height();
-
-  // to top
-  if( scrollHeight + windowHeight >= docHeight && windowHeight*2 < docHeight ) {
-      $('.to-top').addClass('active')
-   } else if ( scrollHeight < windowHeight/2 ) {
-      $('.to-top').removeClass('active')
-   }
+  scrollHeight > windowHeight ? $('.to-top').addClass('active') : $('.to-top').removeClass('active')
 
    // sticky menu
     if( scrollHeight > windowHeight/2 ) {
@@ -313,13 +307,7 @@ $( window ).resize(function() {
 $('a[href^="#"]').click(function(event){
   let shift;
   let width = $(window).width()
-  if (width > 1799) {
-  shift = 150
-  } else if ( width > 1023) {
-  shift = 100
-  } else {
-  shift = 60
-  }
+  width > 1799 ? shift = 150 : shift = 100
   $('.menu__sub-item').removeClass('active')
   $(this).addClass('active')
   event.preventDefault()
