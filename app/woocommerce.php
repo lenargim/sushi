@@ -310,8 +310,10 @@ add_filter( 'woocommerce_countries',  'truemisha_add_new_country' );
 function truemisha_add_new_country( $countries ) {
 
     $new_countries = array(
-        'ZN1' => 'Зона 1',
-        'ZN2' => 'Зона 2',
+        'ZN1' => 'Зеленая зона',
+        'ZN2' => 'Оранжевая зона',
+        'ZN3' => 'Синяя зона',
+        'ZN4' => 'Розовая зона',
     );
 
     return array_merge( $countries, $new_countries );
@@ -324,6 +326,8 @@ function truemisha_add_new_country_to_continents( $continents ) {
 
     $continents[ 'EU' ][ 'countries' ][] = 'ZN1';
     $continents[ 'EU' ][ 'countries' ][] = 'ZN2';
+    $continents[ 'EU' ][ 'countries' ][] = 'ZN3';
+    $continents[ 'EU' ][ 'countries' ][] = 'ZN4';
     return $continents;
 }
 
@@ -366,3 +370,83 @@ function get_free_shipping_minimum($zone_name = 'RU') {
     }
     return $result;
 }
+
+
+function my_account_menu_order() {
+    $menuOrder = array(
+        'dashboard'          => __( 'Личные данные', 'woocommerce' ),
+        'favorites'          => __( 'Избранное', 'woocommerce' ),
+        'orders'             => __( 'Мои заказы', 'woocommerce' ),
+        'customer-logout'    => __( 'Выйти', 'woocommerce' ),
+    );
+    return $menuOrder;
+}
+add_filter ( 'woocommerce_account_menu_items', 'my_account_menu_order' );
+
+add_filter ( 'woocommerce_account_menu_items', 'account_favorites', 20 );
+function account_favorites( $menu_links ){
+    $menu_links = array_slice( $menu_links, 0, 5, true )
+        + array( 'favorites' => 'Избранное' )
+        + array_slice( $menu_links, 5, NULL, true );
+
+    return $menu_links;
+
+}
+add_action( 'init', 'misha_add_endpoint' );
+function misha_add_endpoint() {
+    add_rewrite_endpoint( 'favorites', EP_PAGES );
+
+}
+add_action( 'woocommerce_account_favorites_endpoint', 'misha_my_account_endpoint_content' );
+function misha_my_account_endpoint_content() {
+    include_once get_template_directory() . '\views\woocommerce\myaccount\favorites.php';
+}
+
+add_action( 'woocommerce_save_account_details_errors','billing_phone_field_validation', 20, 1 );
+function billing_phone_field_validation( $args ){
+    if ( isset($_POST['billing_phone']) && empty($_POST['billing_phone']) )
+        $args->add( 'error', __( 'Please fill in your Mobile phone', 'woocommerce' ),'');
+}
+
+
+function my_account_saving_billings_data( $user_id )
+{
+    if (isset($_POST['billing_phone']) && !empty($_POST['billing_phone'])) {
+        update_user_meta($user_id, 'billing_phone', sanitize_text_field($_POST['billing_phone']));
+    }
+    if (isset($_POST['billing_address_1']) && !empty($_POST['billing_address_1'])) {
+        update_user_meta($user_id, 'billing_address_1', sanitize_text_field($_POST['billing_address_1']));
+    }
+
+    if (isset($_POST['billing_address_2']) && !empty($_POST['billing_address_2'])) {
+        update_user_meta($user_id, 'billing_address_2', sanitize_text_field($_POST['billing_address_2']));
+    }
+}
+
+add_action( 'woocommerce_save_account_details', 'my_account_saving_billings_data', 20, 1 );
+
+
+add_filter('woocommerce_save_account_details_required_fields', 'wc_save_account_details_required_fields' );
+function wc_save_account_details_required_fields( $required_fields ){
+    unset( $required_fields['account_display_name'] );
+    unset( $required_fields['account_last_name'] );
+    unset( $required_fields['account_email'] );
+    $required_fields['billing_phone'];
+    return $required_fields;
+}
+
+//add_filter( 'woocommerce_account_orders_columns','custom_account_order_table');
+//function custom_account_order_table($columns)
+//{
+//    unset($columns['order-date']);
+//    unset($columns['order-number']);
+//    unset($columns['order-status']);
+//    unset($columns['order-actions']);
+//    $columns['img'] = "Фото";
+//    $columns['name'] = "Наименование";
+//    $columns['price'] = "Цена";
+//    $columns['amount'] = "Количество";
+//    $columns['order-total'] = "Сумма";
+//
+//    return $columns;
+//}

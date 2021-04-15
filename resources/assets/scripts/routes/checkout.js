@@ -33,7 +33,7 @@ $('#billing_address_1').suggestions({
   token: token,
   type: 'ADDRESS',
   constraints: {
-    locations: { region: 'Москва' },
+    locations: { city: 'Самара' },
   },
   /* Вызывается, когда пользователь выбирает одну из подсказок */
   onSelect: function(suggestion) {
@@ -49,3 +49,6 @@ $('#billing_first_name').suggestions({
   token: token,
   type: 'NAME',
 });
+
+$('#billing_first_name').attr('autocomplete', 'name');
+$('#billing_address_1').val('');

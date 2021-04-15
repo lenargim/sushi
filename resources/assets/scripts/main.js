@@ -9,6 +9,7 @@ import common from './routes/common';
 import home from './routes/home';
 import aboutUs from './routes/about';
 import checkout from './routes/checkout';
+import account from './routes/account';
 
 /** Populate Router instance with DOM routes */
 const routes = new Router({
@@ -20,6 +21,8 @@ const routes = new Router({
   aboutUs,
   // Checkout page
   checkout,
+  // Account page
+  account,
 });
 
 // Load Events

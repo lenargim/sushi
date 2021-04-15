@@ -1,0 +1,111 @@
+.account {
+  padding-bottom: 10vh;
+
+  &__wrap {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &__sidebar {
+    width: 358px;
+    background-color: #e5e8ef;
+    border-radius: 5px;
+    padding: 24px 47px;
+    margin-right: 89px;
+
+    &-li {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: 25px;
+
+      a {
+        color: $colorIcon;
+      }
+
+      &.is-active a {
+        color: $colorMain;
+      }
+    }
+
+    .woocommerce-MyAccount-navigation-link--customer-logout {
+      margin: 60px 0 0;
+    }
+  }
+
+  &__content {
+    padding-top: 30px;
+    width: calc(100% - 358px);
+  }
+
+  &__dashboard {
+    padding-top: 32px;
+
+    &-wrap {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    &-item {
+      width: 33.3%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      font-size: 24px;
+      line-height: 1.2;
+      color: #424242;
+      padding-right: 15px;
+
+      label {
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+    }
+
+    &-button {
+      margin-top: 80px;
+      padding: 14px 60px;
+    }
+
+    &-edit {
+      display: none;
+      grid-gap: 30px;
+      grid-template-columns: repeat(3, 1fr);
+
+      &.active {
+        display: grid;
+      }
+
+      .submit-box {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+      }
+
+      .button {
+        padding: 14px 84px;
+      }
+    }
+  }
+
+  &__order {
+    &-img {
+      width: 120px;
+      height: 85px;
+      overflow: hidden;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

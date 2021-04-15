@@ -8,8 +8,8 @@
 
     function init() {
       var myMap = new ymaps.Map('map', {
-          center: [55.755273, 37.610454],
-          zoom: 10,
+          center: [53.222669, 50.207144],
+          zoom: 11,
           controls: ['geolocationControl', 'searchControl']
         }),
         deliveryPoint = new ymaps.GeoObject({
@@ -138,6 +138,14 @@
         input.value = 'ZN2';
         jQuery('#shipping_country').val('ZN2').trigger('change');
         jQuery('.order__pay-button').removeAttr('disabled')
+      } else if ( zone === 3 ) {
+        input.value = 'ZN3';
+        jQuery('#shipping_country').val('ZN3').trigger('change');
+        jQuery('.order__pay-button').removeAttr('disabled')
+      } else if ( zone === 4 ) {
+        input.value = 'ZN4';
+        jQuery('#shipping_country').val('ZN4').trigger('change');
+        jQuery('.order__pay-button').removeAttr('disabled');
       } else {
         input.value = 'RU';
         jQuery('#shipping_country').val(null).trigger('change');
