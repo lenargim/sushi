@@ -20,7 +20,7 @@
 
     @media screen and (min-width: 1024px) and (max-width: 1799px) {
       grid-gap: 30px;
-      grid-template-columns: 1fr 1fr 400px;
+      grid-template-columns: 1fr 1fr 500px;
       grid-template-rows: repeat(3, 220px);
     }
 
@@ -39,7 +39,7 @@
     margin-bottom: 32px;
 
     @media screen and (min-width: 1230px) and (max-width: 1799px) {
-      font-size: 30px;
+      font-size: 26px;
     }
 
     @media screen and (max-width: 1230px) {
@@ -128,6 +128,12 @@
       grid-row-end: 3;
       padding: 60px;
       width: 1122px;
+
+      @media screen and (min-width: 1230px) and (max-width: 1799px) {
+        .actions__title {
+          font-size: 30px;
+        }
+      }
 
       @media screen and (max-width: 1799px) {
         width: auto;

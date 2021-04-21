@@ -1,23 +1,32 @@
 <section class="shipping">
   <div class="container">
-    <h2 class="title">Бесплатная доставка и подарки</h2>
-    <div class="description">Закажите на сумму выше определенного порога, и получите скидку, а также подарок!</div>
-    <div class="shipping__wrap">
-      <div class="shipping__item">
-        @include('icon::delivery', ['class' => 'shipping__logo'])
-        <div class="shipping__price">от 1 000 рублей</div>
-        <div class="shipping__info">Бесплатная<br> доставка!</div>
+    @php
+      $args = [
+      'orderby' => 'date',
+      'posts_per_page' => 3,
+      'post_status' => 'publish',
+      'order' => 'DESC',
+      'post_type' => 'stock',
+  ];
+  $loop = new WP_Query($args);
+    @endphp
+    @if ($loop)
+      <h2 class="title">{{the_field('block-title',8)}}</h2>
+      <div class="description">{{the_field('block-description',8)}}</div>
+      <div class="shipping__wrap">
+        @while($loop->have_posts()) @php $loop->the_post() @endphp
+        <div class="shipping__item">
+          @if(get_field('small-img'))
+            <img class="shipping__logo" src="{{the_field('small-img')}}" alt="{{the_title()}}">
+            @else
+            @include('icon::sushi', ['class' => 'shipping__logo'])
+          @endif
+          <div class="shipping__price">{{the_title()}}</div>
+          <div class="shipping__info">{{the_field('stock_short_desc')}}</div>
+        </div>
+        @endwhile
+        @php(wp_reset_postdata())
       </div>
-      <div class="shipping__item">
-        @include('icon::sushi', ['class' => 'shipping__logo'])
-        <div class="shipping__price">от 2 000 рублей</div>
-        <div class="shipping__info">Роллы “Калифорния”<br> в подарок.</div>
-      </div>
-      <div class="shipping__item">
-        <img class="shipping__logo" src="@asset('images/sushibottle.png')" alt="">
-        <div class="shipping__price">от 5 000 рублей</div>
-        <div class="shipping__info">Бесплатный набор роллов<br> “Калифорния” + Напиток<br> Coca-Cola 1л.</div>
-      </div>
-    </div>
+    @endif
   </div>
 </section>

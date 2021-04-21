@@ -6,7 +6,7 @@
 
 @section('content')
 
-  <div class="delivery">
+  <div class="delivery-page">
     @php woocommerce_breadcrumb() @endphp
     <div class="container">
       <h1 class="title">{{ the_title() }}</h1>

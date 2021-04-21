@@ -12,11 +12,20 @@
         <span>@php the_field('working-hours',8) @endphp</span>
       </div>
       <div class="header__socials">
-        <a href="https://vk.com/@php the_field('vk',8) @endphp" target="_blank">
+        <a class="header__socials-link" href="https://vk.com/@php the_field('vk',8) @endphp" target="_blank">
           @include('icon::vk', ['class' => 'icon'])
         </a>
-        <a href="https://www.instagram.com/@php the_field('instagram',8) @endphp" target="_blank">
+        <a class="header__socials-link" href="tg://resolve?domain=@php the_field('telegram',8) @endphp" target="_blank">
+          @include('icon::telegram', ['class' => 'icon'])
+        </a>
+        <a class="header__socials-link" href="https://www.instagram.com/@php the_field('instagram',8) @endphp" target="_blank">
           @include('icon::instagram', ['class' => 'icon'])
+        </a>
+        <a class="header__socials-link" href="https://api.whatsapp.com/send?phone=@php the_field('viber',8) @endphp" target="_blank">
+          @include('icon::whatsapp', ['class' => 'icon'])
+        </a>
+        <a class="header__socials-link" href="viber://chat?number=%2B@php the_field('viber',8) @endphp" target="_blank">
+          @include('icon::viber', ['class' => 'icon'])
         </a>
       </div>
       <div class="header__account-block">

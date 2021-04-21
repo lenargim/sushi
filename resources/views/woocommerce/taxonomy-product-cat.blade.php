@@ -90,6 +90,8 @@
              'product_cat' => $subcat->slug,
              'post_parent' => $category->id,
              'posts_per_page' => -1,
+             'orderby' => 'menu_order',
+             'order' => 'ASC'
              ]);
           @endphp
           <h2 class="title" id="@php echo $subcat->slug @endphp">@php echo $subcat->name  @endphp</h2>
