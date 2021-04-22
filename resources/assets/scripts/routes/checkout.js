@@ -16,18 +16,6 @@ $('body').on('blur change', '#billing_first_name', function(){
   }
 });
 
-//
-// $('body').on('change', '#billing_address_1', function(){
-//   let address = $('#billing_address_1').val();
-//   if (address.length > 1) {
-//     let yandexAddress = $('input.ymaps-2-1-78-searchbox-input__input');
-//     $('html, body').animate({
-//       scrollTop: yandexAddress.offset().top,
-//     }, 1000);
-//     yandexAddress.val(address);
-//   }
-// });
-
 let token = '7ddfb736edd271b94a75fafbcb6844e6bdc77121';
 $('#billing_address_1').suggestions({
   token: token,
@@ -37,7 +25,6 @@ $('#billing_address_1').suggestions({
   },
   /* Вызывается, когда пользователь выбирает одну из подсказок */
   onSelect: function(suggestion) {
-    //let coordinates = suggestion.data.geo_lat + ', ' + suggestion.data.geo_lon;
     let yandexAddress = $('input.ymaps-2-1-78-searchbox-input__input');
     yandexAddress.val(suggestion.value);
     $('.ymaps-2-1-78-searchbox-button').click();

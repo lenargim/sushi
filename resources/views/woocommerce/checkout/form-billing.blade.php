@@ -24,58 +24,10 @@ defined('ABSPATH') || exit;
   <?php do_action('woocommerce_before_checkout_billing_form', $checkout); ?>
 
   <div class="woocommerce-billing-fields__field-wrapper">
-    {{--    <p class="form-row form-row-first" id="billing_first_name_field">--}}
-    {{--    <span class="woocommerce-input-wrapper">--}}
-    {{--      <input type="text"--}}
-    {{--             class="input-text"--}}
-    {{--             name="billing_first_name"--}}
-    {{--             id="billing_first_name"--}}
-    {{--             placeholder="ФИО"--}}
-    {{--             autocomplete="off">--}}
-    {{--    </span>--}}
-    {{--    </p>--}}
-    {{--    <p class="form-row form-row-wide" id="billing_phone_field">--}}
-    {{--    <span class="woocommerce-input-wrapper">--}}
-    {{--      <input type="tel"--}}
-    {{--             class="input-text"--}}
-    {{--             name="billing_phone"--}}
-    {{--             id="billing_phone"--}}
-    {{--             placeholder="Телефон"--}}
-    {{--             autocomplete="off">--}}
-    {{--    </span>--}}
-    {{--    </p>--}}
-    {{--    <p class="form-row form-row-wide address-field" id="billing_address_1_field">--}}
-    {{--    <span class="woocommerce-input-wrapper">--}}
-    {{--      <input type="text"--}}
-    {{--             class="input-text"--}}
-    {{--             name="billing_address_1"--}}
-    {{--             id="billing_address_1"--}}
-    {{--             placeholder="Адрес доставки"--}}
-    {{--             autocomplete="off"></span>--}}
-    {{--    </p>--}}
-    {{--    <p class="form-row form-row-wide address-field update_totals_on_change" id="billing_country_field">--}}
-    {{--      <input type="hidden"--}}
-    {{--             name="billing_country"--}}
-    {{--             id="billing_country"--}}
-    {{--             class="input-text country_to_state">--}}
-    {{--    </p>--}}
     @php $fields = $checkout->get_checkout_fields('billing') @endphp
     @foreach ($fields as $key => $field)
       @php woocommerce_form_field($key, $field, $checkout->get_value($key)) @endphp
     @endforeach
-    @php  $arr = WC()->cart->get_applied_coupons() @endphp
-  </div>
-  <div class="order__coupon">
-    @if(!$arr)
-      <input form="form-coupon" type="text" name="coupon_code" autocomplete="off"
-             class="input-text order__coupon-input" placeholder="Промокод"
-             id="coupon_code" value=""/>
-      <button form="form-coupon" type="submit" class="button order__coupon-button" name="apply_coupon"
-              value="Применить">Применить
-      </button>
-    @else
-      <p class="order__coupon-added">Купон @php echo $arr[0] @endphp применен</p>
-    @endif
   </div>
   <?php do_action('woocommerce_after_checkout_billing_form', $checkout); ?>
 </div>

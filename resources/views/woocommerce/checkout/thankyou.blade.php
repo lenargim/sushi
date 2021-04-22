@@ -49,6 +49,10 @@ defined('ABSPATH') || exit;
       <div class="thankyou__number">
         <span>Номер вашего заказа:</span> <span class="orange">@php echo $order->get_order_number() @endphp
       </div>
+      <div class="thankyou__phone">
+        <span>Телефон:</span>
+        <span>@php echo $order->get_billing_phone() @endphp</span>
+      </div>
       <div class="thankyou__notice">В ближайшее время с вами свяжется оператор<br> для подвтерждения заказа.</div>
     </div>
   </div>

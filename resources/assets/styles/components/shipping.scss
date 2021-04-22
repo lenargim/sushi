@@ -31,6 +31,7 @@
 
     @media screen and (max-width: 1230px) {
       margin-bottom: 36px;
+      width: auto;
 
       &:last-of-type {
         margin-bottom: 0;
@@ -75,6 +76,10 @@
     @media screen and (min-width: 768px) and (max-width: 1023px) {
       font-size: 24px;
       margin-bottom: 15px;
+    }
+
+    @media screen and (max-width: 1230px) {
+      min-height: unset;
     }
 
     @media screen and (max-width: 767px) {

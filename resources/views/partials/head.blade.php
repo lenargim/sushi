@@ -79,7 +79,7 @@
             let zone = polygon.options.get('zoneNumber');
             checkDelivery(zone);
             // Задаем подпись для метки.
-            if (typeof(obj.getThoroughfare) === 'function') {
+            if (typeof (obj.getThoroughfare) === 'function') {
               setData(obj);
             } else {
               // Если вы не хотите, чтобы при каждом перемещении метки отправлялся запрос к геокодеру,
@@ -105,7 +105,7 @@
             checkDelivery(false)
           }
 
-          function setData(obj){
+          function setData(obj) {
             var address = [obj.getThoroughfare(), obj.getPremiseNumber(), obj.getPremise()].join(' ');
             if (address.trim() === '') {
               address = obj.getAddressLine();
@@ -129,87 +129,29 @@
     }
 
     function checkDelivery(zone) {
+      let total = +jQuery('.menu__cart-total span').text();
       let input = document.getElementById('billing_country');
-      if (zone === 1) {
-        input.value = 'ZN1';
-        jQuery('#shipping_country').val('ZN1').trigger('change');
-        jQuery('.order__pay-button').removeAttr('disabled')
-      } else if ( zone === 2 ) {
-        input.value = 'ZN2';
-        jQuery('#shipping_country').val('ZN2').trigger('change');
-        jQuery('.order__pay-button').removeAttr('disabled')
-      } else if ( zone === 3 ) {
-        input.value = 'ZN3';
-        jQuery('#shipping_country').val('ZN3').trigger('change');
-        jQuery('.order__pay-button').removeAttr('disabled')
-      } else if ( zone === 4 ) {
-        input.value = 'ZN4';
-        jQuery('#shipping_country').val('ZN4').trigger('change');
-        jQuery('.order__pay-button').removeAttr('disabled');
+      let submit = jQuery('.order__pay-button');
+      submit.attr('disabled', 'disabled');
+      if (zone === 1 || zone === 2 || zone === 3 || zone === 4) {
+        input.value = `ZN${zone}`;
+        jQuery('#shipping_country').val(`ZN${zone}`).trigger('change');
+        let minPrice = 0;
+        if (zone === 1) minPrice = 300;
+        if (zone === 2) minPrice = 500;
+        if (zone === 3) minPrice = 600;
+        if (zone === 4) minPrice = 1000;
+        if (total >= minPrice) {
+          submit.removeAttr('disabled');
+        } else {
+          jQuery('.remaining').text(`Минимальная сумма заказа ${minPrice} рублей.`)
+        }
       } else {
         input.value = 'RU';
         jQuery('#shipping_country').val(null).trigger('change');
-        jQuery('.order__pay-button').attr('disabled', 'disabled')
       }
       jQuery('body').trigger('update_checkout');
     }
   </script>
   @include('partials.header-extentions')
 </head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -268,6 +268,7 @@ function telegram_bot( $order ) {
     $phone = $order->get_billing_phone();
     $address = $order->billing_address_1;
     $appartment = $order->billing_address_2;
+    $floor = get_post_meta( $order->get_id(), '_floor', true );
     $delivery = $order->get_shipping_total() . ' ₽';
     $total = $order->get_total() . ' ₽';
     $paymethod = $order->get_payment_method_title();
@@ -284,6 +285,7 @@ function telegram_bot( $order ) {
         'Имя:' => $name,
         'Телефон:' => $phone,
         'Адрес:' => $address . ' кв. ' . $appartment,
+        'Доп. адрес:' => $floor,
         'Доставка:' => $delivery,
         'Сумма:' => $total,
         'Оплата:' => $paymethod,
@@ -435,18 +437,40 @@ function wc_save_account_details_required_fields( $required_fields ){
     return $required_fields;
 }
 
-//add_filter( 'woocommerce_account_orders_columns','custom_account_order_table');
-//function custom_account_order_table($columns)
-//{
-//    unset($columns['order-date']);
-//    unset($columns['order-number']);
-//    unset($columns['order-status']);
-//    unset($columns['order-actions']);
-//    $columns['img'] = "Фото";
-//    $columns['name'] = "Наименование";
-//    $columns['price'] = "Цена";
-//    $columns['amount'] = "Количество";
-//    $columns['order-total'] = "Сумма";
-//
-//    return $columns;
-//}
+
+add_filter( 'woocommerce_checkout_fields' , 'custom_checkout_floor_field' );
+
+function custom_checkout_floor_field( $fields ) {
+    $fields['billing']['floor'] = array(
+        'type'          => 'text', // text, textarea, select, radio, checkbox, password, about custom validation a little later
+        'required'	=> false, // actually this parameter just adds "*" to the field
+        'class'         => array('order-textarea', 'form-row-wide'), // array only, read more about classes and styling in the previous step
+        'placeholder'       => 'Этаж и подъезд',
+    );
+
+    return $fields;
+}
+
+add_action( 'woocommerce_checkout_update_order_meta', 'floor_update_order_meta' );
+
+function floor_update_order_meta( $order_id ) {
+    if ( ! empty( $_POST['floor'] ) ) {
+        update_post_meta( $order_id, 'floor',  wc_clean( $_POST[ 'floor' ] ) );
+    }
+}
+
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'custom_field_display_admin_order_meta', 10, 1 );
+
+function custom_field_display_admin_order_meta($order){
+    echo '<p><strong>'.__('Этаж и подъезд').':</strong><br> ' . get_post_meta( $order->get_id(), 'floor', true ) . '</p>';
+}
+
+add_filter( 'woocommerce_email_order_meta_fields', 'custom_woocommerce_email_order_meta_fields', 10, 3 );
+
+function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order ) {
+    $fields['floor'] = array(
+        'label' => __( 'Этаж и подъезд' ),
+        'value' => get_post_meta( $order->id, 'floor', true ),
+    );
+    return $fields;
+}

@@ -51,6 +51,19 @@ return;
         <?php do_action('woocommerce_checkout_billing'); ?>
         <?php do_action( 'woocommerce_checkout_shipping' ); ?>
         <?php do_action('woocommerce_checkout_after_customer_details'); ?>
+          @php  $arr = WC()->cart->get_applied_coupons() @endphp
+          <div class="order__coupon">
+            @if(!$arr)
+              <input form="form-coupon" type="text" name="coupon_code" autocomplete="off"
+                     class="input-text order__coupon-input" placeholder="Промокод"
+                     id="coupon_code" value=""/>
+              <button form="form-coupon" type="submit" class="button order__coupon-button" name="apply_coupon"
+                      value="Применить">Применить
+              </button>
+            @else
+              <p class="order__coupon-added">Купон @php echo $arr[0] @endphp применен</p>
+            @endif
+          </div>
       </div>
       <?php endif; ?>
       <?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
