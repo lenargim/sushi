@@ -16,21 +16,8 @@ $('body').on('blur change', '#billing_first_name', function(){
   }
 });
 
-let token = '7ddfb736edd271b94a75fafbcb6844e6bdc77121';
-$('#billing_address_1').suggestions({
-  token: token,
-  type: 'ADDRESS',
-  constraints: {
-    locations: { city: 'Самара' },
-  },
-  /* Вызывается, когда пользователь выбирает одну из подсказок */
-  onSelect: function(suggestion) {
-    let yandexAddress = $('input.ymaps-2-1-78-searchbox-input__input');
-    yandexAddress.val(suggestion.value);
-    $('.ymaps-2-1-78-searchbox-button').click();
-    $('body').trigger('update_checkout');
-  },
-});
+const token = '7ddfb736edd271b94a75fafbcb6844e6bdc77121';
+
 
 $('#billing_first_name').suggestions({
   token: token,

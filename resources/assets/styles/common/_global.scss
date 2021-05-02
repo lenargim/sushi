@@ -20,7 +20,8 @@ body {
 }
 
 body,
-input {
+input,
+textarea {
   font-family: $font;
 }
 
@@ -90,6 +91,11 @@ input[type="number"] {
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
+}
+
+textarea {
+  resize: none;
+  font-size: 16px;
 }
 
 .icon:hover path {
@@ -222,25 +228,17 @@ select {
   }
 }
 
-.woocommerce-notices-wrapper {
-  display: none;
-}
-
 .woocommerce-error {
-  display: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  padding: 30px;
-  border: 5px;
-  background-color: #fff;
-  transform: translate(-50%, -50%);
-  min-width: 300px;
-  min-height: 300px;
   font-size: 24px;
-  color: $colorTitle;
+  color: $colorRed;
+  text-align: center;
+  padding: 15px 0;
 }
 
 #ship-to-different-address {
   display: none;
+}
+
+.ymaps-2-1-78-searchbox-button {
+  cursor: pointer;
 }

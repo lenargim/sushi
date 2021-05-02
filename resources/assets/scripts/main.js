@@ -2,6 +2,7 @@
 import 'jquery';
 import 'slick-carousel'
 import 'medium-zoom'
+import 'jquery-mask-plugin'
 
 // import local dependencies
 import Router from './util/Router';

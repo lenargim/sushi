@@ -197,7 +197,6 @@ function custom_checkout_fields($array)
 {
     unset($array['billing']['billing_last_name']); // Фамилия
     unset($array['billing']['billing_email']); // Email
-    unset($array['order']['order_comments']); // Примечание к заказу
     unset($array['billing']['billing_company']); // Компания
     unset($array['billing']['billing_city']); // Населённый пункт
     unset($array['billing']['billing_state']); // Область / район
@@ -212,32 +211,43 @@ function custom_checkout_fields($array)
 
 //    unset($array['billing']['billing_phone']['validate']);
 //    unset($array['billing']['billing_address_1']['validate']);
+    $array['billing']['billing_address_1']['required'] = true;
+    $array['billing']['billing_address_2']['required'] = true;
 
     $array['billing']['billing_phone']['priority'] = 20;
     $array['billing']['billing_address_1']['priority'] = 30;
+    $array['billing']['billing_address_1']['label'] = 'Выберите адрес из выпадающей строки';
+    $array['billing']['billing_address_2']['label'] = '&nbsp;';
+    $array['billing']['billing_address_1']['label_class'] = 'address-label';
+    $array['billing']['billing_address_2']['label_class'] = 'address-label';
+    $array['billing']['billing_address_1']['class'] = ['width-85'];
+    $array['billing']['billing_address_2']['class'] = ['width-15'];
     $array['billing']['billing_address_2']['priority'] = 40;
+    $array['billing']['billing_address_2']['placeholder'] = 'Кв.';
     $array['billing']['billing_country']['priority'] = 50;
-    $array['billing']['billing_first_name']['placeholder'] = 'ФИО';
+    $array['billing']['billing_country']['contenteditable'] = false;
+    $array['billing']['billing_first_name']['placeholder'] = 'Имя';
     $array['billing']['billing_phone']['placeholder'] = 'Телефон';
-    $array['billing']['billing_first_name']['label'] = 'ФИО';
+    $array['billing']['billing_first_name']['label'] = 'Имя';
     $array['billing']['billing_phone']['label'] = 'Телефон';
     $array['billing']['billing_country']['type'] = 'text';
     $array['shipping']['shipping_country']['label'] = 'Зона доставки';
+    $array['order']['order_comments']['placeholder'] = 'Комментарий к заказу';
 
     return $array;
 }
 
 add_filter('woocommerce_checkout_fields', 'custom_checkout_fields', 9999);
 
-function uwc_new_address_one_placeholder( $fields ) {
-    $fields['address_1']['placeholder'] = 'Адрес доставки';
-    $fields['address_2']['placeholder'] = 'Квартира';
-    $fields['address_1']['label'] = 'Адрес доставки';
-    $fields['address_2']['label'] = 'Квартира';
-
-    return $fields;
-}
-add_filter( 'woocommerce_default_address_fields', 'uwc_new_address_one_placeholder' );
+//function uwc_new_address_one_placeholder( $fields ) {
+//    $fields['address_1']['placeholder'] = 'Адрес доставки';
+//    $fields['address_2']['placeholder'] = 'Кв';
+//    $fields['address_1']['label'] = 'Адрес доставки';
+//    $fields['address_2']['label'] = 'Квартира';
+//
+//    return $fields;
+//}
+//add_filter( 'woocommerce_default_address_fields', 'uwc_new_address_one_placeholder' );
 
 function checkout_fields_in_label_error($field, $key, $args, $value)
 {
@@ -262,13 +272,26 @@ function wc_short_description($product, $length) {
 }
 
 
-add_action( 'woocommerce_checkout_create_order', 'telegram_bot', 20, 1 );
+//add_action( 'woocommerce_checkout_create_order', 'telegram_bot', 20, 1 );
+add_action( 'woocommerce_checkout_order_created', 'telegram_bot', 20, 1 );
 function telegram_bot( $order ) {
     $name = $order->billing_first_name;
     $phone = $order->get_billing_phone();
-    $address = $order->billing_address_1;
-    $appartment = $order->billing_address_2;
-    $floor = get_post_meta( $order->get_id(), '_floor', true );
+    $phoneLink = "<a href='tel:{$phone}'>{$phone}</a>";
+    $address1 = $order->billing_address_1;
+    $address2 = $order->billing_address_2;
+    $address = $address1 . ', ' . $address2;
+    $floor = get_post_meta( $order->get_id(), 'floor', true );
+    if ($floor == '') $floor = 'Не указан';
+    $entrance = get_post_meta( $order->get_id(), 'entrance', true );
+    if ($entrance == '') $entrance = 'Не указан';
+    $additionalAddress = 'Подъезд: ' . $entrance . '. Этаж: ' . $floor;
+    if ($order->get_used_coupons()) {
+        $coupon = $order->get_used_coupons()[0];
+    } else {
+        $coupon = 'Купон не применен';
+    }
+    $comment = $order->customer_message;
     $delivery = $order->get_shipping_total() . ' ₽';
     $total = $order->get_total() . ' ₽';
     $paymethod = $order->get_payment_method_title();
@@ -283,12 +306,14 @@ function telegram_bot( $order ) {
     }
     $arr = [
         'Имя:' => $name,
-        'Телефон:' => $phone,
-        'Адрес:' => $address . ' кв. ' . $appartment,
-        'Доп. адрес:' => $floor,
+        'Телефон:' => $phoneLink,
+        'Адрес:' => $address,
+        'Доп. адрес:' => $additionalAddress,
+        'Комментарий:' => $comment,
         'Доставка:' => $delivery,
         'Сумма:' => $total,
         'Оплата:' => $paymethod,
+        'Купон:' => $coupon,
         'Заказ:' => $collect,
     ];
     foreach($arr as $key => $value) {
@@ -437,15 +462,20 @@ function wc_save_account_details_required_fields( $required_fields ){
     return $required_fields;
 }
 
-
 add_filter( 'woocommerce_checkout_fields' , 'custom_checkout_floor_field' );
 
 function custom_checkout_floor_field( $fields ) {
+    $fields['billing']['entrance'] = array(
+        'type'          => 'text', // text, textarea, select, radio, checkbox, password, about custom validation a little later
+        'required'	=> false, // actually this parameter just adds "*" to the field
+        'class'         => array('order-textarea', 'form-row-wide width-50'), // array only, read more about classes and styling in the previous step
+        'placeholder'       => 'Подъезд',
+    );
     $fields['billing']['floor'] = array(
         'type'          => 'text', // text, textarea, select, radio, checkbox, password, about custom validation a little later
         'required'	=> false, // actually this parameter just adds "*" to the field
-        'class'         => array('order-textarea', 'form-row-wide'), // array only, read more about classes and styling in the previous step
-        'placeholder'       => 'Этаж и подъезд',
+        'class'         => array('order-textarea', 'form-row-wide width-50'), // array only, read more about classes and styling in the previous step
+        'placeholder'       => 'Этаж',
     );
 
     return $fields;
@@ -454,6 +484,9 @@ function custom_checkout_floor_field( $fields ) {
 add_action( 'woocommerce_checkout_update_order_meta', 'floor_update_order_meta' );
 
 function floor_update_order_meta( $order_id ) {
+    if ( ! empty( $_POST['entrance'] ) ) {
+        update_post_meta( $order_id, 'entrance',  wc_clean( $_POST[ 'entrance' ] ) );
+    }
     if ( ! empty( $_POST['floor'] ) ) {
         update_post_meta( $order_id, 'floor',  wc_clean( $_POST[ 'floor' ] ) );
     }
@@ -462,14 +495,19 @@ function floor_update_order_meta( $order_id ) {
 add_action( 'woocommerce_admin_order_data_after_billing_address', 'custom_field_display_admin_order_meta', 10, 1 );
 
 function custom_field_display_admin_order_meta($order){
-    echo '<p><strong>'.__('Этаж и подъезд').':</strong><br> ' . get_post_meta( $order->get_id(), 'floor', true ) . '</p>';
+    echo '<p><strong>'.__('Подъезд').':</strong><br> ' . get_post_meta( $order->get_id(), 'entrance', true ) . '</p>';
+    echo '<p><strong>'.__('Этаж').':</strong><br> ' . get_post_meta( $order->get_id(), 'floor', true ) . '</p>';
 }
 
 add_filter( 'woocommerce_email_order_meta_fields', 'custom_woocommerce_email_order_meta_fields', 10, 3 );
 
 function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order ) {
+    $fields['entrance'] = array(
+        'label' => __( 'Подъезд' ),
+        'value' => get_post_meta( $order->id, 'entrance', true ),
+    );
     $fields['floor'] = array(
-        'label' => __( 'Этаж и подъезд' ),
+        'label' => __( 'Этаж' ),
         'value' => get_post_meta( $order->id, 'floor', true ),
     );
     return $fields;

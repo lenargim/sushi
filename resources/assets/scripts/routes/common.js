@@ -331,3 +331,5 @@ $(window).on('scroll resize',function() {
     }
   });
 });
+
+$('input[type="tel"]').mask('+7(Z00) 000-00-00', { translation: { 'Z': { pattern: /[0-79]/ } } })

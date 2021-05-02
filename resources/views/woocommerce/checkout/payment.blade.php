@@ -52,6 +52,7 @@ if (!is_ajax()) {
         <div class="remaining">Закажите еще на @php echo $remain  @endphp руб и доставка БЕСПЛАТНО</div>
       @endif
     @endif
+    <div class="order__min-price"></div>
   </div>
   <div class="order__totals">
     <div class="order__total">
@@ -92,11 +93,11 @@ if (!is_ajax()) {
     <?php do_action('woocommerce_review_order_before_submit'); ?>
 
     <button type="submit" class="button order__pay-button alt" name="woocommerce_checkout_place_order" id="place_order"
-            value="Оплатить">Оплатить
+            value="Оплатить">Отправить заявку
     </button>
     <div class="order__terms">
       <span class="woocommerce-terms-and-conditions-checkbox-text">
-            Нажимая кнопку "Оплатить" вы даете согласие на обработку своих <a
+            Нажимая кнопку "Отправить заявку" вы даете согласие на обработку своих <a
           href="@php echo get_privacy_policy_url() @endphp">персональных данных</a>.
           </span>
     </div>

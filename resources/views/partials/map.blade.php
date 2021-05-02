@@ -5,3 +5,4 @@
     </div>
   </div>
 </section>
+<script src="/app/themes/sage/resources/assets/scripts/map.js"></script>
