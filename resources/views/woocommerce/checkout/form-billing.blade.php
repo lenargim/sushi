@@ -62,3 +62,27 @@ defined('ABSPATH') || exit;
   <?php do_action('woocommerce_after_checkout_registration_form', $checkout); ?>
 </div>
 <?php endif; ?>
+
+<div class="overlay active">
+  <div class="order__promo modal active">
+    @include('icon::search-close', ['class' => 'close gallery__close'])
+    @php $total = WC()->cart->cart_contents_total; @endphp
+    @if($total >= 1000)
+      <div class="order__promo-text">🎉 Забирайте скидку 50% на доставку кальяна на дом 🎉</div>
+      <span class="order__promo-more">Подробнее</span>
+    <div class="order__promo-addition">
+      Нажимая кнопку "Беру", Вы получаете скидку от нашего проекта <a class="orange" href="http://kalian-smr.ru/" target="_blank">VINIпых</a><br>
+      Администратор с вами обязательно свяжется согласовать детали.
+    </div>
+      <div class="order__promo-buttons">
+        <div class="order__promo-button button" data-msg="Кальян не нужен">Не беру</div>
+        <div class="order__promo-button button" data-msg="Оформи к заказу кальян со скидкой 50%">Беру</div>
+      </div>
+      @else
+      <div class="order__promo-text">
+        @php $gap = 1000 - $total @endphp
+        Закажи еще на @php echo $gap @endphp рублей и получи кальян со скидкой 50%
+      </div>
+    @endif
+  </div>
+</div>

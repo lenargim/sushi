@@ -19,10 +19,21 @@ $('body').on('blur change', '#billing_first_name', function(){
 const token = '7ddfb736edd271b94a75fafbcb6844e6bdc77121';
 
 
-$('#billing_first_name').suggestions({
+jQuery('#billing_first_name').suggestions({
   token: token,
   type: 'NAME',
 });
 
-$('#billing_first_name').attr('autocomplete', 'name');
-$('#billing_address_1').val('');
+jQuery('#billing_first_name').attr('autocomplete', 'name');
+jQuery('#billing_address_1').val('');
+
+$('.order__promo-more').on('click', function () {
+  $(this).siblings('.order__promo-addition').toggleClass('active');
+});
+
+$('.order__promo-button').on('click', function () {
+  let msg = $(this).data('msg');
+  $('#shisha').val(msg);
+  $('.overlay').removeClass('active');
+  $('.order__promo').removeClass('active');
+});

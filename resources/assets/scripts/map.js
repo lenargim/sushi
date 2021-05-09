@@ -137,23 +137,10 @@ function init() {
   const token = '7ddfb736edd271b94a75fafbcb6844e6bdc77121';
   function checkDelivery(zone) {
     jQuery('woocommerce-terms-and-conditions-checkbox-text').text('zone: ' + zone);
-    let total = +jQuery('.menu__cart-total span').text();
     let input = document.getElementById('billing_country');
-    let submit = jQuery('.order__pay-button');
-    submit.attr('disabled', 'disabled');
     if (zone === 1 || zone === 2 || zone === 3 || zone === 4) {
       input.value = `ZN${zone}`;
       jQuery('#shipping_country').val(`ZN${zone}`).trigger('change');
-      let minPrice = 0;
-      if (zone === 1) minPrice = 300;
-      if (zone === 2) minPrice = 500;
-      if (zone === 3) minPrice = 600;
-      if (zone === 4) minPrice = 1000;
-      if (total >= minPrice) {
-        submit.removeAttr('disabled');
-      } else {
-        jQuery('.order__min-price').text(`Минимальная сумма заказа ${minPrice} рублей.`)
-      }
     } else {
       input.value = 'RU';
       jQuery('#shipping_country').val(null).trigger('change');

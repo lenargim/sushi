@@ -41,19 +41,31 @@ if (!is_ajax()) {
       $shipping_zone = wc_get_shipping_zone( reset( $shipping_packages ) );
       $zone_name = $shipping_zone->get_zone_name();
       $free_shipping_zone = get_free_shipping_minimum( $zone_name );
+      $free_shipping_min = $free_shipping_zone;
+      $total =  WC()->cart->get_subtotal();
+      print_r($zone_name)
     @endphp
+
     @if( $free_shipping_zone )
-      @php
-        $free_shipping_min = $free_shipping_zone;
-        $total =  WC()->cart->get_subtotal();
-      @endphp
       @if ($total < $free_shipping_min)
         @php $remain = $free_shipping_min - $total @endphp
-        <div class="remaining">Закажите еще на @php echo $remain  @endphp руб и доставка БЕСПЛАТНО</div>
+        <div class="remaining">Закажите еще на @php echo $remain @endphp руб и доставка БЕСПЛАТНО</div>
       @endif
     @endif
-    <div class="order__min-price"></div>
   </div>
+    @php $min_price = 0 @endphp
+    @if ($zone_name == 'Зеленая зона')
+      @php $min_price = 300 @endphp
+    @elseif($zone_name == 'Оранжевая зона')
+      @php $min_price = 500 @endphp
+    @elseif($zone_name == 'Синяя зона')
+      @php $min_price = 600 @endphp
+    @elseif($zone_name == 'Розовая зона')
+      @php $min_price = 1000 @endphp
+    @endif
+    @if($total < $min_price )
+      <div class="order__min-price">Минимальная сумма заказа @php echo $min_price @endphp рублей.</div>
+    @endif
   <div class="order__totals">
     <div class="order__total">
       Итого: <span class="order__total-span">@php wc_cart_totals_order_total_html() @endphp</span>
@@ -87,7 +99,6 @@ if (!is_ajax()) {
       <button type="submit" class="button alt" name="woocommerce_checkout_update_totals"
               value="<?php esc_attr_e('Update totals', 'woocommerce'); ?>"><?php esc_html_e('Update totals', 'woocommerce'); ?></button>
     </noscript>
-
     <?php wc_get_template('checkout/terms.php'); ?>
 
     <?php do_action('woocommerce_review_order_before_submit'); ?>
@@ -95,6 +106,15 @@ if (!is_ajax()) {
     <button type="submit" class="button order__pay-button alt" name="woocommerce_checkout_place_order" id="place_order"
             value="Оплатить">Отправить заявку
     </button>
+    @if($total < $min_price || $zone_name == 'Местоположения за пределами настроенных зон')
+      <script>
+        document.getElementById('place_order').disabled = true;
+      </script>
+    @else
+      <script>
+        document.getElementById('place_order').disabled = false;
+      </script>
+    @endif
     <div class="order__terms">
       <span class="woocommerce-terms-and-conditions-checkbox-text">
             Нажимая кнопку "Отправить заявку" вы даете согласие на обработку своих <a
@@ -111,3 +131,4 @@ if (!is_ajax()) {
 if (!is_ajax()) {
   do_action('woocommerce_review_order_after_payment');
 }
+?>

@@ -223,6 +223,8 @@ function custom_checkout_fields($array)
     $array['billing']['billing_address_1']['class'] = ['width-85'];
     $array['billing']['billing_address_2']['class'] = ['width-15'];
     $array['billing']['billing_address_2']['priority'] = 40;
+    $array['billing']['entrance']['priority'] = 41;
+    $array['billing']['floor']['priority'] = 42;
     $array['billing']['billing_address_2']['placeholder'] = 'Кв.';
     $array['billing']['billing_country']['priority'] = 50;
     $array['billing']['billing_country']['contenteditable'] = false;
@@ -291,6 +293,8 @@ function telegram_bot( $order ) {
     } else {
         $coupon = 'Купон не применен';
     }
+    $shisha = get_post_meta( $order->get_id(), 'shisha', true );
+    if ($shisha == '') $shisha = 'Не указано';
     $comment = $order->customer_message;
     $delivery = $order->get_shipping_total() . ' ₽';
     $total = $order->get_total() . ' ₽';
@@ -314,6 +318,7 @@ function telegram_bot( $order ) {
         'Сумма:' => $total,
         'Оплата:' => $paymethod,
         'Купон:' => $coupon,
+        'Кальян' => $shisha,
         'Заказ:' => $collect,
     ];
     foreach($arr as $key => $value) {
@@ -474,8 +479,15 @@ function custom_checkout_floor_field( $fields ) {
     $fields['billing']['floor'] = array(
         'type'          => 'text', // text, textarea, select, radio, checkbox, password, about custom validation a little later
         'required'	=> false, // actually this parameter just adds "*" to the field
-        'class'         => array('order-textarea', 'form-row-wide width-50'), // array only, read more about classes and styling in the previous step
+        'class'         => array('order-textarea', 'form-row-wide width-50 width-50_right'), // array only, read more about classes and styling in the previous step
         'placeholder'       => 'Этаж',
+    );
+
+    $fields['billing']['shisha'] = array(
+        'type'          => 'text', // text, textarea, select, radio, checkbox, password, about custom validation a little later
+        'required'	=> false, // actually this parameter just adds "*" to the field
+        'class'         => array('order-textarea', 'form-row-wide hidden'), // array only, read more about classes and styling in the previous step
+        'placeholder'       => '',
     );
 
     return $fields;
@@ -489,6 +501,9 @@ function floor_update_order_meta( $order_id ) {
     }
     if ( ! empty( $_POST['floor'] ) ) {
         update_post_meta( $order_id, 'floor',  wc_clean( $_POST[ 'floor' ] ) );
+    }
+    if ( ! empty( $_POST['shisha'] ) ) {
+        update_post_meta( $order_id, 'shisha',  wc_clean( $_POST[ 'shisha' ] ) );
     }
 }
 
@@ -512,3 +527,4 @@ function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $o
     );
     return $fields;
 }
+

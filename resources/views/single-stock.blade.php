@@ -5,9 +5,9 @@
   @php woocommerce_breadcrumb() @endphp
   <div class="action-detailed">
     <div class="container">
-      <h1 class="title">{{the_title()}}</h1>
       <div class="action-detailed__wrap">
         <div class="action-detailed__main">
+          <h1 class="title">{{the_title()}}</h1>
           @if( the_post_thumbnail() )
             {{the_post_thumbnail()}}
           @endif
