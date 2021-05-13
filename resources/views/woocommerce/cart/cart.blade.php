@@ -72,30 +72,11 @@ defined('ABSPATH') || exit;
           </div>
           <div class="product-name" data-title="<?php esc_attr_e('Product', 'woocommerce'); ?>">
             <div class="name">@php echo $_product->get_name() @endphp</div>
-            <?php
-            do_action('woocommerce_after_cart_item_name', $cart_item, $cart_item_key);
-            ?>
-
-            @if($_product->get_attribute('weight'))
-              <div class="product-attr">
-                @php $attr = $_product->get_attribute('weight') .'гр./ ' . $_product->get_attribute( 'calories' ) . ' Ккал' @endphp
-                @php echo $attr @endphp
-              </div>
-            @endif
             @if ($_product->get_short_description() )
               <div class="content">
-                @php echo wc_short_description($_product,150) @endphp
+                @php echo wc_short_description($_product,150); @endphp
               </div>
             @endif
-            <?php
-            // Meta data.
-            echo wc_get_formatted_cart_item_data($cart_item); // PHPCS: XSS ok.
-
-            // Backorder notification.
-            if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {
-              echo wp_kses_post(apply_filters('woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>', $product_id));
-            }
-            ?>
           </div>
           <div class="product-price" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
             <div class="product-price__wrap">
@@ -174,6 +155,26 @@ defined('ABSPATH') || exit;
     </div>
     <?php do_action('woocommerce_before_cart_collaterals'); ?>
     <?php do_action('woocommerce_after_cart'); ?>
+
+    <div class="cart__extra">
+      @php woocommerce_product_loop_start() @endphp
+      @php
+        $args = [
+        'post_type'       => 'product',
+        'product_cat'     => 'extra',
+        'posts_per_page'  => -1,
+        'orderby'         => 'date',
+        ];
+        $extra = new WP_Query($args);
+      @endphp
+      @if ($extra->have_posts())
+        @while($extra->have_posts()) @php $extra->the_post() @endphp
+        @php wc_get_template_part( 'content', 'product' ); @endphp
+        @endwhile
+        @php(wp_reset_postdata()) @endphp
+      @endif
+      @php woocommerce_product_loop_end() @endphp
+    </div>
   </div>
 </div>
 

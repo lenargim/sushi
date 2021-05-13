@@ -229,6 +229,7 @@ select {
 }
 
 .woocommerce-error {
+  display: none;
   font-size: 24px;
   color: $colorRed;
   text-align: center;

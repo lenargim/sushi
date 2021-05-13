@@ -266,11 +266,7 @@ add_filter('woocommerce_form_field', 'checkout_fields_in_label_error', 10, 4);
 
 function wc_short_description($product, $length) {
     $desc = $product->get_short_description();
-    if (strlen($desc) > $length) {
-        return substr($desc, 0, $length) . '...';
-    } else {
-        return $desc;
-    }
+    return substr($desc, 0, $length);
 }
 
 
@@ -279,7 +275,7 @@ add_action( 'woocommerce_checkout_order_created', 'telegram_bot', 20, 1 );
 function telegram_bot( $order ) {
     $name = $order->billing_first_name;
     $phone = $order->get_billing_phone();
-    $phoneLink = "<a href='tel:{$phone}'>{$phone}</a>";
+    $phoneLink = urlencode($phone);
     $address1 = $order->billing_address_1;
     $address2 = $order->billing_address_2;
     $address = $address1 . ', ' . $address2;

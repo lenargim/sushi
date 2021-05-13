@@ -874,10 +874,20 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
+
+      @media screen and (max-width: 767px) {
+        flex-direction: column;
+      }
     }
 
     &-button {
       padding: 5px 15px;
+
+      &:first-of-type {
+        @media screen and (max-width: 767px) {
+          margin-bottom: 10px;
+        }
+      }
     }
 
     &-more {
@@ -900,6 +910,10 @@
       &.active {
         height: 4em;
         margin-bottom: 15px;
+
+        @media screen and (max-width: 767px) {
+          height: 100%;
+        }
       }
     }
   }

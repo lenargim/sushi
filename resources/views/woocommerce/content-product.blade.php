@@ -72,11 +72,11 @@ if (empty($product) || !$product->is_visible()) {
   </div>
   <div class="product__info">
     <div class="product__title">@php echo $product->get_name() @endphp</div>
-    @if( $product->get_attribute('weight') !== '' )
-      @php $attr = $product->get_attribute('weight') .'гр./ ' . $product->get_attribute( 'calories' ) . ' Ккал' @endphp
-      <div class="product__attributes">@php echo $attr @endphp</div>
-    @endif
     <span class="product__short-desc">@php echo wc_short_description($product,150) @endphp</span>
+    @if ( $product->has_weight() )
+      @php $weight = $product->get_weight() @endphp
+      <div class="product__attributes">@php echo $weight @endphp гр.</div>
+    @endif
     <div class="product__price">
       @if( $product->get_price() == $product->get_regular_price() )
         @if($product->get_price())

@@ -72,6 +72,7 @@
   }
 
   .product-name {
+    width: 33vw;
     padding-right: 4%;
 
     @media screen and (min-width: 1024px) and (max-width: 1799px) {
@@ -306,7 +307,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 40px 0 120px;
+    padding: 40px 0;
     font-size: 36px;
     line-height: 1.2;
     letter-spacing: 0.01em;

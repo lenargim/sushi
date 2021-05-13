@@ -43,7 +43,6 @@ if (!is_ajax()) {
       $free_shipping_zone = get_free_shipping_minimum( $zone_name );
       $free_shipping_min = $free_shipping_zone;
       $total =  WC()->cart->get_subtotal();
-      print_r($zone_name)
     @endphp
 
     @if( $free_shipping_zone )
