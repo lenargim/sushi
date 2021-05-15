@@ -266,7 +266,11 @@ add_filter('woocommerce_form_field', 'checkout_fields_in_label_error', 10, 4);
 
 function wc_short_description($product, $length) {
     $desc = $product->get_short_description();
-    return substr($desc, 0, $length);
+    if (strlen($desc) < $length) {
+        return $desc;
+    } else {
+        return mb_substr($desc, 0, $length-1, 'UTF-8') . '...';
+    }
 }
 
 

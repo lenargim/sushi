@@ -133,6 +133,19 @@
     line-height: 16px;
     letter-spacing: 0.01em;
     padding: 12px 0;
+    position: absolute;
+    left: 30px;
+    bottom: 50px;
+
+    @media screen and (min-width: 768px) and (max-width: 1799px) {
+      left: 15px;
+      bottom: 40px;
+    }
+
+    @media screen and (max-width: 767px) {
+      left: 12px;
+      bottom: 30px;
+    }
   }
 
   &__short-desc {

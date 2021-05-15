@@ -72,7 +72,7 @@ if (empty($product) || !$product->is_visible()) {
   </div>
   <div class="product__info">
     <div class="product__title">@php echo $product->get_name() @endphp</div>
-    <span class="product__short-desc">@php echo wc_short_description($product,150) @endphp</span>
+    <span class="product__short-desc">@php echo wc_short_description($product, 120) @endphp</span>
     @if ( $product->has_weight() )
       @php $weight = $product->get_weight() @endphp
       <div class="product__attributes">@php echo $weight @endphp гр.</div>
