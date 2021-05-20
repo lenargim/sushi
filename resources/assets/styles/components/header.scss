@@ -221,6 +221,16 @@
       padding-left: 0;
     }
 
+    .icon {
+      width: 39px;
+      height: 39px;
+
+      @media screen and (max-width: 1799px) {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
     .icon:nth-child(2) {
       margin: 0 33px;
 
@@ -285,7 +295,7 @@
         color: $colorIcon;
         font-weight: 500;
 
-        @media screen and (max-width: 1230px) {
+        @media screen and (max-width: 1799px) {
           font-size: 18px;
           padding: 10px 12px;
         }

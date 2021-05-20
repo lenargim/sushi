@@ -81,7 +81,9 @@ defined('ABSPATH') || exit;
       @else
       <div class="order__promo-text">
         @php $gap = 1000 - $total @endphp
-        Закажи еще на @php echo $gap @endphp рублей и получи кальян со скидкой 50%
+        Закажи еще на <br>
+        <span class="orange">@php echo $gap @endphp рублей </span><br>
+        и получи кальян со скидкой 50%
       </div>
     @endif
   </div>

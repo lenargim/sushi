@@ -129,6 +129,7 @@
   @include backgroundMenu("stock");
   @include backgroundMenu("more");
   @include backgroundMenu("gukan");
+  @include backgroundMenu("dopping");
   @include backgroundMenuHover("shop");
   @include backgroundMenuHover("sushi");
   @include backgroundMenuHover("rolls");
@@ -138,6 +139,7 @@
   @include backgroundMenuHover("stock");
   @include backgroundMenuHover("more");
   @include backgroundMenuHover("gukan");
+  @include backgroundMenuHover("dopping");
 
   &__cart {
     &-svg {
@@ -258,6 +260,7 @@
   @include detailedMenuHover("wok");
   @include detailedMenuHover("stock");
   @include detailedMenuHover("gukan");
+  @include detailedMenuHover("dopping");
 
   &__sub {
     border-top: $border;

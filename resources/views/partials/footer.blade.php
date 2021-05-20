@@ -15,19 +15,19 @@
         </div>
         <div class="footer__socials">
           <a class="footer__socials-link" href="https://vk.com/@php the_field('vk',8) @endphp" target="_blank">
-            @include('icon::vk', ['class' =>'footer-icon'])
+            @include('icon::vk', ['class' =>'icon footer-icon'])
           </a>
           <a class="footer__socials-link" href="tg://resolve?domain=@php the_field('telegram',8) @endphp" target="_blank">
-            @include('icon::telegram', ['class' => 'footer-icon'])
+            @include('icon::telegram', ['class' => 'icon footer-icon'])
           </a>
           <a class="footer__socials-link" href="https://www.instagram.com/@php the_field('instagram',8) @endphp" target="_blank">
-            @include('icon::instagram', ['class' =>'footer-icon'])
+            @include('icon::instagram', ['class' =>'icon footer-icon'])
           </a>
           <a class="footer__socials-link" href="https://api.whatsapp.com/send?phone=@php the_field('viber',8) @endphp" target="_blank">
-            @include('icon::whatsapp', ['class' => 'footer-icon'])
+            @include('icon::whatsapp', ['class' => 'icon footer-icon'])
           </a>
           <a class="footer__socials-link" href="viber://chat?number=%2B@php the_field('viber',8) @endphp" target="_blank">
-            @include('icon::viber', ['class' => 'footer-icon'])
+            @include('icon::viber', ['class' => 'icon footer-icon'])
           </a>
         </div>
         <div class="footer__payments">

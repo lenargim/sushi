@@ -29,7 +29,6 @@ function woocommerce_header_add_to_cart_fragment($fragments)
 
 add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
 
-
 function woocommerce_cart_total_fragment($fragments)
 {
     ob_start();
@@ -273,8 +272,6 @@ function wc_short_description($product, $length) {
     }
 }
 
-
-//add_action( 'woocommerce_checkout_create_order', 'telegram_bot', 20, 1 );
 add_action( 'woocommerce_checkout_order_created', 'telegram_bot', 20, 1 );
 function telegram_bot( $order ) {
     $name = $order->billing_first_name;
@@ -402,7 +399,6 @@ function get_free_shipping_minimum($zone_name = 'RU') {
     }
     return $result;
 }
-
 
 function my_account_menu_order() {
     $menuOrder = array(
