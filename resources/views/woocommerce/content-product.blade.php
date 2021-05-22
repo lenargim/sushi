@@ -10,7 +10,6 @@ if (empty($product) || !$product->is_visible()) {
 }
 ?>
 
-
 @php
   $id = $product->get_id();
   $attachment_ids = $product->get_gallery_image_ids();
@@ -62,13 +61,12 @@ if (empty($product) || !$product->is_visible()) {
     </div>
   </div>
 
-
   @php $tagList = wc_get_product_tag_list( $product->get_id(), "", "", "" ) @endphp
   <div class="product__tags">
     @php echo $tagList @endphp
   </div>
   <div class="product__img" data-id="@php echo $product->get_id() @endphp">
-    @php echo $product->get_image() @endphp
+    @php echo $product->get_image('', ['style="aspect-ratio: 938 / 623;"']) @endphp
   </div>
   <div class="product__info">
     <div class="product__title">@php echo $product->get_name() @endphp</div>

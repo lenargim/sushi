@@ -21,7 +21,7 @@
         @endphp
         @if ($popular->have_posts())
           @while($popular->have_posts()) @php $popular->the_post() @endphp
-          @php wc_get_template_part( 'content', 'product' ); @endphp
+        <div class="product__wrap">@php wc_get_template_part( 'content', 'product' ); @endphp</div>
           @endwhile
           @php(wp_reset_postdata())
         @endif

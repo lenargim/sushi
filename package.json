@@ -82,6 +82,7 @@
     "js.cookie": "^0.0.4",
     "medium-zoom": "^1.0.6",
     "popper.js": "^1.14.7",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "stylelint-value-no-unknown-custom-properties": "^3.0.0"
   }
 }
