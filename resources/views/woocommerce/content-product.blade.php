@@ -45,6 +45,7 @@ if (empty($product) || !$product->is_visible()) {
         <div class="gallery__attr">@php echo $attr @endphp</div>
       @endif
       <span class="gallery__short-desc">@php echo $product->get_short_description() @endphp</span>
+      <div class="gallery__short-desc">@php the_content() @endphp</div>
       <div class="gallery__price">
         @if( $product->get_price() == $product->get_regular_price() )
           @if($product->get_price())

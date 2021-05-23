@@ -61,11 +61,11 @@
   <div class="menu__sub">
     <div class="container">
       <div class="menu__sub-wrap">
-        <a href="#zapechenye" class="menu__sub-item">Запеченые</a>
         <a href="#mini-rolly" class="menu__sub-item">Мини-роллы</a>
+        <a href="#holodnye" class="menu__sub-item">Холодные роллы</a>
+        <a href="#zapechenye" class="menu__sub-item">Запеченые</a>
         <a href="#opalennye" class="menu__sub-item">Опаленные</a>
         <a href="#tempura" class="menu__sub-item">Темпура</a>
-        <a href="#holodnye" class="menu__sub-item">Холодные роллы</a>
       </div>
     </div>
   </div>

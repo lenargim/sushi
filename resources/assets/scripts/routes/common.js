@@ -285,7 +285,7 @@ $('.header__mobile').on('click', function(){
   } else {
   $(this).addClass('active')
   $('.menu__mobile').addClass('active')
-    $('.nav-primary').clone().appendTo('.menu__mobile').show()
+    //$('.nav-primary').clone().appendTo('.menu__mobile').show()
     $('.header__search-form').clone().appendTo('.menu__mobile').show()
     $('.header__socials').clone().appendTo('.menu__mobile').show()
     $('.header__info').clone().appendTo('.menu__mobile').show()
@@ -334,3 +334,8 @@ $(window).on('scroll resize',function() {
 
 $('input[type="tel"]').mask('+7(Z00) 000-00-00', { translation: { 'Z': { pattern: /[0-79]/ } } })
 $('.product__img img').css('aspect-ratio', '938 / 623')
+$('.drop-filters').on('click', function(){
+  Cookie.set('on_sale','0' );
+  Cookie.set('is_spicy','0' );
+   location.reload();
+})

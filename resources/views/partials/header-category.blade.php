@@ -37,8 +37,7 @@
           @include('icon::search-close', ['class' => 'icon header__search-close'])
         </div>
         <div class="header__mobile">
-          @include('icon::more', ['class' => 'header__more'])
-          @include('icon::search-close', ['class' => 'header__more-close hidden'])
+          <div class="header__more"></div>
         </div>
       </div>
     </div>

@@ -19,5 +19,5 @@ defined('ABSPATH') || exit;
 
 ?>
 <div class="container">
-  <p class="product__not-found">Товаров не обнаружено. Вернуться на <a href="/">Главную страницу сайта</a></p>
+  <p class="product__not-found">Товаров не обнаружено. <span class="drop-filters">Вернуться</span></p>
 </div>
