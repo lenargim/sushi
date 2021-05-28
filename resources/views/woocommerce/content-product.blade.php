@@ -41,7 +41,13 @@ if (empty($product) || !$product->is_visible()) {
     <div class="gallery__info">
       <div class="gallery__name">@php echo $product->get_name() @endphp</div>
       <span class="gallery__short-desc">@php echo $product->get_short_description() @endphp</span>
-      <div class="gallery__short-desc">@php the_content() @endphp</div>
+      @if(get_the_content() !== '' )
+        <div class="gallery__short-desc">@php the_content() @endphp</div>
+      @endif
+      @if ( $product->has_weight() )
+        @php $weight = $product->get_weight() @endphp
+        <div class="gallery__weight">Вес: @php echo $weight @endphp гр.</div>
+      @endif
       <div class="gallery__price">
         @if( $product->get_price() == $product->get_regular_price() )
           @if($product->get_price())
@@ -67,7 +73,11 @@ if (empty($product) || !$product->is_visible()) {
   </div>
   <div class="product__info">
     <div class="product__title">@php echo $product->get_name() @endphp</div>
+    @if (!wp_is_mobile())
     <span class="product__short-desc">@php echo wc_short_description($product, 120) @endphp</span>
+      @else
+      <span class="product__short-desc">@php echo wc_short_description($product, 43) @endphp</span>
+    @endif
     @if ( $product->has_weight() )
       @php $weight = $product->get_weight() @endphp
       <div class="product__attributes">@php echo $weight @endphp гр.</div>

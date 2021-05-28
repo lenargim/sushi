@@ -850,7 +850,7 @@
     left: 50%;
     top: 30vh;
     transform: translateX(-50%);
-    background-color: #fff;
+    background: #fff;
     border-radius: 5px;
     padding: 30px;
     max-width: 600px;
@@ -865,6 +865,8 @@
       left: 0;
       transform: unset;
       max-width: unset;
+      background: #edecec url("../images/promo-bg.png") no-repeat center top;
+      background-size: 200%;
     }
 
     &-text {
