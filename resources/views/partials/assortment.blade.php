@@ -19,8 +19,9 @@
           <div class="assortiment__img img"><img src="@asset('images/actions.png')" alt='Акции'/></div>
           <span class="assortiment__name">Акции</span>
         </a>
-        <a href="/shop" class="assortiment__item assortiment__all" style="background-color: #1D1D17;">
-          <span class="assortiment__name"><span>Все категории</span> @include('icon::slider-arrow', ['class' => 'arrow'])</span>
+        <a href="/shop/extra" class="assortiment__item assortiment__all">
+          <div class="assortiment__img img"><img src="@asset('images/extra.png')" alt='Дополнительно'/></div>
+          <span class="assortiment__name"><span>Дополнительно</span> @include('icon::slider-arrow', ['class' => 'arrow'])</span>
         </a>
       </div>
     </div>

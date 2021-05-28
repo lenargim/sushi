@@ -7,7 +7,7 @@
   }
 
   @media screen and (max-width: 1230px) {
-    padding: 25px 0;
+    padding: 20px 0;
   }
 }
 
@@ -27,7 +27,7 @@
     @media screen and (max-width: 1023px) {
       grid-gap: 12px;
       grid-template-columns: 1fr;
-      grid-template-rows: repeat(3, 60vw);
+      grid-template-rows: repeat(3, 45vw);
     }
   }
 
@@ -43,7 +43,7 @@
     }
 
     @media screen and (max-width: 1230px) {
-      font-size: 18px;
+      font-size: 15px;
       margin-bottom: 8px;
     }
   }
@@ -195,9 +195,9 @@
   }
 
   @media screen and (max-width: 1023px) {
-    grid-gap: 12px;
+    grid-gap: 10px;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 60vw);
+    grid-template-rows: repeat(3, 45vw);
   }
 }
 

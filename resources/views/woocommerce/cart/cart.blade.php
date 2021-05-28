@@ -22,18 +22,6 @@ defined('ABSPATH') || exit;
   @php woocommerce_breadcrumb() @endphp
   <div class="container">
     <h1 class="title">{{the_title()}}</h1>
-    <div class="description">
-      Чтобы узнать стоимость доставки:<br>
-      Вариант №1<br>
-      Нажмите кнопку "К оплате", далее введите свой адрес и узнаете стоимость доставки.<br>
-      Вариант №2<br>
-      Прокрутите страницу сайта чуть ниже и в строке поиска, введите адрес доставки либо нажмите на "определить ваше местоположение".
-      <br>
-      Всю информацию о стоимости доставки можно узнать в разделе <a class="orange" href="/delivery">"Доставка и
-        оплата"</a>, либо по
-      телефону
-      <a class="orange" href="tel:@php the_field('phone',8) @endphp">@php the_field('phone',8) @endphp</a>.
-    </div>
     <div class="label-back">
       Корзина<br>
       Корзина<br>
@@ -53,7 +41,6 @@ defined('ABSPATH') || exit;
         $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
 
         if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key) ) {
-        $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
         if ($_product->is_on_sale()) {
           $regular_price = $_product->get_regular_price();
           $sale_price = $_product->get_sale_price();
@@ -61,9 +48,43 @@ defined('ABSPATH') || exit;
           $discount_total += $discount;
         }
         ?>
-
+        @php
+          $attachment_ids = $_product->get_gallery_image_ids();
+          $quantitiesArray = WC()->cart->get_cart_item_quantities();
+        @endphp
         <div
-          class="row woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
+          class="row woocommerce-cart-form__cart-item <?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>" data-id="@php echo $product_id @endphp">
+          <div class="gallery modal" data-id="@php echo $product_id @endphp">
+            @include('icon::search-close', ['class' => 'close gallery__close'])
+            <div class="gallery__images">
+              <div class="gallery__image">
+                @php echo get_the_post_thumbnail( $product_id, 'shop_single' ); @endphp
+              </div>
+              @if($attachment_ids)
+                @foreach(  $attachment_ids as $attachment_id )
+                  <div class="gallery__image">
+                    @php echo wp_get_attachment_image( $attachment_id, 'shop_catalog' ); @endphp
+                  </div>
+                @endforeach
+              @endif
+            </div>
+            <div class="gallery__info">
+              <div class="gallery__name">@php echo $_product->get_name() @endphp</div>
+              <span class="gallery__short-desc">@php echo $_product->get_short_description() @endphp</span>
+              <div class="gallery__short-desc">@php  $_product->get_description() @endphp</div>
+              <div class="gallery__short-desc">Вес: @php echo $_product->get_weight() @endphp гр.</div>
+              <div class="gallery__price">
+                @if( $_product->get_price() == $_product->get_regular_price() )
+                  @if($_product->get_price())
+                    <span class="gallery__main-price">@php echo $_product->get_price() . ' ₽' @endphp</span>
+                  @endif
+                @else
+                  <span class="gallery__main-price">@php echo $_product->get_price() . ' ₽' @endphp</span>
+                  <span class="gallery__old-price">@php echo $_product->get_regular_price() . ' ₽' @endphp</span>
+                @endif
+              </div>
+            </div>
+          </div>
           <div class="product-thumbnail">
             <?php
             $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
@@ -74,8 +95,12 @@ defined('ABSPATH') || exit;
             <div class="name">@php echo $_product->get_name() @endphp</div>
             @if ($_product->get_short_description() )
               <div class="content">
-                @php echo wc_short_description($_product,150); @endphp
+                @php echo wc_short_description($_product,120); @endphp
               </div>
+            @endif
+            @if ( $_product->has_weight() )
+              @php $weight = $_product->get_weight() @endphp
+              <div class="weight">@php echo $weight @endphp гр.</div>
             @endif
           </div>
           <div class="product-price" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
@@ -138,25 +163,8 @@ defined('ABSPATH') || exit;
       </div>
       <?php do_action('woocommerce_after_cart_table'); ?>
     </form>
-    <div class="cart__info">
-      <div>
-        <div class="cart__info-row">
-          <span>Скидка:</span>
-          <span>@php echo $discount_total . " ₽" @endphp</span>
-        </div>
-        <div class="cart__info-row">
-          <span>Итого:</span>
-          <span> @php wc_cart_totals_order_total_html() @endphp</span>
-        </div>
-      </div>
-      <div class="wc-proceed-to-checkout">
-      </div>
-      <?php do_action('woocommerce_proceed_to_checkout'); ?>
-    </div>
-    <?php do_action('woocommerce_before_cart_collaterals'); ?>
-    <?php do_action('woocommerce_after_cart'); ?>
-
     <div class="cart__extra">
+      <h2 class="title">Дополнительно</h2>
       @php woocommerce_product_loop_start() @endphp
       @php
         $args = [
@@ -175,6 +183,24 @@ defined('ABSPATH') || exit;
       @endif
       @php woocommerce_product_loop_end() @endphp
     </div>
+    <div class="cart__info">
+      <div>
+        <div class="cart__info-row">
+          <span>Скидка:</span>
+          <span>@php echo $discount_total . " ₽" @endphp</span>
+        </div>
+        <div class="cart__info-row">
+          <span>Итого:</span>
+          <span> @php wc_cart_totals_order_total_html() @endphp</span>
+        </div>
+      </div>
+      <div class="wc-proceed-to-checkout">
+      </div>
+      <?php do_action('woocommerce_proceed_to_checkout'); ?>
+    </div>
+    <?php do_action('woocommerce_before_cart_collaterals'); ?>
+    <?php do_action('woocommerce_after_cart'); ?>
+
   </div>
 </div>
 

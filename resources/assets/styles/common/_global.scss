@@ -98,7 +98,8 @@ textarea {
   font-size: 16px;
 }
 
-.icon:hover path {
+.icon:hover path,
+.icon-mobile:hover path {
   fill: $colorMain;
 }
 
@@ -248,4 +249,18 @@ select {
   cursor: pointer;
   font-weight: 500;
   text-decoration: underline;
+}
+
+.mobile {
+  display: none;
+
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+}
+
+.desktop {
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
 }

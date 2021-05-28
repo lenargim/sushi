@@ -79,19 +79,15 @@
         background-position: center center;
         background-size: cover;
       }
-
-      &.spicy::before {
-        background: url("./../icons/spicy.svg") no-repeat;
-      }
-
-      &.baked::before {
-        background: url("./../icons/baked.svg") no-repeat;
-      }
-
-      &.stock::before {
-        content: "%";
-      }
     }
+
+    @include backgroundTag("stock");
+    @include backgroundTag("baked");
+    @include backgroundTag("hot");
+    @include backgroundTag("new");
+    @include backgroundTag("super");
+    @include backgroundTag("premium");
+    @include backgroundTag("spicy");
   }
 
   &__img {
@@ -377,3 +373,4 @@
     padding: 15px 0;
   }
 }
+

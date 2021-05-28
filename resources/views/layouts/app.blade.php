@@ -3,13 +3,7 @@
 @include('partials.head')
 <body @php body_class() @endphp>
 @php do_action('get_header') @endphp
-@if(!is_product_category())
-  @include('partials.header')
-  @elseif( !is_product_category( 'rolls' ) )
-  @include('partials.header-category')
-  @else
-  @include('partials.header-extended')
-@endif
+@include('partials.header')
 <div class="wrap" role="document">
   <main class="main">
     @yield('content')

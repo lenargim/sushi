@@ -40,10 +40,6 @@ if (empty($product) || !$product->is_visible()) {
     </div>
     <div class="gallery__info">
       <div class="gallery__name">@php echo $product->get_name() @endphp</div>
-      @if( $product->get_attribute('weight') !== '' )
-        @php $attr = $product->get_attribute('weight') .'гр./ ' . $product->get_attribute( 'calories' ) . ' Ккал' @endphp
-        <div class="gallery__attr">@php echo $attr @endphp</div>
-      @endif
       <span class="gallery__short-desc">@php echo $product->get_short_description() @endphp</span>
       <div class="gallery__short-desc">@php the_content() @endphp</div>
       <div class="gallery__price">
@@ -67,7 +63,7 @@ if (empty($product) || !$product->is_visible()) {
     @php echo $tagList @endphp
   </div>
   <div class="product__img" data-id="@php echo $product->get_id() @endphp">
-    @php echo $product->get_image('', ['style="aspect-ratio: 938 / 623;"']) @endphp
+    @php echo $product->get_image() @endphp
   </div>
   <div class="product__info">
     <div class="product__title">@php echo $product->get_name() @endphp</div>

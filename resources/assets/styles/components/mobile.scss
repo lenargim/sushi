@@ -17,6 +17,7 @@
   &.active {
     display: flex;
     height: calc(100vh - 30px);
+    border-top: $border;
   }
 
   .menu-item {

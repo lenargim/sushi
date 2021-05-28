@@ -106,9 +106,12 @@ $(window).scroll(function() {
       $('.menu').hasClass('fixed') ? true :  $('.menu').addClass('fixed')
       $('.menu__mobile').removeClass('active')
       $('.header__mobile').removeClass('active')
-      $('.menu__mobile').html('')
+      $('.menu__mobile-cart-wrap').addClass('active')
+      $('.menu__cart-wrap').appendTo('.menu__mobile-cart-wrap')
     } else {
       $('.menu').removeClass('fixed')
+      $('.menu__mobile-cart-wrap').removeClass('active')
+      cartReplace()
     }
 });
 
@@ -206,7 +209,7 @@ $('#spicy-filter').change( function(){
 location.reload();
 });
 
-$('.product__img').on('click', function(){
+$('.product__img, .product-thumbnail').on('click', function(){
   let gallery = $(this).siblings('.gallery');
   gallery.addClass('active');
   let overlay = $('.overlay')
@@ -232,6 +235,7 @@ $('.overlay').mouseup(function (e) { // событие клика по веб-д
     modal.find('.gallery__images').slick('unslick')
     modal.removeClass('active')
     modal.prependTo(`.product.post-${id}`);
+    modal.prependTo(`.woocommerce-cart-form__cart-item[data-id=${id}]`);
     $('.overlay').removeClass('active')
     $('.overlay').html('')
   }
@@ -241,6 +245,8 @@ $('.header__search-svg').on('click', function(){
   let parent = $(this).parents('.header__account-block')
   parent.children('.icon').hide()
   parent.siblings('.header__socials').hide()
+  parent.find('.header__phone-mobile').hide()
+  parent.find('.menu__cart-wrap').hide()
   let wrapper = parent.children('.header__search')
   wrapper.addClass('active')
   wrapper.find('input[type=search]').focus()
@@ -248,14 +254,26 @@ $('.header__search-svg').on('click', function(){
 
 $('.header__search-close').on('click', function(){
   let parent = $(this).parents('.header__account-block')
-  parent.children('.icon').show()
-  parent.siblings('.header__socials').show()
+  if ($(window).width() > 1023 ) {
+    parent.children('.icon').show()
+    parent.siblings('.header__socials').show()
+  } else {
+    parent.find('.header__phone-mobile').show()
+    parent.find('.menu__cart-wrap').show()
+  }
   parent.children('.header__search').removeClass('active')
 })
 
-$('.product a:contains("Острое")').addClass('spicy')
-$('.product a:contains("Акция")').addClass('stock')
-$('.product a:contains("Запеченный")').addClass('baked')
+$('.product a:contains("Острое")').addClass('product__tag spicy');
+$('.product a:contains("Акция")').addClass('product__tag stock');
+$('.product a:contains("Запеченный")').addClass('product__tag baked');
+$('.product a:contains("Горячее")').addClass('product__tag hot');
+$('.product a:contains("New")').addClass('product__tag new');
+$('.product a:contains("СУПЕР ЦЕНА")').addClass('product__tag super');
+$('.product a:contains("Premium")').addClass('product__tag premium');
+$('.product__tag').on('click', function(e){
+  e.preventDefault()
+} )
 
 $('.close').on('click', function(){
   $(this).parent().hide()
@@ -280,15 +298,10 @@ $('.close').on('click', function(){
 $('.header__mobile').on('click', function(){
   if ( $(this).hasClass('active') ) {
     $(this).removeClass('active')
-    $('.menu__mobile').html('')
     $('.menu__mobile').removeClass('active')
   } else {
-  $(this).addClass('active')
-  $('.menu__mobile').addClass('active')
-    //$('.nav-primary').clone().appendTo('.menu__mobile').show()
-    $('.header__search-form').clone().appendTo('.menu__mobile').show()
-    $('.header__socials').clone().appendTo('.menu__mobile').show()
-    $('.header__info').clone().appendTo('.menu__mobile').show()
+    $(this).addClass('active')
+    $('.menu__mobile').addClass('active')
   }
 })
 

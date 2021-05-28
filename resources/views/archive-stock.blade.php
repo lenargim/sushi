@@ -5,6 +5,7 @@
   <div class="actions-page">
     @php woocommerce_breadcrumb() @endphp
     <div class="container">
+      <h1 class="title">Акции</h1>
       @php
         $args = [
           'post_type' => 'stock',

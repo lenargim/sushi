@@ -19,3 +19,9 @@
     }
   }
 }
+
+@mixin backgroundTag ($item) {
+  a.#{$item}::before {
+    background: url("./../icons/#{$item}.svg") no-repeat;
+  }
+}

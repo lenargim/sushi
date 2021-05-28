@@ -17,6 +17,10 @@
     @media screen and (max-width: 1799px) {
       height: auto;
     }
+
+    @media screen and (max-width: 1023px) {
+      padding: 5px 0;
+    }
   }
 
   &__logo {
@@ -27,6 +31,11 @@
     @media screen and (max-width: 1799px) {
       padding: 10px 15px 10px 0;
       border-right: unset;
+    }
+
+    @media screen and (max-width: 1023px) {
+      order: 2;
+      padding: 0;
     }
 
     img {
@@ -138,8 +147,8 @@
       margin-bottom: 8px;
     }
 
-    @media screen and (max-width: 1023px) {
-      display: none;
+    &-mobile {
+      margin-right: 12px;
     }
   }
 
@@ -200,7 +209,7 @@
   &__account-block {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding-left: 68px;
     height: inherit;
     width: 100%;
@@ -209,16 +218,12 @@
       padding-left: 20px;
     }
 
-    @media screen and (min-width: 1024px) and (max-width: 1230px) {
+    @media screen and (max-width: 1230px) {
       padding-left: 10px;
     }
 
-    @media screen and (min-width: 425px) and (max-width: 1023px) {
-      padding-left: 34px;
-    }
-
-    @media screen and (max-width: 425px) {
-      padding-left: 0;
+    @media screen and (max-width: 1023px) {
+      order: 3;
     }
 
     .icon {
@@ -246,10 +251,6 @@
     justify-content: center;
     position: relative;
 
-    @media screen and (max-width: 1023px) {
-      display: none;
-    }
-
     &-svg {
       display: block;
       cursor: pointer;
@@ -261,7 +262,11 @@
       }
 
       @media screen and (max-width: 1230px) {
-        transform: scale(0.6);
+        transform: scale(0.7);
+      }
+
+      @media screen and (max-width: 1023px) {
+        margin-right: 12px;
       }
     }
 
@@ -275,6 +280,10 @@
       cursor: pointer;
       transform: scale(0.1);
       transition: all 0.3s ease;
+
+      @media screen and (max-width: 1023px) {
+        right: 0;
+      }
     }
 
     &-form {
@@ -295,9 +304,14 @@
         color: $colorIcon;
         font-weight: 500;
 
-        @media screen and (max-width: 1799px) {
+        @media screen and (min-width: 1024px) and (max-width: 1799px) {
           font-size: 18px;
           padding: 10px 12px;
+        }
+
+        @media screen and (max-width: 1023px) {
+          font-size: 14px;
+          padding: 5px 8px;
         }
 
         &::placeholder {
@@ -344,8 +358,8 @@
   }
 
   &__more {
-    width: 24px;
-    height: 20px;
+    width: 20px;
+    height: 18px;
     position: relative;
     transition: all 0.3s ease;
 
@@ -357,7 +371,8 @@
       margin-top: -1.5px;
       width: 100%;
       height: 3px;
-      background-color: #000;
+      background-color: rgba(75, 75, 75, 1);
+      border-radius: 1px;
     }
 
     &::before,
@@ -367,14 +382,15 @@
       left: 0;
       width: 100%;
       height: 3px;
-      background-color: #000;
+      background-color: rgba(75, 75, 75, 1);
+      border-radius: 1px;
       z-index: 1;
       transition: all 0.3s ease;
     }
 
     &::before {
       top: 0;
-      transform-origin: 0 0;
+      transform-origin: -1px 0;
     }
 
     &::after {
@@ -384,11 +400,11 @@
   }
 
   &__mobile {
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 18px;
+    margin-right: 18px;
     display: none;
-    padding: 9px;
-    order: 4;
+    order: 1;
 
     svg {
       width: 100%;
