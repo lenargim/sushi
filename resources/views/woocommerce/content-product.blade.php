@@ -23,7 +23,6 @@ if (empty($product) || !$product->is_visible()) {
 <li <?php wc_product_class('', $product); ?>
     data-id="@php echo $id @endphp"
     data-quantity="@php echo $productQuantity @endphp">
-
   <div class="gallery modal" data-id="@php echo $id @endphp" data-quantity="@php echo $productQuantity @endphp">
     @include('icon::search-close', ['class' => 'close gallery__close'])
     <div class="gallery__images">
@@ -76,7 +75,7 @@ if (empty($product) || !$product->is_visible()) {
     @if (!wp_is_mobile())
     <span class="product__short-desc">@php echo wc_short_description($product, 120) @endphp</span>
       @else
-      <span class="product__short-desc">@php echo wc_short_description($product, 43) @endphp</span>
+      <span class="product__short-desc">@php echo wc_short_description($product, 40) @endphp</span>
     @endif
     @if ( $product->has_weight() )
       @php $weight = $product->get_weight() @endphp

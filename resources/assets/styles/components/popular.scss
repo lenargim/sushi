@@ -3,5 +3,14 @@
 
   @media screen and (max-width: 1023px) {
     padding-bottom: 62px;
+
+    .slick-list {
+      overflow: visible;
+      transform: translateX(-10px);
+    }
+
+    .slick-slide {
+      padding-right: 10px;
+    }
   }
 }
