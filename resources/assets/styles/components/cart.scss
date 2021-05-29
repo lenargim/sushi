@@ -374,6 +374,102 @@
 
     @media screen and (max-width: 1023px) {
       padding-top: 15px;
+
+      .product {
+        display: grid;
+        grid-gap: 9px 11px;
+        grid-template-columns: 100px 1fr;
+        box-shadow: none;
+        padding-bottom: 16px;
+        border-bottom: $border;
+
+        &__tags {
+          display: none;
+        }
+
+        &__img {
+          grid-row: 1/2;
+          height: auto;
+          overflow: hidden;
+          border-radius: 5px 0 0 5px;
+        }
+
+        &__info {
+          background-color: transparent;
+          min-height: 83px;
+          padding: 0;
+        }
+
+        &__title {
+          font-size: 14px;
+          line-height: 17.5px;
+          white-space: nowrap;
+          padding-bottom: 11px;
+        }
+
+        &__short-desc,
+        &__attributes {
+          display: none;
+        }
+
+        &__price {
+          position: unset;
+          padding: 0 0 11px;
+        }
+
+        &__main-price {
+          line-height: 20px;
+        }
+
+        &__function {
+          position: unset;
+        }
+
+        .add_to_cart_button {
+          position: relative;
+          top: 0;
+          left: 0;
+          width: 101px;
+          height: 28px;
+          background-color: transparent;
+          border: 1px solid $colorMain;
+          border-radius: 5px;
+          box-shadow: unset;
+          padding: 0;
+
+          &::after {
+            content: "В корзину";
+            position: absolute;
+            display: block;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: $colorMain;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16px;
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+          }
+
+          svg {
+            display: none;
+          }
+        }
+
+        .product__amount {
+          height: 26px;
+          border-radius: 5px;
+        }
+
+        .product__button {
+          font-size: 15px;
+        }
+
+        .product__quantity {
+          font-size: 17px;
+        }
+      }
     }
   }
 
