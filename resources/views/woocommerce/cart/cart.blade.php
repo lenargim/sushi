@@ -39,14 +39,9 @@ defined('ABSPATH') || exit;
         foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
         $_product = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
         $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
-
+        $regular_price = $_product->get_regular_price();
+        $sale_price = $_product->get_sale_price();
         if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key) ) {
-        if ($_product->is_on_sale()) {
-          $regular_price = $_product->get_regular_price();
-          $sale_price = $_product->get_sale_price();
-          $discount = ($regular_price - $sale_price) * $cart_item['quantity'];
-          $discount_total += $discount;
-        }
         ?>
         @php
           $attachment_ids = $_product->get_gallery_image_ids();
@@ -105,9 +100,20 @@ defined('ABSPATH') || exit;
           </div>
           <div class="product-price" data-title="<?php esc_attr_e('Price', 'woocommerce'); ?>">
             <div class="product-price__wrap">
-              <?php
-              echo apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key); // PHPCS: XSS ok.
-              ?>
+              <div class="gallery__price">
+                @if( $_product->get_price() == $_product->get_regular_price() )
+                  @if($_product->get_price())
+                    <span class="gallery__main-price">@php echo $_product->get_price() . ' ₽' @endphp</span>
+                  @endif
+                @else
+                  <span class="gallery__main-price">@php echo $_product->get_price() . ' ₽' @endphp</span>
+                  <span class="gallery__old-price">@php echo $_product->get_regular_price() . ' ₽' @endphp</span>
+                @endif
+                @php
+                  $discount = ($_product->get_regular_price() - $_product->get_price()) * $cart_item['quantity'];
+                  $discount_total += $discount;
+                @endphp
+              </div>
             </div>
           </div>
           <div class="product-quantity" data-title="<?php esc_attr_e('Quantity', 'woocommerce'); ?>">

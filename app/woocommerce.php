@@ -36,12 +36,11 @@ function woocommerce_cart_total_fragment($fragments)
     <div class="cart__info">
         <?php
         $discount_total = 0;
-
         foreach ( WC()->cart->get_cart() as $cart_item_key => $values ) {
             $product = $values['data'];
-            if ( $product->is_on_sale() ) {
+            if ( $product->get_price() !== $product->get_regular_price() ) {
                 $regular_price = $product->get_regular_price();
-                $sale_price = $product->get_sale_price();
+                $sale_price = $product->get_price();
                 $discount = ( $regular_price - $sale_price ) * $values['quantity'];
                 $discount_total += $discount;
             }
@@ -54,7 +53,7 @@ function woocommerce_cart_total_fragment($fragments)
             </div>
             <div class="cart__info-row">
                 <span>Итого:</span>
-                <span> <?php wc_cart_totals_order_total_html() ?></span>
+                <span> <?php echo WC()->cart->get_cart_subtotal() ?></span>
             </div>
         </div>
         <div class="wc-proceed-to-checkout">
@@ -67,6 +66,7 @@ function woocommerce_cart_total_fragment($fragments)
 }
 
 add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_cart_total_fragment');
+
 
 // Breadcrumbs
 
@@ -523,4 +523,43 @@ function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $o
     );
     return $fields;
 }
-
+//
+//function discount_category(WC_Cart $cart) {
+//    //Параметры скидки
+//    $cat_id_sale = 18; //Категори я "Роллы"
+//    $products_for_sale = [];
+//    $items = $cart->get_cart_contents(); //элементы корзины
+//    $common_quantity = 0;
+//    foreach ($items as $item) {
+//        $product = $item['data'];
+//        $quantity = $item['quantity'];
+//        $categories = $product->get_category_ids();
+//        if (in_array($cat_id_sale,$categories )) {
+//            array_push($products_for_sale, $item);
+//            $common_quantity += $quantity;
+//        }
+//    }
+//    //Установка скидки
+//    $totalSale = 0;
+//    if ($common_quantity >=3) {
+//        foreach ($products_for_sale as $item) {
+//            $price = $item['data']->get_price();
+//            $discount_price = round($price * 0.80);
+//            $sale_price = $item['data']->set_sale_price($discount_price);
+//            //$quantity = $item['quantity'];
+//            //$item['data']->set_price( $discount_price );
+//            //$totalSale += ($price - $discount_price) * $quantity;
+//            //print_r($discount_price);
+//            add_filter( 'woocommerce_product_get_sale_price', 'cuckoo_minus_twenty', 10, 2 );
+//        }
+//    }
+//    //print_r($totalSale);
+//}
+//
+//function cuckoo_minus_twenty($sale_price, $product) {
+//    $sale_price = $product->get_price() * 0.8;
+//    return round($sale_price);
+//};
+//
+//
+//add_action("woocommerce_cart_calculate_fees", "discount_category");
